@@ -1,0 +1,90 @@
+\chapter{Principles of reaction-diffusion patterning} 
+Alan Turing proposed a system of differential equations as a model for biological pattern formation \cite{Turing1952}. In this system a homogeneous distribution of chemicals is located in a spatial medium. The presence of small perturbations in the distribution instigate pattern formation by causing the system to become unstable. The system may respond in a few ways: over time, it can regain stability in a patterned state, oscillate between patterns, or revert to a non-patterned state. These chemical patterns are thought to cause various phenomena such as specialization of tissue in a process known as morphogenesis. Therefore, these chemicals are often referred to as morphogens \footnote{The term \Quotes{morphogen} should not be confused with Wolpert’s positional signals definition \cite{WolpertLewis1996}.}.
+
+\section{Reaction-diffusion in a continuous domain}
+Reaction-diffusion is formalized as a set of partial differential equations that represent the change in concentration of morphogens $a$ and $b$ over time:
+	\begin{equation}
+	\begin{aligned} \label{eq:basicRD}
+		\frac{\partial a}{\partial t} &= F(a, b) + D_a \Lap a,\\
+		\frac{\partial b}{\partial t} &= G(a, b) + D_b \Lap b.
+	\end{aligned}
+	\end{equation}
+As the name suggests, reaction-diffusion is composed to two mechanisms, reaction and diffusion. Functions $F$ and $G$ describe the production and decay of $a$ and $b$ and together constitute the reactions of the system. $D_a$ and $D_b$ are coefficients that control how fast these morphogens diffuse through the domain. Physically, they depend on the morphogen particle size and permeability of the domain. $\Lap{}$ is the Laplacian operator and in conjunction with the diffusion coefficients determine the diffusion component of the system.
+
+These equations apply at any given position in a domain in which reaction-diffusion is occurring. The size, shape, and growth of the domain also play a critical role in pattern formation. Some patterns require a minimum amount of space to form. As domain size increases, the same parameters can produce different patterns such as spots and rings. Also, the shape of the domain can affect pattern positioning and orientation.
+
+\section{Reaction-diffusion models}
+\subsection{The Turing model}
+Th most common instance of Turing's model is:
+\begin{equation}
+\begin{aligned} \label{eq:turingRD}
+		\frac{\partial a}{\partial t} &= s(\alpha-ab) + D_a \Lap a,\\
+		\frac{\partial b}{\partial t} &= s(ab-b-\beta) + D_b \Lap b.
+\end{aligned}
+\end{equation}
+The morphogen $a$ has a base production $\alpha$ and $ab$ describes the rate at which $a$ is converted into $b$. 
+
+\subsection{The activator-inhibitor model}
+The concept of reaction-diffusion was reinvented by Alfred Gierer and Hans Meinhardt \cite{Gierer1972}. In this work they considered two morphogens, an activator $a$ and an inhibitor $h$. The activator is autocatalytic; using itself to reproduce. It also spurs production of the inhibitor which slows autocatalysis. The interplay between these two actions is what allows for patterns to stabilize. It was thought that another key mechanism that pattern formation depended on is the activator diffusing much slower than the inhibitor. Although, in later models, such drastic differences in diffusion are not always needed. The activator-inhibitor model is defined as:
+\begin{equation}
+\begin{aligned} \label{eq:activatorInhibitorRD}
+		\frac{\partial a}{\partial t} &= \rho \frac{a^2}{h} - \mu_a a + \rho_a + D_a \Lap a,\\
+		\frac{\partial h}{\partial t} &= \rho a^2 - \mu_h h  + \rho_h + D_h \Lap h.
+\end{aligned}
+\end{equation}
+$\rho$ is the reaction rate, $\mu_a$ and $\mu_h$ are the decay rates of $a$ and $h$. $\rho_a$ and $\rho_h$ represent the base production of $a$ and $h$. 
+
+\subsection{The activator-depleted substrate model}
+Another proposed model is called the activator-depleted substrate. In this model the inhibitor is replaced by a substrate that the activator uses to perform autocatalysis. The inhibition mechanism is then provided by the depletion through consumption of the substrate by the activator. This is represented by:
+	\begin{equation}
+	\begin{aligned} \label{eq:activatorSubstrateRD}
+		\frac{\partial a}{\partial t} &= \rho sa^2 - \mu_a a + \rho_a + D_a \Lap a,\\
+		\frac{\partial s}{\partial t} &= -\rho sa^2 - \mu_s s + \rho_s + D_s \Lap s.
+	\end{aligned}
+	\end{equation}
+Here $\rho$ is the reaction rate, $\mu_a$ and $\mu_h$ are the decay rates, and $\rho_a$ and $\rho_s$ are the base production rates of $a$ and $s$.
+
+\subsection{The Gray-Scott model}
+Gray and Scott investigated the behaviour of a simple irreversible set of reactions and discovered they produce interesting patterns \cite{Gray1984}. These reactions occur in an isothermal continuous stirred tank reactor into which chemicals $U$ and $V$ are continuously fed. $V$ reacts with $U$ to perform autocatalysis and also decays into an inert product $P$. This system is known as the Gray-Scott model and the reactions are formalized as:
+	\begin{equation}
+	\begin{aligned}
+	U + 2V &\to 3V, \\
+	V &\to P.
+	\end{aligned}
+	\end{equation}
+John Pearson extensively explored and visualized the Gray-Scott model in 2D and produced many diverse patterns \cite{pearson1993}. The range of patterns can be seen in Fig \ref{fig:grayscottParameterMap}. When represented as partial differential equations we see that this system is a subset of activator-depleted substrate:
+	\begin{equation}
+	\begin{aligned} \label{eq:grayscottRD}
+	\frac{\partial v}{\partial t} &= uv^2 - (F+k)v + D_v \Lap v,\\
+	\frac{\partial u}{\partial t} &= -uv^2 + F(1-u) + D_u \Lap u.
+	\end{aligned}
+	\end{equation}
+Remarkably, the diffusivity coefficients use a ratio of 1:2 for the activator and substrate, which is a more equivalent ratio than considered by Gierer and Meinhardt. Also, pattern formation in this system is not instigated by auto-excitation. Instead of noise, a pre-pattern is required to start pattern formation. $F$ and $k$ are scalar parameters where $F$ controls how much of $u$ is fed into the system and the proportion that is removed. Being used for both purposes has the effect of trying to keep the concentration of $u$ near $1$. $k$ is added to $F$ to determine the decay rate of $v$. Implying $v$ is always removed from the system at a faster rate than $u$.
+
+\begin{figure}[H]
+	\centering
+	\incfig{fig2_1}
+	\caption{Gray-Scott parameter space for parameters $k$ on the x-axis ranging from $[0.019 - 0.78]$ and $F$ on the y-axis ranging from $[0 - 0.11]$. Visualized is the concentration of morphogen $a$. Low concentration values are light blue and high concentrations are dark blue.}
+	\label{fig:grayscottParameterMap}
+\end{figure}
+
+\section{Extensions to basic reaction-diffusion}
+
+The basic reaction-diffusion concept proposed by Turing and contextualized by Gierer and Meinhardt has provided the tools for reasoning about natural pattern formation. From that idealized system we consider extensions to more accurately represent nature and produce realistic patterns.
+
+% Non-homogeneities 
+One such extension is adding non-homogeneities to the underlying domain. One example is spatially varying diffusion rates along the domain. This can be used to cause patterns such as meandering stripes to exibit a defined orientation. This was hypothesized as a mechanism explaining stripes found on fish by \cite{zheng2009}. Witkin and Kass also varied diffusion rates to correct for pattern distortion on curved surfaces \cite{Witkin1991}. Zhou et al. modelled pigment patterns on flower petals by considering the influence of veins on diffusion rates \cite{Zhou2007}. The diffusion between adjacent cells is modified based on two cell types: vascular and tissue. Diffusion is highest between vascular cells, less between vascular and tissue cells, and lowest between tissue cells. This is expanded further by considering vein width. Creating darker pigment patterns along veins as seen in real flower petals.
+
+% Anisotropic diffusion
+Not only does diffusion vary, it is often anisotropic due to the heterogeneous structure of tissue. This property is used in diffusion tensor imaging to produce 3D visualizations for medical purposes \cite{Bihan2001}. Anisotropic diffusion has been used with reaction-diffusion to visualize vector fields \cite{Sanderson2004}. A uniform spot pattern has its diffusion driven the vector field which produces distorted ovals. In a study of snake pattern diversity, Allen et al. used anisotropic diffusion to model various snakeskin pigment patterns and associated them with snake behaviour \cite{Allen2013}.
+
+% Growth controlled by pattern or pattern affected by growth
+Morphogen patterns may develop when an animal is an infant and fix in place while to animal grows into adulthood. This will cause patterns to stretch and deform. Alternatively, they can develop in tandem with the growth of an animal, adjusting and migrating with available space. Consequently, growth is a common addition to reaction-diffusion simulations. Fowler et al. modelled pigment patterns formed on a growing seashell margin \cite{fowler1992modeling}. Each new layer in the shell is a progression through time of the pattern. This results in a 2D pattern as layers of the shell are accrued. The stripe patterns found on the marine angelfish Pomacanthus have been modelled with reaction-diffusion due to their dynamic movement \cite{Kondo1995}. The pattern is not affixed to the underlying skin allowing for development with growth. The pattern gains new stripes that insert between existing ones as the angelfish grows. Snakeskin pigment patterns have been modelled using growth as well \cite{MURRAY1991}.
+
+% multi chemical or multi stage
+Multi-stage models where parameter values change over time have been used to simulate the pigment patterns on leopards and jaguars \cite{liu2006two}. Malheiros and Walter simulated moray eel spots by varying diffusion rates and changing morphogen saturation limits on different areas of the body. This had the effect of creating irregular spots that change into a thicker labyrinth like pattern \cite{malheiros2017}. Having more than two morphogens allow for different patterns such as the 3-chemical localized moving structures known as quasi-particles \cite{schenk2000quasi}. Or even the 5-chemical model that creates zebra like stripe patterns found in \cite{Meinhardt1982}.
+
+The accuracy and legitimacy of traditional reaction-diffusion in the context of biology is often criticized. This is due to a high sensitivity to small changes in parameters and the dependence on a difference in diffusion rates not seen in nature. Often when making a simulation of a biological phenomenon we abstract away immobile cell-autonomous factors and only focus on the obvious morphogens. These immobile factors represent cells which are affected by and produce other morphogens and can be thought of as non-diffusing morphogens as well. Previously, they were seen to be of lesser importance to pattern formation, but it was found that 70\% of three or four morphogen systems including them do not require differing diffusion rates. And the patterns are much less sensitive to parameter changes \cite{Marcon2016}. By including these factors, reaction-diffusion models can be more biologically accurate and realistic. This implies that some basic assumptions such as long-range inhibition and short-range activation should be used as a special case instead of the
+standard when modelling patterns found in nature.
+
+A method known as the kernel-based Turing model (KT model), was proposed to generalize the process of diffusion \cite{KONDO2017120}. In the KT model, a kernel is specified that corresponds to the activation and inhibition of the present morphogens with respect to the distance from a source. A normal gaussian curve recreates the effect of standard diffusion. Allowing for arbitrary kernels supports a wider range of biological functions and patterns.

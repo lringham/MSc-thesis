@@ -1,0 +1,308 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% This is file `ucalgarythesis.tex'  -- a document template for      %%
+%% graduate theses at the University of Calgary.                      %%
+%%                                                                    %%
+%% This template document is to be used in conjunction with the       %%
+%% thesis class file `ucalgarythesis.cls'.                            %%
+%%                                                                    %%
+%% Created by M.W. Girard, last updated 10 April 2016.                %%
+%%                                                                    %%
+%% This template was created to be in compliance with the University  %%
+%% of Calgary thesis guidelines (version 14 April 2014)               %%
+%%       https://grad.ucalgary.ca/current/thesis/guidelines.          %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% By default, the text of the thesis is doublespaced and should be   %%
+%% printed single-sided. All margins must be exactly one inch on all  %%
+%% sides, and should not be bound or have binding edges. This is      %%
+%% required by the University of Calgary thesis guidelines.           %%
+%% All theses are now required to be submitted electronically.        %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Load the `thesis.cls' document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \documentclass{thesis}
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% If you would like to print a personal copy of your thesis for    %%
+  %% your own record, you may print it double-sided and with extra    %%
+  %% margins for binding. Use the following line instead of the above %%
+  %% \documentclass{ucalgarythesis} for compiling personal copies of  %%
+  %% the thesis to be printed double-sided and bound.                 %%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %\documentclass[twoside,binding]{thesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Imported packages & custom user commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Include extra packages here
+
+  \usepackage[utf8x]{inputenc} %sometimes utf8x can cause problems?
+  \usepackage{amssymb,amsthm,amsmath}
+  \usepackage[hidelinks]{hyperref} 
+  \usepackage{graphicx}
+  \graphicspath{{./Images/}}
+  \usepackage{tikz}
+  \usepackage[margin=10pt,font=small,labelfont=bf, labelsep=endash]{caption}
+  \usepackage[ruled, linesnumbered, noresetcount]{algorithm2e}
+  \usepackage{commath}
+  \usepackage{float}
+  \usepackage{import}
+  \usepackage{soul}
+  
+  \usepackage{xifthen}
+  \usepackage{pdfpages}
+  \usepackage{transparent}
+  \usepackage{enumitem}
+  
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{0.7\columnwidth}
+    \import{./Images/}{#1.pdf_tex}
+}
+
+%%  Include other user-defined commands here
+
+  \newcommand{\ProgramName}{RDS}
+  \newcommand{\Div}{\nabla \cdot}
+  \newcommand{\Lap}{\nabla^2}
+  \newcommand{\Grad}{\nabla}
+  \newcommand{\LapDisc}{L}
+  \newcommand{\Quotes}[1]{``{#1}''}
+  \theoremstyle{plain}
+  \newtheorem{theorem}{Theorem}[chapter]
+  \newtheorem{lemma}[theorem]{Lemma}
+  \newtheorem{corollary}[theorem]{Corollary}
+  
+  \theoremstyle{definition}
+  \newtheorem{definition}[theorem]{Definition}
+
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% Begin document                                                     %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% Title page                                                         %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Instructions for title page information:                           %%
+%%                                                                    %%
+%%  Fill in the following fields with the required information:       %%
+%%   - \title{...}        Title of the thesis                         %%
+%%   - \author{...}       Your full name                              %%
+%%   - \thesis{Thesis}    Type of document (may change to `Thesis' to %%
+%%                           `Dissertation' depending on type of work)%%
+%%   - \dept{...}         Full name of the graduate department or     %%
+%%                           degree program                           %%
+%%   - \degree{...}       Full name of the degree obtained            %%
+%%                          (i.e. Doctor of Philosophy,               %%
+%%                                 Master of Science, etc)            %%
+%%   - \gradyear{...}     Year of submission                          %%
+%%   - \monthname{...}    Month of submission                         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \title{Modelling natural phenomenon with reaction-diffusion} % On Patterning Fish, Flowers, and Psoriasis
+  \author{Lee Ringham}
+  \thesis{Thesis}
+  \dept{GRADUATE PROGRAM IN COMPUTER SCIENCE}
+  \degree{MASTER OF SCIENCE}
+  \gradyear{2019}
+  \monthname{APRIL}
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%% Make the thesis title page.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \frontmatter           %% Don't remove this line.
+  \makethesistitle       %% Don't remove this line.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% Prefatory pages                                                    %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The following sections are in the correct order as specified by    %%
+%% the April 2014 thesis guidelines set by the University of Calgary. %%
+%%                                                                    %%
+%% You may remove optional sections, but do not change the order.     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Abstract page (REQUIRED)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{thesisabstract}  
+   [This page is required for all graduate student theses at the University of Calgary. An abstract is a short paragraph explaining the major points and conclusions of the thesis. Abstracts in theses presented by candidates for Master’s degrees must be no longer than 150 words. Abstracts in theses presented by candidates for doctoral degrees must be no longer than 350 words. Hyphenated words or words separated by a slash are considered two words.]
+  \end{thesisabstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Acknowledgements page (REQUIRED)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \chapter{Acknowledgements}  
+  
+I would like to acknowledge my supervisor Dr. Prusinkiewicz for all his guidance and support. I would also like to thank the members of the Algorithmic Botany lab including Andrew Owens, Jeremy Hart, Cory Bloor, Mik Cieslak, Philmo Gu, and Pascal Ferraro as well as Desmond Larsen-Rosner. Your advice and thoughtful conversations greatly helped me to learn, develop, and enjoy this work.
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Dedication page (this section is OPTIONAL)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \chapter[Dedication]{}
+  
+  \begin{dedication}
+     \emph{To Carol, Mark, Andrew and my loving wife Natalie}
+  \end{dedication}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Various lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The Table of Contents and all Lists should be single spaced.
+
+  \begin{singlespace}   %% Do not remove this line
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Table of Contents (REQUIRED)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \renewcommand\contentsname{Table of Contents}
+  \cleardoublepage\phantomsection
+  \addcontentsline{toc}{chapter}{\contentsname}
+  \tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% List of figures (required, if any)
+  \renewcommand{\listfigurename}{List of Figures and Illustrations}
+  \cleardoublepage\phantomsection
+  \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% List of tables (required, if any)
+  \renewcommand{\listtablename}{List of Tables}
+  \cleardoublepage\phantomsection
+  \addcontentsline{toc}{chapter}{\listtablename}
+  \listoftables
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% List of Symbols, abbreviations, and nomenclature (required, if any)   
+%%
+%% (Note: You may use your own format for your list of symbols, 
+%%  abbreviations, etc. This format is just a guideline.)
+%%
+  \chapter{List of Symbols, Abbreviations and Nomenclature}      
+  \begin{tabbing}
+    Symbol or abbreviation~~~~~\= \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \parbox{5in}{Definition}\\
+
+    \addsymbol \mbox{$\Lap$}: {The Laplacian operator}
+    \addsymbol \mbox{$\Delta$}: {The gradient operator}
+    \addsymbol \mbox{RD}: {reaction-diffusion}
+    \addsymbol \mbox{KT model}: {kernel-based Turing model}
+    \addsymbol \mbox{PDEs}: {Partial differential equations}
+                
+    % Always keep the following line if you are using a list of symbols:
+  \end{tabbing}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End single spacing after last list
+  \end{singlespace}     %% Do not remove this line
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% Main matter                                                        %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \mainmatter           %% Do not remove this line
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Chapters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \include{Chapters/1-introduction}
+  \include{Chapters/2-reaction-diffusion-patterning}
+  \include{Chapters/3-computational-aspects}
+  \include{Chapters/4-software-implementation}
+  \include{Chapters/5-ladybugs}
+  \include{Chapters/6-snakes}
+  \include{Chapters/7-flowers}
+  \include{Chapters/8-psoriasis}
+  \include{Chapters/9-conclusion-discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                     %%
+% Bibliography                                                        %%
+%                                                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% As required by the 2014 thesis guidelines, the bibliography must
+%% appear in the table of contents. Do not remove the following lines. 
+  \cleardoublepage\phantomsection
+  \addcontentsline{toc}{chapter}{Bibliography}
+  
+%% There are multiple options for assembling a bibliography in LaTeX.
+%% Some of these options include:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Standard bibliography format
+%  \begin{thebibliography}{9}
+
+%    \bibitem{anybody} N. E. Body, {\em Anybody Can Write a Book}. 2015.
+    %\bibitem{}
+    
+%  \end{thebibliography}
+   
+%%%%%%%%% or %%%%%%%%%%%%%%%%%%%%
+%% include separate bibliography file
+ 
+%  \include{references} 
+
+%%%%%%%%% or %%%%%%%%%%%%%%%%%%%%
+%% Use BiBTeX. No really, use BiBTeX!
+
+  \bibliographystyle{apalike}   %acm
+  \bibliography{References/collection} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% Appendicies                                                        %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \appendix             %% Do not remove this line
+
+  \include{Chapters/appendix1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%% End of document                                                    %%
+%%                                                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}          %% Do not remove this line
+
+%%
+%% End of file `thesis.tex'.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

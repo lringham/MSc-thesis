@@ -1,0 +1,12 @@
+Thesis.aux
+Thesis.log
+Thesis.synctex.gz
+Thesis.toc
+*.aux
+*.lof
+*.blg
+*.lot
+*.bbl
+*.out
+Images/
+thesis.pdf

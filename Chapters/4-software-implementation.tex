@@ -1,0 +1,135 @@
+% An Nvidia GTX 850M GPU was used for simulation and rendering.
+
+\chapter{Software implementation}
+
+\section{General requirements and system design}
+There were five main requirements \ProgramName{} was designed to fulfil:
+
+\begin{enumerate}
+	\item To be able to simulate reaction-diffusion on grids and arbitrary surfaces. This allows users to test existing reaction-diffusion models on grid domains before simulating on meshes. Mesh support provides a more realistic domain to simulate pattern formation on because it is not restricted to the plane and is better suited for growth. Grids are implemented as textures in the form of 2D arrays. There is a texture for the previous and current state of the simulation with morphogen concentrations associated with each texel. Meshes are implemented as half-edge data structures \cite{Mantyla1988} where each vertex is stored in an array and is associated with a previous and current morphogen concentration. 
+	
+	\item To interact with simulation parameters at runtime. The morphogen names, PDEs, initial conditions, and domain are all specified in a parameter file. Editing this text file provides an easy way to change simulation behaviour. Although, because morphogens are associated with indices in the domain, it can be easier to change parameters directly inside the simulation. Interactivity with the simulation is performed through the GUI. As shown in Fig \ref{fig:GUIexample}, it contains modifiable textboxes representing the values specified in the parameter file. Morphogens and their diffusion behaviour can be painted on mesh vertices. The user can also use the same painting mechanism to select groups of vertices and set parameters in one operation. 
+
+	\item Pattern formation in real-time. This is desireable because rapid iteration facilitates model creation and pattern exploration. Studies have shown that when using software, a delay greater than 1 second interrupts the users flow of thought and if a delay is greater than 10 seconds, the user will want to do something else \cite{nielsen1994usability}. Consequently, minimizing unnecessary delays increases user enjoyment and productivity. Real-time performance is achieved through the use of the GPU. If GPU computation mode is selected in the parameter file, the Simulation Module is created as an OpenGL compute shader. This is a program that runs on the GPU. If the user does not have access to a GPU, the computation mode can be set to CPU. The Simulation Module is then created as a DLL and is executed with the CPU. This flexibility allows for support of a larger range of hardware configurations. 
+	
+	\item To be able to quickly declare and edit PDEs. Being able to define PDEs dynamically, greatly increases the usefulness of \ProgramName{} as users can create and customize their own models. Also, not all users may be able to write code or have access to the program's source code. When the program begins, the PDEs and values defined in the parameter file are parsed to create the Simulation Module. Users specify their equations in C++ or GLSL depending on the choice of CPU or GPU computation mode. Both languages use a C style syntax so most models require no conversion when switching between computation modes.
+			
+	\item Support for more advanced phenomena found in nature such as growth, parameter non-homogeneities, and anisotropic diffusion. These features were important because they are often abstracted away but their impact on pattern development can lead to more biologically relevant models. Mesh growth is performed by using adaptive subdivision as described in Chapter 3. Non-homogeneities are supported by having each vertex contain their own copy of the simulation parameters which can be changed through painting. Finally, anisotropic diffusion is calculated by associating a vector and principle diffusion rates with each vertex.
+\end{enumerate}
+
+\section{Parameter file}
+When starting the program, the user may specify a configuration file from the command line. If no file is specified, the program will look for \Quotes{SimConfig.txt}. The parameter text file is a customizable model specification. Text prefixed by hash symbol denotes a comment. It has no effect on the simulation and is used for documentation. A parameter is defined by a label-value pair delimited by a colon. The user can define any number of parameters that do not contain reserved labels. A complete listing of reserved labels are described in \ref{appendix:Reservedlabels}. The \textit{domain} parameter is how the user specifies the OBJ filename or grid domain. \textit{morphogens} allows the user to specify the names in uppercase, of the morphogens involved in the simulation. These are then used in the initial conditions and PDE specification. 
+
+User defined parameters can be declared under the \textit{params} label. They are written inside a pair of curl brackets. This requires the indices associated with the parameters to be declared by the \textit{indices} label. Valid indices are comma separated integers, a range defined with a hyphen, or \Quotes{all} which applies to every index. A random selection of $m$ indices can be requested by typing $rand(m)$. If the user wishes each index to represent a larger area, an integer radius can be specified with \textit{radius}, which corresponds to a n-ring neighbourhood around the index. To define non-homogeneous parameters, multiple entries can be made with within the curly brackets. This allows for different sets of indices to be associated with different parameters values.
+
+The \textit{initialConditions} parameter specifies the morphogens associated with each index. Similar to \textit{params}, they are declared in a pair of curly brackets. After the indices are defined, the morphogen concentrations to assigned to each index are declared. This can be a float or a random selection from a inclusive range using $rand(n, m)$, where $n$ and $m$ are floating point values. Specification of the vector field used for anisotropic diffusion is defined by the label \textit{simFile}. This accepts a filename with a per-index entry for each vector and principle diffusion rates. This file is most easily created by interactively defining the vector field inside \ProgramName{} and saving the file for later use.
+
+The \textit{rdModel} parameter represents the PDEs and can be assigned a value of CPU or GPU depending on the desired computation mode. The PDEs are declared within curly brackets. These equations are declared in either GLSL or C++ depending on the computation mode. In the PDEs, user defined parameter values are accessed by pre-pending \Quotes{params.} to their name. Previous morphogen values are used by referencing their name in lower-case. The Laplacian is calculated by inserting the statement: \Quotes{lap(L);}, which fills out a predefined array, L. Morphogen names are enumerated in upper-case and can be used to index into L for their Laplacian results. Morphogen values are updated by assigning to a predefined \Quotes{new} array using the enumerated morphogen names. An example parameter file is shown in Fig \ref{fig:paramFileExample}.
+
+\begin{figure}[p]
+\RestyleAlgo{boxed}
+\LinesNotNumbered
+\begin{algorithm}[H]
+	\# The following parameters correspond to the GrayScott model \\	
+	domain: icosphere.obj \\
+	colorMap: color.map \\
+	morphogens: A, S\\
+	
+	params:\\
+	\{\\
+\quad indices: all\\
+\quad areaScale: 500\\
+\quad dt: 0.1\\
+\quad Da: 0.25\\
+\quad Ds: 0.5\\
+\quad f: 0.03\\
+\quad k: 0.063\\
+	\}\\
+	initialConditions:\\
+	\{\\
+\quad indices: all\\
+\quad A: 0\\
+\quad S: .5 + rand(0, .5)\\
+\quad \\
+\quad indices: rand(10)\\
+\quad radius: 1\\
+\quad A: 1\\
+\quad S: 1\\
+	\}\\
+	rdModel: GPU\\
+	\{\\
+\quad lap(L);\\
+\quad float saa = s*a*a;\\
+\quad new[A] = a + (params.Da * L[A] + saa - (params.k + params.f) * a) * params.dt;\\
+\quad new[S] = s + (params.Ds * L[S] - saa + params.f * (1 - s)) * params.dt;\\
+	\}
+\end{algorithm}
+	\caption{Example parameter file for the GrayScott model. The domain referenced is a unit icosahedron OBJ model.}
+	\label{fig:paramFileExample}
+\end{figure}
+
+\section{Simulation creation}
+Upon start-up, \ProgramName{} parses user provided command line arguments and reads in the parameter file. The possible command line arguments are described in \ref{appendix:CLargs}. The label-value pairs in the parameter file are used to create a symbol table. Then, the window is created along with the camera and scene objects responsible for rendering. Now, an instance of SimulationDomain is created. This domain instance is then used to create a Simulation object during which, the symbol table is used to construct the Simulation Module as a DLL or compute shader. After creation, the initial conditions are applied from the parsed parameters to the simulation. Next, the simulation and domain are added to the scene so they can be updated and rendered. The remainder of the simulation executes a while loop that calls the scene's update and render functions. This invokes the Simulation Module which computes the PDEs. The result of which is then rendered to the screen.
+
+
+% Organization of key software components. Input and output.
+\section{Program architecture} 
+\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL for visualization. A library named \Quotes{Dear ImGui} \cite{Cornut2019} is used to render the graphical user interface (GUI). \ProgramName{} contains two important abstract classes: SimulationDomain and Simulation. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain specific functions that can be performed without knowledge of the spatial relationships within the domain. Functions such as Laplacian and gradient are declared in SimulationDomain as well but they are marked pure virtual. Thus, these functions must be implemented by inheritors. An example inheritor is the HalfEdgeMesh class which implements the various functions using the computational techniques previously defined in Chapter 3. This provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the Simulation class. This abstracts the simulation and provides all the functions relevant to the simulation except the PDE formulas. Simulation also contains a SimulationDomain member variable which is how a reaction-diffusion model is associated with a domain. GPUSim and CustomSim extend Simulation and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig \ref{fig:umlDiagram}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{ProgramUML.pdf}
+	\caption{UML diagram representing \ProgramName{}'s architecture.}
+	\label{fig:umlDiagram}
+\end{figure}
+
+\subsection{GPU acceleration}
+Due to the popularity of video games, GPUs have become affordable and included with most computers. They contain many more cores than the CPU, enabling them to perform highly parallelized processing of triangles and pixels at a much faster rate. With the advent of compute shaders in modern graphics APIs, the power of the GPU can be leveraged to perform general purpose computation. 
+
+In \ProgramName{}, these shaders are written in the OpenGL Shading Language (GLSL). Since the evaluation of reaction-diffusion equations relies solely on past results, reaction-diffusion is easily parallelized. A single execution of the shader evaluates the equations once at a single location on the domain. For an entire step of the simulation, compute shaders are executed in groups, across all the GPU cores, until each location has been processed. Representing data structures on the GPU can be done the same way as in RAM, by using structs and arrays. Other mesh properties can be calculated, such as normals, angles, and areas using compute shaders.
+
+A drawback of compute shaders is the slow transfer rate between RAM and GPU memory. This problem arises with frequent or very large data transfers. The data are usually the result of algorithms that cannot be parallelized and thus are computed with the CPU. The results are then transferred to the GPU for further processing. The reverse case can also occur, results are generated on the GPU and require further computation on the CPU. After the CPU is done, the data may then be transferred back to the GPU. Performance loss due to transferring occurs in \ProgramName{} due to the recursive nature of the subdivision algorithm used. The CPU is used to perform subdivision when a face becomes too large. Then the GPU is updated. Care has been taken to only transfer the changes subdivision has caused, avoiding performance drops. Although, if large changes that affect many locations on the domain are made, users may experience a pause as data synchronizes between GPU memory and RAM. 
+
+\section{User interface}
+Exploring different parameter values at runtime is achieved by using graphical control panels shown in Fig \ref{fig:GUIexample}. This interface is implemented and rendered by the library \Quotes{Dear ImGui} \cite{Cornut2019}. It has controls for growth, rendering, and interactive non-homogeneous parameter specification. 
+
+Parameters are shown in textboxes generated from the symbol table. Initially, changes to these parameters affect all indices. For more control, subgroups of indices can selected through painting. Groups of indices with the same set of parameters are given an ID number and can be selected by cycling through numbers with the \Quotes{Params} textbox. 
+
+When specifying parameters locally on a mesh, the user selects a painting mode from the control panel and right clicks on the mesh to change values stored at vertices within a given radius. There are three painting modes: selection, morphogen, and anisotropic diffusion. When the left mouse button is clicked and a mode is selected, a sphere is projected onto the mesh using a raycast. The vertex closest to the sphere centre is used to find the vertices that are also affected by the painting operation. From the closest vertex, subsequent rings are checked to see if they reside in the sphere. This continues until no more vertices are found. If painting diffusion vectors, the previous raycast location is recorded and used with the current location to determine the direction of movement. This provides the vector which is being painted with.  The principle diffusion rates are specified in the control panel. When painting morphogens or diffusion, the quantity at each vertex is modified with a linear falloff from the centre of the sphere. Painting in selection mode allows the user to select groups of vertices and set parameters in bulk. The sphere radius can be adjusted from the control panel or with the mouse scroll wheel.
+
+If not painting, the left mouse button can be used to rotate the model and right click translates the model. The domain's orientation and position can be reset by press the 1 key or through the control panel. The scroll wheel will zoom control the camera zoom. Also, it can be moved left, right, up, down, in, out with the W, A, S, D, R, F keys.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{painting.png}	
+	\caption{Painting direction is determined by taking the difference in cursor positions from consecutive frames. The \textbf{X} inside dashed circle is the initial cursor location, and the \textbf{X} inside the solid circle is the current cursor position. Vertices in the blue area are affected by the paint operation.} 
+	\label{fig:painting}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\columnwidth]{gui.png}	
+	\caption{The available control panels. \textbf{Left:} the control panel for changing GrayScott values as well as collapsible menus for changing parameters for growth, painting, and rendering. \textbf{Middle:} simulation controls allow for saving screenshots, textures, models. \textbf{Right:} program statistics are shown such as the time per frame, vertex count, and total area of the mesh. \textbf{Bottom-Right:} info about the model such as the PDEs used.} 
+	\label{fig:GUIexample}
+\end{figure}
+
+
+\section{Visualization}
+The user has a choice of visualizing different morphogen concentrations by actual or normalized value. In the latter case, every morphogen concentration is divided by the current largest concentration. The concentration is then mapped onto a colormap consisting of 256 colours. A separate colormap can be specified for each side of the mesh. This feature most useful when hiding the pattern on one side of the mesh. Concentration gradients and the vectors driving anisotropic diffusion can also be visualized as lines (representing vectors) extending from their corresponding vertex. These lines are coloured black at their vertex and transition to green for diffusion vectors and red for gradient vectors as show in \ref{fig:vector_fields}. Wireframe mode allows users to see the underlying triangular geometry of the mesh. This option does not appear in the UI when using a grid domain. For higher quality rendering of models through other software, export of textures is supported as well. The rendering of the mesh is enhanced by a diffuse lighting to highlight the domain curvature. When selected vertices are visualized, the unselected ones will appear faded.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{vector_fields.png}	
+	\caption{\textbf{Left}: Pattern gradient is visualized by lines fading from black to red extending from vertices. \textbf{Right}: The vector field driving anisotropic diffusion is shown by lines fading from black to green extending from vertices.} 
+	\label{fig:vector_fields}
+\end{figure}
+
+\section{Model exploration}
+Designing and exploring a model's pattern forming potential can be quite daunting. To help track progress as incremental changes are made, I use the GIT version control system. I commit the parameter file to a model repository periodically during exploration. This allows for easy reproduction of previous patterns and also avoids duplication of past efforts. The greatest benefit from this work-flow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. A visualization of the version control history is shown in Fig \ref{fig:version_control}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{version_control.png}	
+	\caption{Visualization of the GIT repository. Models are represented by different colour vertical lines. Each change to a model is represented by a dot on the corresponding line and a user provided comment on the right. Models derived from others have their vertical line connected by a horizontal line leading to the parent. } 
+	\label{fig:version_control}
+\end{figure}

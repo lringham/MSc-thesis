@@ -1,0 +1,74 @@
+\chapter{Case Study 3: Flowers Petal Patterns}
+
+\section{Literature Review}
+To humans, flowers are a symbol of natural beauty and their spots and stripes serve to enhance this quality. A variety of flower patterns are shown in Fig \ref{fig:realFlowers}. But for nature, flower pigment patterns have a more  utilitarian purpose. They are used to help flowers reproduce by attracting insects and likely evolved to exploit pollinator vision to further this goal. Patterns guide insects to nectar and can appear as paths or landing spots, sometimes visible only in the UV spectrum \cite{Davies2012}. Patterns may also develop due to infections, age, and the environment \cite{Davies2012} \cite{ROBINSON2015}. Thus, understanding them also gives insight into flower reproduction, insect behaviour, and environmental factors. Some patterns mimic the appearance of female bugs, as in the case of the bee orchid \cite{Vereecken7484}. This deceives bees looking for mates, into pollinating the flower. Surprisingly, given the importance of petal patterns to nature and the ubiquity of flowers in movies and video games, little attention has been given to simulating them. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=\columnwidth]{flowers}
+	\caption{Examples of pigment patterns on real flowers.}
+	\label{fig:realFlowers}
+\end{figure}
+
+Petalz is a videogame based on procedurally generating flowers of different shape and colour. A flower is represented by a compositional pattern-producing network (CPPN). CPPNs have their architecture which is evolved by genetic algoritms. CPPNs allow for the creation of symmetric or repeating structures. The is accomplished through mutating a single flower or cross pollinating flowers together. First a circle is deformed to create the shape of a flower. Then the CPPN generates a colour for that flower. As an input, the network takes an angle, $\theta$, and a radius, $r$. Many layers of petals can be simulated an these are rendered over top of each other. These flowers are then able to be sent to friends through the social medial platform Facebook. \hl{cite Exploiting Regularity Without Development}
+
+Simulation in patterns on plants have been explored in \cite{}. In this work, they study procedural pattern formation to represent common patterns found in the plant kingdom. They are able to produce patterns as seen on cacti, watermelon, and the shrub \textit{Codiaeum variegatum}. The procedural method they use to simulate pattern formation is the Colonoal Mosiac model. In this model individual plant cells are represented discretely with their own set of parameters. These cells are distributed randomly over an user defined mesh. During simulation, a given cell will produce a child cell based on the parent's division rate. This child's parameters are derived from the parent with differences based on probability. These cells repel each other and spread out over the domain. To render the result the cells are triangulated to create a mesh representation of the original domain. 
+
+A mathematical approach to flower modelling is proposed in \cite{lu2014}. This work focuses on modelling flower petal patterns as well as geometric components such as the pistil, stamen, and receptacle. These flower components are modelled with parametric ellipsoids and cylinders and the petal geometry is modelled by deforming rectangular surfaces. Pigment intensity is determined from various combinations of sine functions. The distance from the centre is used as the argument of these functions and values correspond to pigment intensity. This approach provides visually good results, but it does not seem to support irregular or complex patterns.
+
+Reaction-diffusion has been used to simulate petal patterns on a grid \cite{Zhou2007}. Petal shape, initial morphogen distribution, and venation map are input as textures. The model used is diffusion with Schnakenberg kinetics \cite{schnakenberg1979}. Diffusion rate at a given point is determined by the distance to a vein found in the venation map. Petal pigmentation is determined by running the reaction-diffusion model until sufficient time has passed and patterns are formed. The final pattern contains a grid of morphogen concentrations. On their basis, the colour is determined using the concentration through a colormap. \hl{reword this section, describe the diffusion rates?} 
+
+\cite{Ding2018} used a biologically motivated approach to analyse pattern formation on the flower \textit{Mimulus lewisii} (monkeyflower). This flower contains red spots located where the flower petals converge into semi-tubular furrows as shown in Fig \ref{fig:monkeyflower_real}. The red pigmentation consists of anthocyanin, a molecule that looks red, purple, blue or black depending on it's pH \hl{ref}. \hl{Through the exploration of the genetic mechanisms controlling pigmentation accumulation and distribution, they identified the key proteins responsible for spot formation.} The protein interactions that were also discovered display the key aspects of reaction-diffusion: diffusion, autocatalysis, and inhibition. The proteins are named nectar guide anthocyanin (NEGAN) and red tongue (RTO). NEGAN is a transcription factor responsible for production of red pigment, and its distribution over the flower can be thought of as a prepattern. Through experimentation, they found that RTO diffuses throughout the flower and NEGAN is localized in the furrows. The protein NEGAN is shown to be autocatalytic and in the presence of RTO this reaction is inhibited. Consequently, RTO is the inhibitor and NEGAN is the auto-catalytic activator.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{monkeyflower_furrows.png}
+	\caption{Image of a monkeyflower covered in raindrops. The black arrows denote regions where pattern formation occurs. Photograph by James Gaither licensed under CC BY-NC-ND 2.0.}
+	\label{fig:monkeyflower_real}
+\end{figure}
+
+\section{Monkeyflower modelling}
+I modelled monkeyflower spots on a triangular mesh using \ProgramName{}. The PDEs chosen are the activator-inhibitor model, Eqn \eqref{eq:activatorInhibitorRD}, because of the inhibitory relationship between NEGAN and RTO. Here NEGAN is $a$ and RTO is $h$red. Since in nature pattern formation is suppressed at the periphery, my model uses two sets of parameters. The first set is for the region containing NEGAN and the second is for the remaining periphery. The initial morphogen distribution has NEGAN $= 0$ and RTO $= 1$ everywhere. The boundary between the regions is what instigates pattern formation. Consequently spots first form on the boundary and continue to form towards the centre. This procession aligns the spots to the shape of the boundary as seen in Fig \ref{fig:monkeyflower}. The parameters for the inner region are: $D_a=0.000025$, $D_h=0.001$, $dt=0.005$, $p=0.05$, $p_a=0.0125$, $p_h=0$, $u_a=0.05$, $u_h=0.08$. The periphery uses the same parameters except the base production of NEGAN is $p_a=0$.
+
+\subsection*{Results}
+This model produces convincing results as compared to the real picture and has mimicked the spot positioning and general character. The domain it not quite accurate as it is missing the top petals. Also the spots seen on the region boundary look artificial because of how neatly they are arranged. This may be due to the sharp transition between regions, and can be improved with noise or more care when they are specified. The yellow pigmentation may not be due to NEGAN concentration and more accurate models could account for this with another morphogen.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{monkeyflower.png}
+	\caption{Monkeyflower simulation and real image. \textbf{a:} NEGAN base production, $p_a$, is 0 in the dark region. \textbf{b:} initial appearance of the model. \textbf{c:} final appearance of the model. \textbf{d:}. a real picture of a monkeyflower.}
+	\label{fig:monkeyflower}
+\end{figure}
+
+\section{Other flower models}
+Orchids are bountiful in their production of beautiful and varied patterns. Foxglove and kohleria also display interesting spot and stripe patterns. I have used \ProgramName{} to model these patterns as shown in Fig \ref{fig:orchids}. 
+
+\textbf{Model a:} 
+This orchid model is produced by using the GrayScott model. An initial 400 random vertices are initialized with both morphogen values randomly chosen between 0 and 1 inclusive. The remaining vertices have no activator and substrate concentration of 1. The simulation is then stopped before the pattern formation can become fully stable, allowing for varying sizes in spots. Note the missing orchid \Quotes{lip}. \hl{This was omitted because most interesting patterning occurs on the petals and sepals.}
+
+\textbf{Model b:}
+Kohleria displays two distinct patterns: spots on the border of the petals, and oriented lines that branch and radiate from the centre. I have modelled this pattern using the Turing reaction-diffusion model with anisotropy. The whole domain uses parameters for a spot pattern. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This has the effect of spots turning into a series of branching connected lines.
+
+\textbf{Model c:}
+Foxglove has a scattered overlapping pattern of spots on the bottom of its flowers. These spots get smaller and sparse as you move to the top of the flower. I have modelled spot size and density by segmenting the domain in to three zones. The bottom, sides, and top have an decreasing base production of the morphogen visualized. The reaction-diffusion model used is again Turing.
+
+\textbf{Model d:}
+This is another orchid model. The domain is partitioned into three radial zones that increase the pattern scale as it moves from the centre to the ends of the petals. Diffusion is anisotropic and is lower in a direction radiating from the centre. After this pattern has settled there is a second phase. In this phase, morphogen sinks are introduced along the boundary. This simulation is then stopped before the pattern fully settles. \hl{Again, the lip is omitted.}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{flowersSim.png}
+	\caption{Simulated flowers on top and real on the bottom. \textbf{a-d:} orchid, koleria, foxglove, and orchid.}
+	\label{fig:orchids}
+\end{figure}
+
+\hl{Developmental sequences, and more detailed descriptions would be helpful in all cases.}
+
+\hl{param flower table}
+
+\section{Discussion}
+
+% What was accomplished?
+I have implemented a biologically motivated model of monkeyflower pattern formation on a triangular mesh. A possible reason for the linear nature spot formation is seen in the shape of the domain boundary. 
+
+Some orchid patterns appear to arise from cells passing on their information to their descendants. This would be a good candidate for a clonal mosaic \cite{korn2007} model as opposed to reaction-diffusion, as there are apparent demarcations between a pigmented cell and an adjacent non-pigmented cell. Monkeyflowers exhibit nectar guides when viewed in ultraviolet light. This may also be modelled with reaction-diffusion. Advances in imaging and gene modification may provide insight into how the pigmentation pre-patterns develop over time. This feature is not considered in most works. One of the most interesting phenomenon missing from this work is the effect of growth on pattern formation.
