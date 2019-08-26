@@ -15,14 +15,14 @@ These equations apply at any given position in a domain in which reaction-diffus
 
 \section{Reaction-diffusion models}
 \subsection{The Turing model}
-Th most common instance of Turing's model is:
+Turing considered reaction-diffusion on both a discrete and continuous one dimensional ring of tissue \cite{Turing1952}. Initially, morphogens would be constant across the domain and the system would be in a stable state. Small noise or an irregular boundary would instigate pattern formation. One system of equations proposed is defined as:
 \begin{equation}
 \begin{aligned} \label{eq:turingRD}
-		\frac{\partial a}{\partial t} &= s(\alpha-ab) + D_a \Lap a,\\
-		\frac{\partial b}{\partial t} &= s(ab-b-\beta) + D_b \Lap b.
+		\frac{\partial u}{\partial t} &= s(\alpha-uv) + D_u \Lap u,\\
+		\frac{\partial v}{\partial t} &= s(uv-v-\beta) + D_v \Lap v.
 \end{aligned}
 \end{equation}
-The morphogen $a$ has a base production $\alpha$ and $ab$ describes the rate at which $a$ is converted into $b$. 
+The morphogen $u$ has a base production $\alpha$. Turing uses a value of $16$ for this parameter. The $uv$ term describes the rate at which $u$ is converted into the morphogen $v$. Changes to $s$, the reaction rate, scale the pattern features. For example, a spot pattern will appear larger with smaller values of $s$. $\beta$ is a constant removal of $v$ concentration and noise can be added to $\beta$ to instigate pattern formation.
 
 \subsection{The activator-inhibitor model}
 The concept of reaction-diffusion was reinvented by Alfred Gierer and Hans Meinhardt \cite{Gierer1972}. In this work they considered two morphogens, an activator $a$ and an inhibitor $h$. The activator is autocatalytic; using itself to reproduce. It also spurs production of the inhibitor which slows autocatalysis. The interplay between these two actions is what allows for patterns to stabilize. It was thought that another key mechanism that pattern formation depended on is the activator diffusing much slower than the inhibitor. Although, in later models, such drastic differences in diffusion are not always needed. The activator-inhibitor model is defined as:
