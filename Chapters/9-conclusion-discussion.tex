@@ -1,16 +1,13 @@
 \chapter{Conclusions}
 \section{Summary}
-I created a program that allows for easy creation of reaction-diffusion models. Specification of equations is performed through a text file. It's fast by leveraging the gpu. It's allows expression of more complex phenomena through support of aniso, nonhomo, and growth with adaptive subdivision.
 
-I have used this system to produce models of ladybugs, snakes, and flowers and psoriasis.
-
+%Procedural generation of natural patterns is often performed using reaction-diffusion. Nature is full of engaging patterns and through the science we wish to discover the mechanisms that create these patterns.
 %Computational models are useful because, unlike other areas of science, we know both the cause and the effect.
 
-%In this thesis I have introduced \ProgramName{}, a program for quick and efficient authoring of reaction-diffusion models. This software allows users to create custom models through interactive specification of morphogen and vector fields. More advanced models can be made by using extensions to basic reaction-diffusion such as growth, non-homogeneities, and anisotropic diffusion. 
+In this thesis I have introduced \ProgramName{}, a program for quick and efficient authoring of reaction-diffusion models. Users specify their model PDEs and parameters in a text file. These models are efficiently simulated by using parallelized operations on the GPU. \ProgramName{} also allows for expression of more complex phenomena through support of anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision. The morphogen pattern can be exported as texture for use in other computer graphics applications.
 
-%Procedural generation of natural patterns is often performed using reaction-diffusion. Nature is full of engaging patterns and through the science we wish to discover the mechanisms that create these patterns. Modelling our hypotheses provides a quick way to test the character of iteractions. 
+I have used this program to produce models on grids and triangular meshes. The first case study is on the patterns found on the elytra of ladybugs. Snakes display a variety of interesting patterns. , and flowers and psoriasis.
 
-% state future work and or limitaitons
 \section{Future Work}
 Most patterns in biology do not only occur in a 2 dimensional layer. Adding support for tetrahedral models could allow for representation and exploration of more realistic models with thickness. Support for user selection of different integration methods will allow for more flexibility when modelling. Coupling bidirectional feedback between growth and morphogen concentrations would also allow for more realistic modelling. Finer control of boundary conditions, would increase the expressibility of models. Support for CPU multi-threading or distributed computing can also increase the software run-time and productivity of users. Right now the only tested and support operating system is Windows. Adding cross-platform support would make \ProgramName{} more usable. Some basic features as in model loading during runtime would increase the quality of life for users as well as leveraging an established design language found in existing software.
 
