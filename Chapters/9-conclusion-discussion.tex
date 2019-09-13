@@ -1,22 +1,11 @@
 \chapter{Conclusions}
 \section{Summary}
 
-%Procedural generation of natural patterns is often performed using reaction-diffusion. Nature is full of engaging patterns and through the science we wish to discover the mechanisms that create these patterns.
-%Computational models are useful because, unlike other areas of science, we know both the cause and the effect.
+In this thesis I have introduced \ProgramName{}, an environment for quick and efficient authoring of reaction-diffusion models. To create a model, users specify their equations and parameters in a text file. These models are efficiently simulated by using parallelized computation on the GPU. \ProgramName{} also allows for expression of more complex phenomena through support of anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision. This is useful in a scientific setting, allowing a user to express and test their hypotheses easily. Also, \ProgramName{} can be used to create textures for use in other computer graphics applications such as video games.
 
-In this thesis I have introduced \ProgramName{}, a program for quick and efficient authoring of reaction-diffusion models. Users specify their model PDEs and parameters in a text file. These models are efficiently simulated by using parallelized operations on the GPU. \ProgramName{} also allows for expression of more complex phenomena through support of anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision. The morphogen pattern can be exported as texture for use in other computer graphics applications.
-
-I have used this program to produce models on grids and triangular meshes. The first case study is on the patterns found on the elytra of ladybugs. Snakes display a variety of interesting patterns. , and flowers and psoriasis.
+Using \ProgramName{}, I have produced models of natural patterns on grids and triangular meshes in a series of case studies. The first study is on patterns found on the elytra of ladybugs. Spot, stripe, and loop patterns are simulated on a triangular mesh. These are created to resemble visually similar patterns found on real ladybug species. The next study simulates pigmentation patterns seen on snakes. In modelling these patterns I have used growth and anisotropic diffusion to allow for creation of more complicated patterns. Flowers are the subject of my third study. I have used non-homogeneous parameters and anisotropic diffusion on flower meshes. Lastly, a biologically motivated model of the autoimmune disease psoriasis was modelled. By modelling the interactions and diffusion of transcription factors $TNF\alpha$, $IL17$, and $IL23$ we produced many psoriasis patterns that patients exhibit.
 
 \section{Future Work}
-Most patterns in biology do not only occur in a 2 dimensional layer. Adding support for tetrahedral models could allow for representation and exploration of more realistic models with thickness. Support for user selection of different integration methods will allow for more flexibility when modelling. Coupling bidirectional feedback between growth and morphogen concentrations would also allow for more realistic modelling. Finer control of boundary conditions, would increase the expressibility of models. Support for CPU multi-threading or distributed computing can also increase the software run-time and productivity of users. Right now the only tested and support operating system is Windows. Adding cross-platform support would make \ProgramName{} more usable. Some basic features as in model loading during runtime would increase the quality of life for users as well as leveraging an established design language found in existing software.
+Most patterns in biology do not only occur in a two dimensional layer. Adding support for tetrahedral or voxel domains could allow for representation and exploration of more realistic models with thickness. Active-transport is another biological phenomenon that could be a useful tool for modelling. There have also been some extensions to reaction-diffusion such as Kondo's kernels which are a generalization of morphogen movement. Support for this would allow for a wider range of patterns. Allowing for more integration methods may result in higher performance when modelling. Support for CPU multi-threading or distributed computing can also increase the software run-time and productivity of users. 
 
-Conclusion / Discussion
-	Read through
-	Better cotan?
-	Parallelize growth
-	Full feature support for grids
-	A standardized model format... YAML?
-	Input of a mathematical function to define intial vector field?
-	Support for Kondo's kernels
-	Describe editor settings in program architecture section.
+An interesting research area that could be explored more thoroughly is the coupling of domain growth and pattern formation. The only supported operating system is Windows, adding cross-platform support would make \ProgramName{} more usable.
