@@ -1,9 +1,7 @@
-% An Nvidia GTX 850M GPU was used for simulation and rendering.
-
 \chapter{Software implementation}
 
 \section{General requirements and system design}
-There were five main requirements \ProgramName{} was designed to fulfil:
+There were five main requirements \ProgramName{} was designed to fulfill:
 
 \begin{enumerate}
 	\item To be able to simulate reaction-diffusion on grids and arbitrary surfaces. This allows users to test existing reaction-diffusion models on grid domains before simulating on meshes. Mesh support provides a more realistic domain to simulate pattern formation on because it is not restricted to the plane and is better suited for growth. Grids are implemented as textures in the form of 2D arrays. There is a texture for the previous and current state of the simulation with morphogen concentrations associated with each texel. Meshes are implemented as half-edge data structures \citep{Mantyla1988} where each vertex is stored in an array and is associated with a previous and current morphogen concentration. 
