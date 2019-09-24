@@ -6,7 +6,7 @@
 Reaction-diffusion equations are an idealized and abstract representation of reality. They comprise two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations (PDEs). Whose numerical solution requires discretization of time and space. Computation of chemical reactions at a point in space, only depend on the elapsed time and previous concentration. However, the computation of diffusion is more complicated, and depends additionally on the concentrations in the areas adjacent to the point of interest.
 
 \section{Isotropic Diffusion}
-Diffusion is an integral part of natural patterning models. It is the process in which particles of a substance move from high to low concentrations. This change in concentration over space is referred to as a gradient. Diffusion driven by gradients was first explored by Adolf Fick \citep{fick1995liquid}. The diffusion of a chemical concentration $\Morph$ was formalized in 1855 by Fick's second law:
+Diffusion is an integral part of natural patterning models. It is the process in which particles of a substance move from high to low concentrations. This change in concentration over space is referred to as a gradient. Diffusion driven by gradients was first explored by \citet{fick1995liquid}. The diffusion of a chemical concentration $\Morph$ was formalized in 1855 by Fick's second law:
 \begin{equation}
 \label{eq:ficks2ndlaw0}
 	\frac{\partial \Morph}{\partial t} = \Div (D \nabla \Morph).
