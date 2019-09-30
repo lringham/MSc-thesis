@@ -1,7 +1,7 @@
 \chapter{Software implementation}
 
 \section{General requirements and system design}
-There were five main requirements \ProgramName{} was designed to fulfill:
+There were five main requirements \ProgramName{} was designed to fulfil:
 
 \begin{enumerate}
 	\item To be able to simulate reaction-diffusion on grids and arbitrary surfaces. This allows users to test existing reaction-diffusion models on grid domains before simulating on meshes. Mesh support provides a more realistic domain to simulate pattern formation on because it is not restricted to the plane and is better suited for growth. For both domain types, morphogens are stored in two arrays corresponding to the previous and current concentration values. These concentrations are the cells of a grid or the vertices of a mesh. 
@@ -110,18 +110,18 @@ If not painting, the left mouse button can be used to rotate the model and right
 \begin{figure}[p]
 	\centering
 	\includegraphics[width=\columnwidth]{gui.png}	
-	\caption{The available control panels. \textbf{Left:} the control panel for changing GrayScott values as well as collapsible menus for changing parameters for growth, painting, and rendering. \textbf{Middle:} simulation controls allow for saving screenshots, textures, models. \textbf{Right:} program statistics are shown such as the time per frame, vertex count, and total area of the mesh. \textbf{Bottom-Right:} info about the model such as the PDEs used.} 
+	\caption{The available control panels. \textbf{Left:} the control panel for modifying parameters as well as collapsible menus for controlling growth, painting, and rendering behaviour. \textbf{Middle:} simulation controls allow for saving screenshots and textures. \textbf{Right:} program statistics are shown such as the time per frame, cell count, and total area of the domain. \textbf{Bottom-Right:} information about the model such as the PDEs used and selected vertex attributes.} 
 	\label{fig:GUIexample}
 \end{figure}
 
 
 \section{Visualization}
-The user has a choice of visualizing different morphogen concentrations by actual or normalized value. In the latter case, every morphogen concentration is divided by the current largest concentration. The concentration is then mapped onto a colormap consisting of 256 colours. A separate colormap can be specified for each side of the mesh. This feature most useful when hiding the pattern on one side of the mesh. Concentration gradients and the vectors driving anisotropic diffusion can also be visualized as lines (representing vectors) extending from their corresponding vertex. These lines are coloured black at their vertex and transition to green for diffusion vectors and red for gradient vectors as show in \ref{fig:vector_fields}. Wireframe mode allows users to see the underlying triangular geometry of the mesh. This option does not appear in the UI when using a grid domain. For higher quality rendering of models through other software, export of textures is supported as well. The rendering of the mesh is enhanced by a diffuse lighting to highlight the domain curvature. When selected vertices are visualized, the unselected ones will appear faded.
+The user has a choice of visualizing different morphogen concentrations by actual or normalized value. In the latter case, every morphogen concentration is divided by a user provided value. The concentration is mapped onto a colormap to determine the colour the concentration represents. A separate colormap can be specified for each side of the domain. This feature can be used to hide the pattern on one side of the mesh. Concentration gradients and the vectors driving anisotropic diffusion can also be visualized as lines (representing vectors) extending from their corresponding vertex. These lines are coloured black at their vertex and transition to green for diffusion vectors and red for gradient vectors as show in Fig \ref{fig:vector_fields}. Wireframe mode allows users to see the underlying triangular geometry of the domain. The rendering of the mesh is enhanced by a diffuse lighting to highlight the domain curvature and when selected vertices are visualized, the unselected ones will appear faded. Users can export of textures for higher quality rendering of models through other software
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{vector_fields.png}	
-	\caption{\textbf{Left}: Pattern gradient is visualized by lines fading from black to red extending from vertices. \textbf{Right}: The vector field driving anisotropic diffusion is shown by lines fading from black to green extending from vertices.} 
+	\caption{Visualization of vector fields. \textbf{a}: The vector field driving anisotropic diffusion is shown by lines fading from black to green. \textbf{b}: Pattern gradient is visualized by lines fading from black to red.} 
 	\label{fig:vector_fields}
 \end{figure}
 
