@@ -9,16 +9,16 @@
 \chapter{Case Study 2: Snakes}
 
 \section{Biological background}
-Snakes display many pigmentation patterns such as speckles, blotches, longitudinal stripes, and transverse stripes. Some of these patterns are shown in Fig \ref{fig:realSnakePatterns}. Except for scaleless mutants, snakes are entirely covered in protective scales. The top layer of the scales is made of translucent keratin. Under this top layer is where pigmentation patterns are found. Although the keratin is translucent, it may contribute to the pattern's appearance by acting as prisms through which light refracts, producing an iridescent sheen. Scales contribute to pattern formation in other reptiles by limiting diffusion of pigments across the scale boundaries \citep{manukyan2017} \hl{picture?}.
+Snakes display many pigmentation patterns such as speckles, blotches, longitudinal stripes, and transverse stripes. Some of these patterns are shown in Fig \ref{fig:realSnakePatterns}. Except for scaleless mutants, snakes are entirely covered in protective scales. The top layer of the scales is made of translucent keratin. Under this top layer is where pigmentation patterns are found. Although the keratin is translucent, it may contribute to the pattern's appearance by acting as prisms through which light refracts, producing an iridescent sheen. Scales contribute to pattern formation in other reptiles by limiting diffusion of pigments across the scale boundaries \citep{manukyan2017}.
 
-Pigmentation patterns perform many useful functions, such as hiding the snake from prey and helping the snake avoid becoming prey. These functions are fulfilled by camouflaging the snake from potential predators or acting as a brightly coloured warning signal that the snake may be venomous. An example warning pattern is seen on the north American coral snake \hl{picture?}, \textit{Micrurus fulvius}, with its distinctive red, yellow, and black coloured bands. Some non-venomous snakes employ a form of mimicry called Batesian mimicry. This serves as a defence mechanism by displaying a pattern like a venomous snake's pattern. A well-known example of this is the scarlet king snake, \textit{Lampropeltis elapsoides}, which also displays red, black and yellow bands like \textit{M. fulvius}, shown in Fig \ref{fig:realSnakePatterns}.
+Pigmentation patterns perform many useful functions, such as hiding the snake from prey and helping the snake avoid becoming prey. These functions are fulfilled by camouflaging the snake from potential predators or acting as a brightly coloured warning signal that the snake may be venomous. An example warning pattern is seen on the north American coral snake, \textit{Micrurus fulvius}, with its distinctive red, yellow, and black coloured bands. Some non-venomous snakes employ a form of mimicry called Batesian mimicry. This serves as a defence mechanism by displaying a pattern like a venomous snake's pattern. A well-known example of this is the scarlet king snake, \textit{Lampropeltis elapsoides}, which also displays red, black and yellow bands like \textit{M. fulvius}, shown in Fig \ref{fig:realSnakePatterns}.
 
 The regions of a snake that display pigmentation patterns can be roughly partitioned as the head, body, tail, and underbelly. The main patterns of interest in this work occur on the body and tail, which are often indistinguishable. The similarity between patterns found on these regions and those found on the head or underbelly vary between species. It is not uncommon for the head and underbelly to display a different pattern than the body. A notable example is the ring-necked snake, shown in Fig \ref{fig:realSnakePatterns}, which presents a plain color on its back, serving as camouflage. When the ring-necked snake is provoked, it will display its bright red and orange underside to deter predators.
 
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\columnwidth]{snakes.png}
-	\caption{A collection of snakes with interesting patterns. \textbf{top-left:} The tail of a ring-necked snake. \textbf{top-middle:} A scarlet kingsnake. \textbf{top-right:} A Sonoran coral snake. \textbf{bottom-left:} A python. \textbf{bottom-right:} A corn snake. \textcolor{citation-gray}{Photographs: Peter Paplanus (CC BY-NC 2.0), Andrew DuBois (CC BY 2.0), David Jahn (CC BY-SA 2.0), Pixabay (CC0).}}
+	\caption{A collection of snakes with interesting patterns. \textbf{a:} The tail of a ring-necked snake. \textbf{b:} A scarlet kingsnake, \textit{L. elapsoides}. \textbf{c:} An American coral snake, \textit{M. fulvius}. \textbf{d:} A python. \textbf{e:} A corn snake. \textcolor{citation-gray}{Photographs a-e: Peter Paplanus (CC BY-NC 2.0), Andrew DuBois (CC BY 2.0), Norman Benton (CC BY-SA 3.0), Pixabay.}}
 	\label{fig:realSnakePatterns}
 \end{figure}
 
@@ -40,8 +40,6 @@ The chemotaxis-cell model contains a morphogen representing the concentration of
 \section{Model Description}
 I have produced snake patterns using reaction-diffusion on a triangular mesh. Most of my models use different parameters for the ventral scales as there are often a different or no pattern found there. Snake models have been rendered using the 3D computer graphics software Blender. A normal map is used to add a scaly appearance to the triangular mesh, and with two black spheres are used to represent snake eyes. Models A-E use Gray-Scott reaction-diffusion equations, Eqn \ref{eq:grayscottRD}, and the parameter values are found in Table \ref{tab:gsSnakeParameters}. Model F uses the activator-depleted substrate model with saturation, Eqn \ref{eq:ladybugRD}, and its parameters are found in Table \ref{tab:snakeParameters}.
 
-\hl{label each figure a,b,c,d} \hl{better snake scales} \hl{snakes coiled differently?} \hl{anisotropic desc, vec field figure?} \hl{Does the real snake undergo this type of pattern development? If not, why did I use such a complicated model (to produce two lines of spots, other models without two phases probably work too.)}
-
 \newpage
 % first model
 The first snake model displays brightly coloured transverse stripes like that of the Honduran milk snake (\textit{Lampropeltis triangulum hondurensis}). This species is non-venomous but appears similar to other venomous snakes. The initial distribution of morphogens and final pattern are shown in Fig \ref{fig:Snake1}.
@@ -49,7 +47,7 @@ The first snake model displays brightly coloured transverse stripes like that of
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake1.png}
-	\caption{Model of the Honduran milk snake. The morphogen $a$ is visualized where concentration values from low to high are coloured dark orange, black, and bright orange. \textbf{Top-left:} $a$ is set to $1$ on the nose and $0$ elsewhere and $s=1$ everywhere. \textbf{Bottom-left:} The final pattern. \textbf{Right:} An image of a real Honduran milk snake. \textcolor{citation-gray}{Photograph: Douglas Mong}}
+	\caption{Model of the Honduran milk snake. The morphogen $a$ is visualized where concentration values from low to high are coloured dark orange, black, and bright orange. \textbf{a:} $a$ is set to $1$ on the nose and $0$ elsewhere and $s=1$ everywhere. \textbf{b:} The final pattern. \textbf{c:} An image of a real Honduran milk snake. \textcolor{citation-gray}{Photograph: Douglas Mong \textcircled{c}}}
 	\label{fig:Snake1}
 \end{figure}
 
@@ -59,7 +57,7 @@ The next snake model displays a pattern consisting of four black lateral stripes
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake2.png}
-	\caption{Model of the \textit{E. quadrivirgata}. The morphogen $a$ is visualized with low concentration values are coloured brown and high values are black. \textbf{Top-left:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{Bottom-left:} The final pattern. \textbf{Right:} An image of a real \textit{E. quadrivirgata}. \textcolor{citation-gray}{Photograph: Anthony von Plettenberg Laing}}
+	\caption{Model of the \textit{E. quadrivirgata}. The morphogen $a$ is visualized with low concentration values are coloured brown and high values are black. \textbf{a:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{E. quadrivirgata}. \textcolor{citation-gray}{Photograph: Anthony von Plettenberg Laing \textcircled{c}}}
 	\label{fig:Snake2}
 \end{figure}
 
@@ -71,7 +69,7 @@ My model includes growth and adaptive subdivision. There are two phases to patte
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake3.png}
-	\caption{Model of the spotted rock snake. \textbf{Top-left:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots of radius 2 where $a=1$. \textbf{Left-middle:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{Bottom-left:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{Right:} An image of a real spotted rock snake. \textcolor{citation-gray}{Photograph: Tyrone Pingimage}}
+	\caption{Model of the spotted rock snake. \textbf{a:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots of radius 2 where $a=1$. \textbf{b:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{c:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{d:} An image of a real spotted rock snake. \textcolor{citation-gray}{Photograph: Tyrone Ping \textcircled{c}}}
 	\label{fig:Snake3}
 \end{figure}
 
@@ -82,7 +80,7 @@ The common European viper, \textit{Vipera berus}, displays an interesting zig-za
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake4.png}
-	\caption{Model of the European viper. \textbf{Top-left:} The initial distribution of $a$ is randomly chosen from $[.5, 1)$ for each vertex and $s=1$ everywhere. The concentration of $a$ is seen normalized by 3.8 to show the character of the start state pattern. \textbf{Bottom-left:} The final pattern. In this case $a$ normalized by $1.8$. \textbf{Right:} An image of a real \textit{V. berus}. \textcolor{citation-gray}{Photograph: Benny Trapp (CC BY 3.0)}}
+	\caption{Model of the European viper. \textbf{a:} The initial distribution of $a$ is randomly chosen from $[.5, 1)$ for each vertex and $s=1$ everywhere. The concentration of $a$ is seen normalized by 3.8 to show the character of the start state pattern. \textbf{b:} The final pattern. In this case $a$ normalized by $1.8$. \textbf{c:} An image of a real \textit{V. berus}. \textcolor{citation-gray}{Photograph: Benny Trapp (CC BY 3.0)}}
 	\label{fig:Snake4}
 \end{figure}
 
@@ -93,7 +91,7 @@ Another snake model is based on the transverse stripes of a southern coral snake
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake5.png}
-	\caption{Model of the \textit{M. frontalis}. \textbf{Top-left:} Initially $s=1$ and $a=0$ everywhere except on the nose, where $a=1$. $a$ is visualized from red to black to white and is normalized by $0.520$. \textbf{Middle-left:} end of phase 1 where a basic stripe pattern has formed. \textbf{Bottom-left:} The final pattern after growth. Black stripes have appeared in-between the previous stripes. \textbf{Right:} A picture of a real \textit{M. frontalis}. \textcolor{citation-gray}{Photograph: William Quatman (CC BY-SA 2.0)}}
+	\caption{Model of the \textit{M. frontalis}. \textbf{a:} Initially $s=1$ and $a=0$ everywhere except on the nose, where $a=1$. $a$ is visualized from red to black to white and is normalized by $0.520$. \textbf{b:} end of phase 1 where a basic stripe pattern has formed. \textbf{c:} The final pattern after growth. Black stripes have appeared in-between the previous stripes. \textbf{d:} A picture of a real \textit{M. frontalis}. \textcolor{citation-gray}{Photograph: William Quatman (CC BY-SA 2.0)}}
 	\label{fig:Snake5}
 \end{figure}
 
@@ -104,7 +102,7 @@ The California kingsnake (\textit{Lampropeltis californiae}) contains white and 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake6.png}
-	\caption{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{Top-left:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{Bottom-left:} The final pattern. \textbf{Right:} An image of a real \textit{L. californiae}. \textcolor{citation-gray}{Photograph: livingalongsidewildlife.com}} %https://livingalongsidewildlife.com/?p=1703
+	\caption{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textcolor{citation-gray}{Photograph: Mary G. \textcircled{c}}} %https://livingalongsidewildlife.com/?p=1703
 	\label{fig:Snake6}
 \end{figure}
 
