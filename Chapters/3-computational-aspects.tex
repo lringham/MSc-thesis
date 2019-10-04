@@ -12,7 +12,7 @@ Diffusion is an integral part of natural patterning models. It is the process in
 	\frac{\partial \Morph}{\partial t} = \Div (D \nabla \Morph).
 \end{equation}
 	
-$\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $u$ is a scalar field. Given Eqn \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient measures the difference between the concentration at that point and the average of the neighbouring concentrations. This divergence measurement is proportional to the change in concentration due to diffusion. But, particle size and domain porosity also affect the diffusion rate. This is represented as the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic and we can simplify Eqn \ref{eq:ficks2ndlaw0} as:
+$\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $u$ is a scalar field. Given Eqn. \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient measures the difference between the concentration at that point and the average of the neighbouring concentrations. This divergence measurement is proportional to the change in concentration due to diffusion. But, particle size and domain porosity also affect the diffusion rate. This is represented as the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic and we can simplify Eqn. \ref{eq:ficks2ndlaw0} as:
 \begin{equation}
 \label{eq:ficks2ndlaw1}
 	\frac{\partial \Morph}{\partial t} = D \Lap \Morph.
@@ -95,7 +95,7 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \subsection{Diffusion on arbitrary triangular meshes}
 I represent morphogens on a triangular mesh by assigning them to vertices. But, as with grid based domains, each morphogen concentration is actually associated with an area. The area partitioning on a mesh is the dual cell. This area depends on the mesh triangulation, and can change per vertex. To allow for easy neighbour identification and area calculation, I represent the triangular mesh as a half-edge data structure \citep{Mantyla1988}. 
 
-To build this data structure, each edge in the mesh is replaced by two half-edges. A single half-edge has a pointer to the next half-edge in the same face, as shown in Fig \ref{fig:halfEdgeMesh}. Also, it has a pointer to the vertex that it originates from and a pointer to the complementing half-edge. Each vertex stores a scalar representing the area of the dual cell. For our computation, this area is the sum of one third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
+To build this data structure, each edge in the mesh is replaced by two half-edges. A single half-edge has a pointer to the next half-edge in the same face, as shown in Fig. \ref{fig:halfEdgeMesh}. Also, it has a pointer to the vertex that it originates from and a pointer to the complementing half-edge. Each vertex stores a scalar representing the area of the dual cell. For our computation, this area is the sum of one third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
 
 \begin{figure}[H]
 	\centering
@@ -116,7 +116,7 @@ This states that the Laplacian at vertex $i$ of the scalar field $\Morph$, is th
 	\label{eq:cotanLaplacian}
 \end{equation}
 
-The cotangent weights are computed from the angles opposite the current edge. This weight can be derived from the ratio of the edge length of the dual cell and the current edge's length. The current edge length is an inverse coefficient of the morphogen gradient between $i$ and $j$. The length of the dual cell edge represents how much of an interface between the areas exists. When this is larger, diffusion increases. These edges and associated angles are shown in Fig \ref{fig:dualMesh}. To find the cotangent Laplacian for the entire mesh we evaluate Eqn \ref{eq:cotanLaplacian} at each vertex. A rigorous derivation is given in \citep{Crane2013DGP}. The drawback of this Laplacian compared to the continuous version is that the cotangent weights can be negative. This occurs when angles are greater than $90^\circ$. Consequently, care must be taken when meshing your domain.
+The cotangent weights are computed from the angles opposite the current edge. This weight can be derived from the ratio of the edge length of the dual cell and the current edge's length. The current edge length is an inverse coefficient of the morphogen gradient between $i$ and $j$. The length of the dual cell edge represents how much of an interface between the areas exists. When this is larger, diffusion increases. These edges and associated angles are shown in Fig. \ref{fig:dualMesh}. To find the cotangent Laplacian for the entire mesh we evaluate Eqn. \ref{eq:cotanLaplacian} at each vertex. A rigorous derivation is given in \citep{Crane2013DGP}. The drawback of this Laplacian compared to the continuous version is that the cotangent weights can be negative. This occurs when angles are greater than $90^\circ$. Consequently, care must be taken when meshing your domain.
 
 \begin{figure}[H]
 	\centering
@@ -141,7 +141,7 @@ This matrix is used to compute diffusion when given a vector of morphogen concen
 \[
 	Lu = \Lap u.
 \]
-This Laplacian is more complicated than before and a complete derivation is given in \citep{AndreuxMathieu2014}. Again, $i$ and $j$ are vertices. $e_i$ and $e_j$ are edges, as shown in Fig \ref{fig:meshLaplacian}. $D^\perp = Q^T D Q$ where $Q$ is a $90^\circ$ rotation matrix about the face normal. This rotation will be used get a vector in the direction of a face gradient. The face gradient vector is then transformed by our diffusion tensor, $D$. The amount that this vector is transformed determines the strength of the anisotropy. 
+This Laplacian is more complicated than before and a complete derivation is given in \citep{AndreuxMathieu2014}. Again, $i$ and $j$ are vertices. $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $D^\perp = Q^T D Q$ where $Q$ is a $90^\circ$ rotation matrix about the face normal. This rotation will be used get a vector in the direction of a face gradient. The face gradient vector is then transformed by our diffusion tensor, $D$. The amount that this vector is transformed determines the strength of the anisotropy. 
 
 $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_i$ and $D^\perp e_j$. Which ensures that if the $D^{\perp} = I$ then $\gamma = \alpha$ and we have regular isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D$. 
 
@@ -167,7 +167,7 @@ Adaptive subdivision is a technique used to only subdivide triangles with an are
 	\label{fig:recursiveSubdiv}
 \end{figure}
 
-To obtain optimal incremental triangulation that tends to produce good quality triangles, we use longest-edge bisection \citep{RIVARA1998}. In this method, faces are only ever subdivided with respect to their longest edge. A face is subdivided when its area grows past a threshold. If there is an adjacent face to the subdivided edge, we now must subdivide that face to keep the mesh triangular. We recursively apply longest-edge bisection to the adjacent face until its longest edge corresponds to the first longest edge. This recursive subdivision may produce more non triangle faces that will need to be processed in the same way. This process is shown in Fig \ref{fig:recursiveSubdiv}. Upon subdivision of a face, the longest edge is bisected with a new vertex. The concentration assigned to the new vertex is the average of the neighbouring concentration values that shared the edge.
+To obtain optimal incremental triangulation that tends to produce good quality triangles, we use longest-edge bisection \citep{RIVARA1998}. In this method, faces are only ever subdivided with respect to their longest edge. A face is subdivided when its area grows past a threshold. If there is an adjacent face to the subdivided edge, we now must subdivide that face to keep the mesh triangular. We recursively apply longest-edge bisection to the adjacent face until its longest edge corresponds to the first longest edge. This recursive subdivision may produce more non triangle faces that will need to be processed in the same way. This process is shown in Fig. \ref{fig:recursiveSubdiv}. Upon subdivision of a face, the longest edge is bisected with a new vertex. The concentration assigned to the new vertex is the average of the neighbouring concentration values that shared the edge.
 
 \begin{algorithm}[!ht]
   \KwIn{Triangle t0}
