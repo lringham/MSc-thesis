@@ -74,36 +74,12 @@ P.P. and R.G. designed research, L.R. and P.P. created mathematical model and pe
 \section{Declaration of interests}
 L.R., P.P. and R.G. have no conflict to declare
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\columnwidth]{Realpso.png}
-	\label{fig:pso1}
-\end{figure}
-		
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\columnwidth]{graph.png}
-	\label{fig:pso2}
-\end{figure}
-	
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\columnwidth]{Map.png}
-	\label{fig:pso3}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\columnwidth]{development.png}
-	\label{fig:pso4}
-\end{figure}
-
 \section{Transparent Methods}
 \subsection{Source of information on the patterns of psoriatic lesions}
-Patterns of skin lesions in psoriasis have been reviewed using the “(psoriasis AND clinical AND (pattern OR shapes)) OR (clinical spectrum AND psoriasis)” search phrases in PubMed. We retrieved 715 papers and after reviewing the titles and abstracts we selected 40 relevant papers (Ayala, 2007; Baker, 1971; Balato et al., 2009; Beylot et al., 1979; Buxton, 1987; Champion, 1986; Chau et al., 2017; Christophers, 2001; Cordoro, 2008; Di Meglio et al., 2014; Fernandes et al., 2011; Gropper, 2001; Hernández-Vásquez et al., 2017; Hodge and Comaish, 1977; Jablonska et al., 2000; Kumar et al., 1995; Lal, 1966; Lebwohl, 2003; Magro and Crowson, 1997; Meier and Sheth, 2009; Melski et al., 1983; Menter and Barker, 1991; M G et al., 2013; Mitchell, 1962; Morris et al., 2001; Naldi and Gambini, 2007; de Oliveira et al., 2010; Picciani et al., 2017; Rasmussen, 1986; Raychaudhuri et al., 2014; Reich et al., 2009; Saleh and Tanner, 2018; Schön et al., 2005; Seneschal et al., 2012; Stankier, 1974; Stern, 1997; Talwar et al., 1995; Whyte and Baughman, 1964; Wollenberg and Eames, 2011; Ziemer et al., 2009). We also reviewed 482 clinical photographs of psoriasis in the database of the Department of Dermatology University of Copenhagen and the Division of Dermatology, University of Alberta. We have excluded linear psoriasis, psoriatic erythroderma, and guttate psoriasis from our analyses. The linear pattern is the isomorphic (Köbner) response to trauma and does not emerge spontaneously (Melski et al., 1983). Erythroderma manifests itself as diffuse redness and inflammation of the entire skin, and thus lacks features of a pattern. Guttate psoriasis is considered to be a separate clinical type of the disease (Rasmussen, 1986; Raychaudhuri et al., 2014; Whyte and Baughman, 1964), but it is not distinguishable from papular or nummular psoriasis based on lesion morphology. 
+Patterns of skin lesions in psoriasis have been reviewed using the “(psoriasis AND clinical AND (pattern OR shapes)) OR (clinical spectrum AND psoriasis)” search phrases in PubMed. We retrieved 715 papers and after reviewing the titles and abstracts we selected 40 relevant papers \citep{ayala2007, baker1971, balato2009, beylot1979, buxton1987, champion1986, chau2017, christophers2001, cordoro2008, dimeglio2014, fernandes2011, gropper2001, hernandez2017, hodge1977, jablonska2000, kumar1995, lal1966, lebwohl2003, magro1997, meier2009, melski1983, menter1991, gopal2013, mitchell1962, morris2001, naldi2007, de2010, picciani2017, rasmussen1986, raychaudhuri2014, reich2009, saleh2018, schon2005, seneschal2012, stankier1974, stern1997, talwar1995, whyte1964, wollenberg2011, ziemer2009}. We also reviewed 482 clinical photographs of psoriasis in the database of the Department of Dermatology University of Copenhagen and the Division of Dermatology, University of Alberta. We have excluded linear psoriasis, psoriatic erythroderma, and guttate psoriasis from our analyses. The linear pattern is the isomorphic (Köbner) response to trauma and does not emerge spontaneously \citep{melski1983}. Erythroderma manifests itself as diffuse redness and inflammation of the entire skin, and thus lacks features of a pattern. Guttate psoriasis is considered to be a separate clinical type of the disease \citep{rasmussen1986, raychaudhuri2014, whyte1964}, but it is not distinguishable from papular or nummular psoriasis based on lesion morphology. 
 
 \subsection{Approach to computer modelling}
-The progress and treatment of the disease was simulated by numerically solving the initial value problem for the reaction-diffusion equations using the forward Euler method. Simulations have been implemented using a custom program written in C++ using the Windows Visual Studio programming environment (available on request from the first author). To facilitate interactive exploration of the models and their parameters, computation has been accelerated (carried out in a parallel fashion) on an Nvidia GeForce GTX 850M Graphical Processing Unit, with arrays representing the previous and current state of the simulation in each step implemented as textures (Dematté and Prandi, 2010; Harris et al., 2005). The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table S1. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table S3 for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy. 
+The progress and treatment of the disease was simulated by numerically solving the initial value problem for the reaction-diffusion equations using the forward Euler method. Simulations have been implemented using a custom program written in C++ using the Windows Visual Studio programming environment (available on request from the first author). To facilitate interactive exploration of the models and their parameters, computation has been accelerated (carried out in a parallel fashion) on an Nvidia GeForce GTX 850M Graphical Processing Unit, with arrays representing the previous and current state of the simulation in each step implemented as textures \citep{dematte2010, harris2005}. The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table S1. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table S3 for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy. 
 
 \section{Supplementary Equations}
 To show that the results obtained for the two substance system in Fig. 2B also hold for the three-substance system in Fig. 2A, we have constructed a simulation model corresponding directly to Fig. 2A. The equations have the form: 
@@ -118,9 +94,34 @@ To show that the results obtained for the two substance system in Fig. 2B also h
 Parameter values resulting in the different pattern classes shown in Fig. 4 are collected in Table S3.
 
 \section{Supplementary Tables and Figures}
-Table S1. Diffusion coefficients for the three cytokines involved in our model using the empirical formula $D_{tiss}=1.778\text{x}10^{-4}\text{xMW}^{-0.75}$ (Swabb et al., 1974) (Equation F in their paper). The actual rates of macromolecule transport in a tissue may differ from these estimates, as other factors may also play a role.  These include  convection, which may run in the direction opposite to the concentration-gradient-driven diffusion (Swabb et al., 1974), and cell proliferation, which may be relevant to the transport of cytokines otherwise mostly confined to their mother cells.
 
-Table S2. Parameter values used to generate the six classes of psoriasis plaque patterns shown in Fig. 4. In all simulations $k=1, \rho_{a0}=0, D_a=0.25, \text{ and } D_s=0.5$.  Simulations were carried out using forward Euler methods with timestep $dt=0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Molecule}  & \textbf{MW [kDa]} & $D_{tiss}[\mu m^2 / s]$ \\ \hline 
+	TNF$\alpha$ & 26   & 154.4 \\ \hline
+	IL17        & 35   & 123.6 \\ \hline
+	IL23        & 54.1 &  89.1 \\ \hline
+	\end{tabular}
+	\caption {Diffusion coefficients for the three cytokines involved in our model using the empirical formula $D_{tiss}=1.778\text{x}10^{-4}\text{xMW}^{-0.75}$ \citep{swabb1974}(Equation F in their paper). The actual rates of macromolecule transport in a tissue may differ from these estimates, as other factors may also play a role.  These include  convection, which may run in the direction opposite to the concentration-gradient-driven diffusion \citep{swabb1974}, and cell proliferation, which may be relevant to the transport of cytokines otherwise mostly confined to their mother cells.}
+	\label{tab:S1}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|l|l|}
+	\hline
+	\textbf{Name}      & \textbf{Papular} & \textbf{Small Plaque} & \textbf{Large Plaque} & \textbf{Annular} & \textbf{Rosette} & \textbf{Reniform} \\ \hline
+                   & 0.046            & 0.084                 & 0.091                 & 0.001            & 0.009            & 0.011             \\ \hline
+(before treatment) & 0.116            & 0.141                 & 0.148                 & 0.028            & 0.056            & 0.057             \\ \hline
+(during treatment) & 0.120            & 0.1467                & 0.153                 & 0.04             & 0.0625           & 0.065             \\ \hline
+maxSteps           & 12,620           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\ \hline
+treatSteps         & 12,000           & 12,000                & 140,000               & 1,700            & 2,700            & 13,000            \\ \hline
+	\end{tabular}
+	\caption{Parameter values used to generate the six classes of psoriasis plaque patterns shown in Fig. 4. In all simulations $k=1, \rho_{a0}=0, D_a=0.25, \text{ and } D_s=0.5$.  Simulations were carried out using forward Euler methods with timestep $dt=0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations.}
+	\label{tab:S2}
+\end{table}
 
 Table S3. Ranges of parameter values resulting in patterns visually similar to those shown in Figure 4. For each varied parameter all remaining values are as in Table S2.
 
@@ -140,7 +141,7 @@ Simulations were carried out using forward Euler methods with timestep $dt = 0.4
 
 Figure S1 (related to Figure 1). Morphological details of different patterns of skin lesions in psoriasis. \textbf{A:} Psoriatic papule. Note that the scale and the thickness is accentuated in the center, indicating that the inflammatory reaction is most intense in the center of the lesion. \textbf{B:} Mature psoriasis plaque showing more activity in the periphery (open arrowheads) than in the center. \textbf{C:} Resolution of psoriatic plaques during treatment. Note central clearing of the plaque and residual peripheral activity producing a circinate pattern. \textbf{D:} Internal patterning of the plaques showing polygonal faceting. \textbf{E:} Merging circinate lesions. Annular plaques merge into polycyclic structures with clearance of the cross-sectioning parts of the lesions (open arrowhead). \textbf{F:} Reniform pattern on mucosal surface of the tongue (lingua geographica, left) and on the skin (right). Yellow solid arrows show the notched part of the lesion, black open arrowheads show the curled part at the notch.
 
-Figure S2. Example of a pattern generated de novo using the Gray-Scott model (Equation 2) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06,  D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogenous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.
+Figure S2. Example of a pattern generated de novo using the Gray-Scott model (Equation 2) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06,  D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogeneous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.
 
 \section{Supplementary Movies M1-M6}
 These movies complement Figure 4, by showing full simulations rather than select frames.
