@@ -68,6 +68,12 @@
   \usepackage{bm}
   \usepackage[section]{placeins}
   
+  
+% used for multi-line content in a single cell
+\renewcommand\theadfont{\normalsize}
+\renewcommand\theadalign{bl}
+%%%  
+  
 \newcommand{\incfig}[1]{%
     \def\svgwidth{0.7\columnwidth}
     \import{./Images/}{#1.pdf_tex}

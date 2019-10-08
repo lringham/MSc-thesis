@@ -67,7 +67,7 @@ We observe (see also \citep{yamamoto2010, yamamoto2011}) that Equations (\ref{eq
 \[ k=1,\text{   }\rho_{a0}=0,\text{   }\mu_a=f+c,\text{   }\rho_{s0}=f,\text{ and }\mu_s=f.\]
 The parameter space and details of six patterns obtained for specific parameter values are shown in Fig. \ref{fig:3}. These patterns correspond visually to the six types of psoriasis identified in patients (Fig. \ref{fig:1}). Note that, consistent with the common assumption of the Gray-Scott reaction-diffusion model, the ratio of the diffusion rates of substrate and activator was set to $D_s:D_a=2$ \citep{pearson1993}. This is a departure from the much larger ratios typically used in reaction-diffusion models \citep{diego2018, gierer1972, kondo2010, lengyel1991, marcon2016, vastano1987}. On biochemical grounds, this departure is justified by the commensurate, small size of the three cytokines, implying comparable diffusion rates (see Table \ref{tab:S1}). The small ratio of diffusion rates does not preclude Turing instability and spontaneous pattern emergence for carefully chosen values of the remaining parameters (see Fig. \ref{fig:S2}). Nevertheless, the  parameter values leading to the formation of plaque patterns are compatible with the ``filtering” operation mode, in which the patterns do not emerge spontaneously in a homogeneous medium and elaborate initial pre-patterns instead \citep{diego2018, lee1993, muratov2000, pearson1993}. This latter mode is more pertinent to the development of psoriasis plaques, which is initiated by an activated T$_{\text{H}}17$ cell in the skin (Fig. \ref{fig:2}D).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.65]{Map4.pdf}
 	\caption{Parameter space of the model and selected patterns. Top left: A comprehensive representation of the range of patterns generated using Equations \ref{eq:2} for different values of the synthetic parameters c and f. \textbf{A-D}: magnified views of patterns generated using select parameter values. These labels and patterns correspond to the patterns of psoriatic skin lesions identified in Fig. \ref{fig:1}.}
@@ -81,7 +81,9 @@ Finally, to verify that the modeling results do not critically depend on the red
 
 \begin{figure}[p]
 	\centering
-	\includegraphics[scale=0.75]{development.pdf}
+	\resizebox{\columnwidth}{!}{
+	\includegraphics[scale=1]{development.pdf}
+	}
 	\caption{The simulated progression of different types of psoriatic lesions. Rows 1-3: Development of the lesions. The earliest stage of a papule (Row 1) consists of randomly distributed small seed areas. Later forms of the disease (Rows 2 and 3) correspond to patterns identified in Figs. 1 and 3. Rows 4-6: The effect of treatment simulated by increasing the decay rate of IL-17 and TNF$\alpha$. Note that the treatment does not result in a simple reversal of the original pattern development, but produces residual lesions with more activity at the margin of the plaques (Row 5). In some instances, residual papules persist (Row 6).}
 	\label{fig:4}
 \end{figure}
@@ -114,7 +116,7 @@ The progress and treatment of the disease was simulated by numerically solving t
 To show that the results obtained for the two substance system in Fig. \ref{fig:2}B also hold for the three-substance system in Fig. \ref{fig:2}A, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A. The equations have the form: 
 \begin{equation}
 	\begin{aligned}
-		\frac{\partial[TNF\alpha]}{\partial t}&=\rho_{[TNF\alpha]0}-\mu_{[TNF\alpha]}[TNF\alpha]+\eta[IL17]-k[TNF\alpha]^2[IL23]+D_{[TNF\alpha]}\Lap[TNF\alpha]\\
+		\frac{\partial[TNF\alpha]}{\partial t}&=\rho_{[TNF\alpha]0}-\mu_{[TNF\alpha]}[TNF\alpha]+\eta[IL17]-k[TNF\alpha]^2[IL23] \\ & \quad{} + D_{[TNF\alpha]}\Lap[TNF\alpha]\\
 		\frac{\partial[IL17]}{\partial t}     &=\rho_{[IL17]0}     -\mu_{[IL17]}[IL17]                     +k[TNF\alpha]^2[IL23]+D_{[IL17]}\Lap[IL17]\\
 		\frac{\partial[IL23]}{\partial t}     &=\rho_{[IL23]0}     -\mu_{[IL23]}[IL23]                     -k[TNF\alpha]^2[IL23]+D_{[IL23]}\Lap[IL23]
 	\end{aligned}
@@ -134,11 +136,6 @@ Parameter values resulting in the different pattern classes shown in Fig. \ref{f
 	\caption {Diffusion coefficients for the three cytokines involved in our model using the empirical formula $D_{tiss}=1.778\text{x}10^{-4}\text{xMW}^{-0.75}$ \citep{swabb1974}(Equation F in their paper). The actual rates of macromolecule transport in a tissue may differ from these estimates, as other factors may also play a role.  These include  convection, which may run in the direction opposite to the concentration-gradient-driven diffusion \citep{swabb1974}, and cell proliferation, which may be relevant to the transport of cytokines otherwise mostly confined to their mother cells.}
 	\label{tab:S1}
 \end{table}
-
-% used for multi-line content in a single cell
-\renewcommand\theadfont{\normalsize}
-\renewcommand\theadalign{bl}
-%%%
 
 \begin{table}[!htb]
 	\centering
