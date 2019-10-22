@@ -6,7 +6,7 @@ To humans, flowers are a symbol of natural beauty and their spots and stripes se
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\columnwidth]{flowers}
-	\caption{Examples of pigment patterns on real flowers. \textcolor{citation-gray}{Photographs: courtesy of Przemyslaw Prusinkiewicz}}
+	\caption{Examples of pigment patterns on real flowers. \textit{Photographs: courtesy of Przemyslaw Prusinkiewicz}}
 	\label{fig:realFlowers}
 \end{figure}
 A clonal mosaic model was used to procedurally generate patterns found in the plant kingdom \citep{binsfeld2011}. Specifically, they produce spot patterns found on mushrooms, the stripes on watermelons, and the blotches on plants such as the shrub \textit{Codiaeum variegatum}. In this model, individual plant cells are represented discretely and are separated into two types, foreground and background. Each type contains its own set of parameters that consist of colour, division rate, cell mobility, adhesion between cell types, and chance to switch types. Cells are represented as randomly distributed points over a user defined mesh. The type of each cell may also be random, or user defined. During simulation, a given cell will produce a child cell based on the parent's division rate. This child cell may inherit its parent's type or change types based on its parent's probability to change types. These cells repel each other and spread out over the domain. For a given cell, the strength of this repulsion is based on the distance between cells, and the number of cells surrounding it, as well as the cell adhesion factor between cell types. Cell division and movement is repeatedly calculated, simulating plant aging and producing a uniformly covered domain. To render the result, the cells are triangulated to create a new mesh representation of the original domain. 
@@ -24,7 +24,7 @@ Reaction-diffusion has been used to simulate petal patterns on a grid \citep{Zho
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{monkeyflower_furrows.png}
-	\caption{Image of a monkeyflower covered in raindrops. The black arrows denote regions where pattern formation occurs. \textcolor{citation-gray}{Photograph: James Gaither (CC BY-NC-ND 2.0)}}
+	\caption{Image of a monkeyflower covered in raindrops. The black arrows denote regions where pattern formation occurs. \textit{Photograph: James Gaither (CC BY-NC-ND 2.0)}}
 	\label{fig:monkeyflower_real}
 \end{figure}
 
@@ -59,7 +59,7 @@ This flower displays orange and yellow stripes across the flower petals. To mode
 \begin{figure}[p]
 	\centering
 	\includegraphics[width=\columnwidth]{misc_flowers.png}
-	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} orchid, koleria, foxglove, and orchid. \textcolor{citation-gray}{Photographs \textbf{a,d}: courtesy of Przemyslaw Prusinkiewicz; \textbf{b,c}: courtesy of pixabay.com}}
+	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} orchid, koleria, foxglove, and orchid. \textit{Photographs \textbf{a,d}: courtesy of Przemyslaw Prusinkiewicz; \textbf{b,c}: courtesy of pixabay.com}}
 	\label{fig:miscFlowers}
 \end{figure}
 
