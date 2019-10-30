@@ -112,7 +112,7 @@ To compute diffusion on an arbitrary triangular mesh, we need a discrete Laplaci
 This states that the Laplacian at vertex $i$ of the scalar field $\Morph$, is the sum of the weighted differences between the concentration at $i$, $\Morph_i$, and each neighbouring concentrations $\Morph_j$. The weight is $w_{ij}$, each edge is denoted $i \sim j$, and the area associated with $i$ is $A$. We divide the sum by $A$ to get the concentration at the vertex, instead of the area. The choice of weight determines the behaviour of the Laplacian. It has been shown that no discretization maintains all the properties of the continuous Laplacian \citep{wardetzky2007}. The most common weighting used is the cotangent Laplacian:
 
 \begin{equation}
-	(\Lap{} \Morph)_i = \frac{1}{2A} \sum_{i \sim j} (cot(\alpha) + cot(\beta)) (\Morph_i - \Morph_j).
+	(\Lap{} \Morph)_i = \frac{1}{2A} \sum_{i \sim j} (\cot{\alpha} + \cot{\beta)} (\Morph_i - \Morph_j).
 	\label{eq:cotanLaplacian}
 \end{equation}
 
@@ -132,8 +132,8 @@ To simulate anisotropic diffusion on a triangular mesh, each vertex is assigned 
 \[ 
    L_{ij} =
    \begin{cases} 
-      -\frac{1}{2A}\sum\limits_{t} \frac{D^\perp e_i}{\norm{e_i}} \cdot \frac{e_i}{\norm{e_i}}(cot(\alpha)+cot(\theta))  & i = j \\
-      \frac{1}{2A}(\Gamma \frac{cos(\gamma)}{sin(\alpha)} + \Xi\frac{cos(\xi)}{sin(\beta)})   & i \sim j \\
+      -\frac{1}{2A}\sum\limits_{t} \frac{D^\perp e_i}{\norm{e_i}} \cdot \frac{e_i}{\norm{e_i}}(\cot{\alpha}+\cot{\theta})  & i = j \\
+      \frac{1}{2A}(\Gamma \frac{\cos{\gamma}}{\sin{\alpha}} + \Xi\frac{\cos{\xi}}{\sin{\beta}})   & i \sim j \\
       0 & otherwise
    \end{cases}
 \]

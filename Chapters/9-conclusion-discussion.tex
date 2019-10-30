@@ -1,11 +1,42 @@
 \chapter{Conclusions}
-\section{Summary}
+\section{Contributions}
 
-In this thesis I have introduced \ProgramName{}, an environment for quick and efficient authoring of reaction-diffusion models. To create a model, users specify their equations and parameters in a text file. These models are then simulated by using parallelized computation on the GPU. \ProgramName{} also allows for expression of more complex phenomena through support of anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision. This can be used to create textures or animations of pattern development for use in other computer graphics applications such as video games, movies, and rendering. Another application of this software is in a scientific setting, allowing a user to express and test their hypotheses easily. Observations of morphogen interaction seen in nature can be modelled and experimented with.
+%%%%% Contributions
+% need to elaborate on contributions
+%	wrote convenient, fast, operates in different modes
+%%%%%
+In this thesis, I have introduced \ProgramName{}, an environment for quick and efficient authoring and simulation of reaction-diffusion models on grids and triangulated manifolds. To create a model, users specify their equations and parameters in a text file. These models are then simulated on the CPU or by using parallelized computation on the GPU. \ProgramName{} provides features like anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision to allow for creation of patterns beyond the basic. This can be used to create textures or animations of pattern development for use in other computer graphics applications such as video games and films. \ProgramName{} also has applications in a scientific setting, allowing a user to express and test their biological modelling hypotheses easily. Observations of morphogen interaction seen in nature can be modelled and experimented with.
 
-Using \ProgramName{}, I have produced models of natural patterns on grids and triangular meshes in a series of case studies. The first study models patterns found on the elytra of ladybugs. Spot, stripe, and loop patterns that resemble those found on real ladybug species are simulated on triangular meshes. The next study simulates pigmentation patterns seen on snakes. I have used growth and anisotropic diffusion to orient patterns on snake meshes. Flowers are the subject of my third study. Non-homogeneous parameters and anisotropic diffusion facilitate creation of flower petal patterns. This includes a model of the monkeyflower based on existing research into protein iterations. Lastly, a biologically motivated model of the autoimmune disease psoriasis was made. By considering the interactions and diffusion of cytokines TNF$\alpha$, IL17, and IL23 I produced many psoriasis patterns that patients exhibit.
+%%%%% what is new and interesting to say about each case study?
+Using \ProgramName{}, I have produced models of natural patterns on grids and triangular meshes in a series of case studies. 
+
+%   1. lady bugs done on arbitrary surfaces
+The first study is concerned with simulating patterns found on the elytra of ladybugs. Spot, stripe, and loop patterns that resemble those found on real ladybug species are simulated on triangular meshes. 
+
+%   2. snakes modls use featuers and guidance from other papers to produce patterns on snakes
+%   be more specific about how it is related to what is in the literature
+The next study is concerned with pigmentation patterns seen on snakes. I have used growth and anisotropic diffusion to orient patterns on snake meshes. 
+
+%   3. flowers are largely unknown, performed for the first time for orchids and so on
+The third study is concerned with simulating flower petal patterns. Non-homogeneous parameters and anisotropic diffusion facilitate the creation of flower petal patterns. This includes a model of the monkeyflower based on existing research into protein iterations. 
+
+%   4. psoriasis is a venture into the domain of medicine, 
+%   trying to look into patterns coming from a disease
+%   may offer a path to understaning psoriasis better
+In the final case study, a biologically-motivated model of the autoimmune disease psoriasis was made. By considering the interactions and diffusion of cytokines TNF$\alpha$, IL17, and IL23 I produced many psoriasis patterns that patients exhibit.
+
+
+
+
 
 \section{Future Work}
-Most patterns in biology do not only occur in a two dimensional layer. Adding tetrahedral or voxel domains could allow for representation and exploration of domains with thickness. Active-transport is another biological phenomenon that could be a useful feature in \ProgramName{}. There have also been some extensions to reaction-diffusion such as Kondo's kernels which are a generalization of morphogen movement. Kernels would allow for a wider range of patterns. Support for CPU multi-threading or distributed computing would increase the software performance and productivity of users. 
+%%%%% Future Work - unorganized
+%   Two catagory of things, software issues and extensions to RD
+% start with coupling of growth and reaction-diffusion
+% basic grammar: most, often
+% most patterns are occuring on the surface, not in 3D. 
+%%%%%
 
-An interesting research area that could be explored more thoroughly is the coupling of domain growth and pattern formation. Currently the only supported operating system is Windows, adding cross-platform support would allow \ProgramName{} to reach a wider user base.
+Most patterns in biology do not only occur in a two-dimensional layer. Adding tetrahedral or voxel domains could allow for representation and exploration of domains with thickness. Active-transport is another biological phenomenon that could be a useful feature in \ProgramName{}. There have also been some extensions to reaction-diffusion such as Kondo's kernels which are a generalization of morphogen movement. Kernels would allow for a wider range of patterns. Support for CPU multi-threading or distributed computing would increase the software performance and productivity of users. 
+
+An interesting research area that could be explored more thoroughly is the coupling of domain growth and pattern formation. Currently, the only supported operating system is Windows, adding cross-platform support would allow \ProgramName{} to reach a wider user base.
