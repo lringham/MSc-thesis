@@ -1,42 +1,16 @@
 \chapter{Conclusions}
 \section{Contributions}
-
-%%%%% Contributions
-% need to elaborate on contributions
-%	wrote convenient, fast, operates in different modes
-%%%%%
 In this thesis, I have introduced \ProgramName{}, an environment for quick and efficient authoring and simulation of reaction-diffusion models on grids and triangulated manifolds. To create a model, users specify their equations and parameters in a text file. These models are then simulated on the CPU or by using parallelized computation on the GPU. \ProgramName{} provides features like anisotropic diffusion, non-homogeneous parameters, and domain growth with adaptive subdivision to allow for creation of patterns beyond the basic. This can be used to create textures or animations of pattern development for use in other computer graphics applications such as video games and films. \ProgramName{} also has applications in a scientific setting, allowing a user to express and test their biological modelling hypotheses easily. Observations of morphogen interaction seen in nature can be modelled and experimented with.
 
-%%%%% what is new and interesting to say about each case study?
-Using \ProgramName{}, I have produced models of natural patterns on grids and triangular meshes in a series of case studies. 
+Using \ProgramName{}, I have produced models of natural patterns on grids and triangular meshes in a series of case studies. The first study concerns simulating ladybug elytra patterns. These patterns are composed of spots, stripes, and loops and are coloured in vivid red, black, brown, and yellow. To represent the elytra, I used a triangular mesh. Using a mesh provides a flexible and natural representation of the elytra's curvature and shape compared to grid-based simulations. Pattern formation occurs directly on the mesh, avoiding any mapping distortion. The colour of the simulated patterns was chosen by referencing real ladybug images.
 
-%   1. lady bugs done on arbitrary surfaces
-The first study is concerned with simulating patterns found on the elytra of ladybugs. Spot, stripe, and loop patterns that resemble those found on real ladybug species are simulated on triangular meshes. 
+The next study concerns pigmentation patterns seen on snakes. These patterns can be spots and stripes or more complex patterns composed of zigzags and blotches. Growth and anisotropic diffusion augment simple patterns to create more complex ones. Pattern simulation occurs on a snake-shaped mesh.
 
-%   2. snakes modls use featuers and guidance from other papers to produce patterns on snakes
-%   be more specific about how it is related to what is in the literature
-The next study is concerned with pigmentation patterns seen on snakes. I have used growth and anisotropic diffusion to orient patterns on snake meshes. 
+The third study deals with simulating flower petal patterns. Although the colourful patterns seen on flower petals are a defining aspect of their appearance, few studies research simulating them. I created novel models of orchids by referencing parameters from other works as well as searching the parameter space myself. The models were expanded by varying parameters spatially and by using anisotropic diffusion. I also modelled the spotted purple flower \textit{Digitalis}, among others. Using existing protein interactions that determine pigment formation, I modelled the monkeyflower species. The monkeyflower is a rare case where the real world morphogens responsible for pattern formation are known.
 
-%   3. flowers are largely unknown, performed for the first time for orchids and so on
-The third study is concerned with simulating flower petal patterns. Non-homogeneous parameters and anisotropic diffusion facilitate the creation of flower petal patterns. This includes a model of the monkeyflower based on existing research into protein iterations. 
-
-%   4. psoriasis is a venture into the domain of medicine, 
-%   trying to look into patterns coming from a disease
-%   may offer a path to understaning psoriasis better
-In the final case study, a biologically-motivated model of the autoimmune disease psoriasis was made. By considering the interactions and diffusion of cytokines TNF$\alpha$, IL17, and IL23 I produced many psoriasis patterns that patients exhibit.
-
-
-
-
+In the final case study, I presented a biologically-motivated model of the autoimmune disease psoriasis. This study took a departure from modelling pigmentation patterns and ventured into the domain of medicine. A hallmark of psoriasis is the red lesions that appear on the skin with a variety of geometric patterns. The interactions and diffusion of cell-signalling proteins called cytokines drive the disease. Precisely, we modelled the interactions of TNF$\alpha$, IL17, and IL23 to produce patterns like those exhibited in real photographs. This computational model offers an exciting approach to understanding psoriasis better because of the rapid rate in which psoriasis can be simulated compared to the actual disease. Modelling also provides an avenue for testing treatments and possibly a future cure.
 
 \section{Future Work}
-%%%%% Future Work - unorganized
-%   Two catagory of things, software issues and extensions to RD
-% start with coupling of growth and reaction-diffusion
-% basic grammar: most, often
-% most patterns are occuring on the surface, not in 3D. 
-%%%%%
+From this thesis, two main avenues can be explored as future work. Firstly, \ProgramName{} can be extended with more features. Coupling growth and patterning has been shown to create compelling structures in 3D \cite{harrison2002, holloway2007}. This feature would be easy to add as the essential components are already implemented. Support for volumetric domains would allow for the exploration of 3D patterning. An area of research that would benefit this feature is the simulation of vein formation. Active-transport is an alternative to diffusion that could also be a useful feature in \ProgramName{} for modelling biological systems. There have also been some extensions to reaction-diffusion, such as Kondo's kernels, which are a generalization of morphogen activation and inhibition. The addition of kernels would allow for a broader range of patterns. 
 
-Most patterns in biology do not only occur in a two-dimensional layer. Adding tetrahedral or voxel domains could allow for representation and exploration of domains with thickness. Active-transport is another biological phenomenon that could be a useful feature in \ProgramName{}. There have also been some extensions to reaction-diffusion such as Kondo's kernels which are a generalization of morphogen movement. Kernels would allow for a wider range of patterns. Support for CPU multi-threading or distributed computing would increase the software performance and productivity of users. 
-
-An interesting research area that could be explored more thoroughly is the coupling of domain growth and pattern formation. Currently, the only supported operating system is Windows, adding cross-platform support would allow \ProgramName{} to reach a wider user base.
+The second area of future work concerns the technical aspects of \ProgramName{}. Support for CPU multi-threading, SIMD, or distributed computing would increase the software's performance and productivity of users. Currently, the only supported operating system is Windows, adding cross-platform support would allow \ProgramName{} to reach a more extensive user base. Finally, I intend to open-source \ProgramName{} to allow users to explore and build off my results.
