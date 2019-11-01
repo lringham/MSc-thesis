@@ -3,50 +3,47 @@
 \chapter{Computational aspects}
 
 \section{Systems of chemical reactions}
-Reaction-diffusion equations are an idealized and abstract representation of reality. They comprise two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations (PDEs). Whose numerical solution requires discretization of time and space. Computation of chemical reactions at a point in space, only depend on the elapsed time and previous concentration. However, the computation of diffusion is more complicated, and depends additionally on the concentrations in the areas adjacent to the point of interest.
+Reaction-diffusion equations are an idealized and abstract representation of reality. They capture two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations (PDEs), whose numerical solution requires discretization of time and space. Computation of the chemical reactions at a specific point in space depends on the elapsed time and previous concentration. Computation of diffusion however depends additionally on the concentrations in the areas adjacent to the point of interest.
 
 \section{Isotropic Diffusion}
-Diffusion is an integral part of natural patterning models. It is the process in which particles of a substance move from high to low concentrations. This change in concentration over space is referred to as a gradient. Diffusion driven by gradients was first explored by \citet{fick1995}. The diffusion of a chemical concentration $\Morph$ was formalized in 1855 by Fick's second law:
+Diffusion a process in which particles of a substance move from areas with high concentration to areas with low concentration. This change in concentration over space is referred to as a gradient. Diffusion was formalized in 1855 by Fick's second law:
 \begin{equation}
 \label{eq:ficks2ndlaw0}
 	\frac{\partial \Morph}{\partial t} = \Div (D \nabla \Morph).
 \end{equation}
-	
-$\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $u$ is a scalar field. Given Eqn. \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient measures the difference between the concentration at that point and the average of the neighbouring concentrations. This divergence measurement is proportional to the change in concentration due to diffusion. But, particle size and domain porosity also affect the diffusion rate. This is represented as the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic and we can simplify Eqn. \ref{eq:ficks2ndlaw0} as:
+$\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $\Morph$ is a scalar field. Given Eqn. \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient of $\Morph$ measures the difference between the concentration at that point and the average of the neighbouring concentrations. Diffusion is proportional to this change in concentration. But particle size and domain porosity also affect the diffusion rate. This is represented by the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic and we can simplify Eqn. \ref{eq:ficks2ndlaw0} to:
 \begin{equation}
 \label{eq:ficks2ndlaw1}
 	\frac{\partial \Morph}{\partial t} = D \Lap \Morph.
 \end{equation}
-	
 $\Lap$ is the divergence of the gradient and is called the Laplacian. Formally, it is the sum of the second spatial derivative in each basis direction $x_i$.
-
 \begin{equation}
 \label{eq:laplacian}
 	\Lap = \sum_{i=0}^{n} \frac{\partial^2}{\partial x_i^2}.
 \end{equation}
 	
 \section{Anisotropic diffusion}
-In many biological scenarios, particles do not diffuse at an equal rate in all directions. In that case, the diffusion is called anisotropic and the diffusivity coefficient changes based on the direction considered. For anisotropic diffusion, a single scalar $D$ no longer suffices. We can represent anisotropy by a tensor $\Lambda$. In the two dimensional case, the tensor has the form:
+In many biological scenarios, particles do not diffuse at an equal rate in all directions. In that case, the diffusion is called anisotropic and the diffusivity coefficient changes based on the direction considered. For anisotropic diffusion, a single scalar $D$ no longer suffices. We can represent anisotropy by a tensor $\Lambda$. In the two-dimensional case, the tensor has the form:
 \[\Lambda =
 \begin{bmatrix}
     \lambda_1 & 0 \\
     0 & \lambda_2 
 \end{bmatrix}\]
-Each $\lambda_i$ represents the diffusivity in a basis of our space. Thus, $\Lambda$ is axis-aligned. Arbitrary orientations can be represented with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
-\[D = R^T \Lambda R.\]
-Now we can use $D$ to transform our gradient and thereby our diffusion rate:
+Each $\lambda_i$ represents the diffusivity in a basis of our space. Thus, $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represented general anisotropic diffusion:
 \begin{equation}
-\label{eq:anisoLap}
-	\frac{\partial \Morph}{\partial t} = \Div (D \nabla \Morph).
+\label{eq:anisoDiffTensor}
+	D = R^T \Lambda R.
 \end{equation}
+Now we can use $D$ to transform our gradient and thereby our diffusion rate, obtaining Eqn. \ref{eq:ficks2ndlaw0}.
+
 \section{Discrete diffusion operators}
 To simulate reaction-diffusion, the domain on which it is simulated must be discretized, which in turn means that we must use a discrete version of the Laplacian.
 
 \subsection{Diffusion on grids}
-Grids of square cells are a common representation of domains. Each cell in the grid has an area associated with concentrations of morphogens. Computationally, concentrations are represented by a scalar value assigned to each cell. This has many benefits as grids are easy to represent and the required differential operators are simple to implement.
+Grids of square cells are a common representation of domains. This has many benefits as grids are easy to represent and the required differential operators are simple to implement. Each cell in the grid has an area associated with concentrations of morphogens. Computationally, concentrations are represented by a scalar value assigned to each cell.
 
 \subsubsection*{Diffusion in 1D} 
-Computing diffusion on a 1D grid of cells can be accomplished by representing the Laplacian through finite differencing operations. Because the Laplacian involves second order derivatives, we can approximate it by computing the difference of two first order differences as shown below for a grid cell centred at $\Morph_i$, where $i$ is the $i^{th}$ cell:
+Computing diffusion on a 1D grid of cells can be accomplished by representing the Laplacian through finite differencing operations. Because the Laplacian involves second order derivatives, we can approximate it by computing the difference of two first order differences for a grid cell centred at $\Morph_i$, where $i$ is the $i^{th}$ cell:
 \begin{equation}
 \begin{aligned} \label{eq:firstOrderDifference}
 	T_0 &= \frac{(\Morph_{i} - \Morph_{i-1})}{h},\\
@@ -71,8 +68,11 @@ This differencing can be represented as a convolution mask during computation, a
 \end{figure}	
 	%\[\frac{\partial f_i}{\partial t} = \frac{\Lap*f}{h^2} \]
 \subsubsection*{Diffusion in 2D}
-In this case we have two directions to consider. Recall that the Laplacian is the sum of the second derivatives in each principle direction. This allows us to use the summation of the 1D case in both $x$ and $y$ directions which, for a cell $\Morph_{i,j}$, yields:
-	\[\Lap \Morph_{i,j} = \frac{\Morph_{i,j−1} + \Morph_{i,j+1} + \Morph_{i−1,j} + \Morph_{i+1,j} − 4\Morph_{i,j}}{h^2} .\]
+In this case we have two directions to consider. Recall that the Laplacian is the sum of the second derivatives in each principle direction. This allows us to use the summation of the 1D case in both $x$ and $y$ directions, which, for a cell $\Morph_{i,j}$, yields:
+\begin{equation} 
+\label{eq:gridLaplacian}
+	\Lap \Morph_{i,j} = \frac{\Morph_{i,j−1} + \Morph_{i,j+1} + \Morph_{i−1,j} + \Morph_{i+1,j} − 4\Morph_{i,j}}{h^2} .
+\end{equation} 
 Again, the Laplacian operator can be represented as a convolution mask:
 
 \begin{figure}[H]
