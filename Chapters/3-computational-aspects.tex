@@ -99,7 +99,7 @@ Again, the Laplacian operator can be represented as a convolution mask:
 
 \subsection{Diffusion on arbitrary triangular meshes}
 Triangular meshes are ubiquitous in computer graphics. Meshes allow for discrete representation of arbitrary surfaces and there are well-studied algorithms for locally growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations.
-As in the grid case, concentrations are associated with cells. However, because a concentration value in a cell is a number, I associate the value with the corresponding vertex of a dual graph. I am using dual graphs and associate the concentrations with the vertices of the dual graph. To allow for easy neighbour identification and area calculation, I represent the triangular mesh as a half-edge data structure \citep{mantyla1988}. 
+As in the grid case, concentrations are associated with cells. However, because a concentration value in a cell is a number, I associate the value with the corresponding vertex of a dual graph. To allow for easy neighbour identification and area calculation, I represent the triangular mesh as a half-edge data structure \citep{marschner2015}. 
 \begin{figure}[H]
     \centering
     \incfig{halfEdgeMesh}
