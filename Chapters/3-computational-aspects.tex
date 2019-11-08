@@ -95,18 +95,8 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \end{tikzpicture}
 \end{figure}
 
-
-% I should do that in a way that  why I am using grids and meshes
-% say that as in grid case concentrations are associated with cells (areas)
-% explain why. however, we are using a dual graph
-
 \subsection{Diffusion on arbitrary triangular meshes}
-Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for computing growth and adaptive subdivision. These properties make meshes a good candidate for reaction-diffusion simulations.
-As in the grid case, concentrations are associated with cells. However, to calculate diffusion and find neighbouring vertices easily,
-
-=== needs work? ===
-
- I associate the value with the corresponding vertex of a dual graph. To allow for easy neighbour identification and area calculation, I represent the triangular mesh as a half-edge data structure \citep{marschner2015}.
+Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the mesh dual graph. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
 
 \begin{figure}[H]
     \centering
@@ -140,7 +130,7 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 
 % 1. Pose the problem first in the context of a figure. 
 %		Figure needs diffusion dir
-Computing anisotropic diffusion on a mesh requires a discrete Laplacian with weights that depend on a diffusion direction. A diffusion tensor (Eqn. \ref{eq:diffTensor}) is associated with each vertex to represent the diffusivity in both principle directions. The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. To orient this tensor, a reference direction, $\boldsymbol{\vec{d_i}}$, is specified per vertex. A problem arises due to morphogen gradients being defined per face and $\boldsymbol{\vec{d_i}}$ being defined per vertex. The angle weighted average of $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$ is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used to orient the tensor (Eqn.\ref{eq:anisoDiffTensor}).
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. A vector, $\boldsymbol{\vec{d_i}}$, is specified per vertex to provide a notion of direction on the mesh. To calculate a direction on a given face The angle weighted average of $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$ is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$ from Eqn. \ref{eq:anisoDiffTensor}.
 
 In order to apply the diffusion tensor to the morphogen gradient, the gradient and tensor must be in the same space. Using the face direction and face normal we can construct a rotation matrix to transform the morphogen gradient.
 
