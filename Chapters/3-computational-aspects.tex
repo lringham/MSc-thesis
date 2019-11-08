@@ -107,7 +107,7 @@ Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discre
 Two half-edges replace each edge in the mesh to build this data structure. A single half-edge has a pointer to the next half-edge in the same face, as shown in Fig. \ref{fig:halfEdgeMesh}. Also, it has a pointer to the vertex that it originates from and a pointer to the complementary half-edge. Each vertex stores a scalar representing the area of the dual cell. This area is the sum of one-third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
 
 \subsubsection*{Isotropic diffusion on meshes}
-To compute diffusion on an arbitrary triangular mesh, we need a discrete Laplacian. It can be generalized of Eqn. \ref{eq:gridLaplacian}:
+To compute diffusion on an arbitrary triangular mesh, we need a discrete Laplacian. This Laplacian can be a generalization of Eqn. \ref{eq:gridLaplacian}:
 \begin{equation}
 (\Lap{} \Morph)_i = \frac{1}{A} \sum_{i \sim j} w_{ij}(\Morph_i - \Morph_j).
 \end{equation}
@@ -130,9 +130,11 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 
 % 1. Pose the problem first in the context of a figure. 
 %		Figure needs diffusion dir
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. A vector, $\boldsymbol{\vec{d_i}}$, is specified per vertex to provide a notion of direction on the mesh. To calculate a direction on a given face The angle weighted average of $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$ is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$ from Eqn. \ref{eq:anisoDiffTensor}.
+% 2. Be as explanatory as possible
+% 3. Introduce significant elements that come into play
+Computing anisotropic diffusion requires applying a diffusion tensor to morphogen gradients. The diffusion tensor is derived from two principle diffusion coefficients and a direction vector. The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The direction is a 3D vector, $\boldsymbol{\vec{d_i}}$,
 
-In order to apply the diffusion tensor to the morphogen gradient, the gradient and tensor must be in the same space. Using the face direction and face normal we can construct a rotation matrix to transform the morphogen gradient.
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. A 3D vector, $\boldsymbol{\vec{d_i}}$, is specified per vertex to provide a notion of direction on the mesh. To calculate a direction on a given face, the angle weighted average of its vertices, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$ from Eqn. \ref{eq:anisoDiffTensor}.
 
 \begin{figure}[H]
 	\centering
@@ -141,8 +143,7 @@ In order to apply the diffusion tensor to the morphogen gradient, the gradient a
 	\label{fig:anisoMesh}
 \end{figure}
 
-% 2. Be as explanatory as possible
-% 3. Introduce significant elements that come into play
+
 % 4. Present the formula
 % 5. Explain the remaining elements in the formula
 
