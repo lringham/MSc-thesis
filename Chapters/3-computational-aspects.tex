@@ -24,12 +24,15 @@ $\Lap$ is the divergence of the gradient and is called the Laplacian. Formally, 
 	
 \section{Anisotropic diffusion}
 In many biological scenarios, particles do not diffuse at an equal rate in all directions. In that case, the diffusion is called anisotropic, and the diffusivity coefficient changes based on the direction considered. For anisotropic diffusion, a single scalar $D$ no longer suffices. We can represent anisotropy by a tensor $\Lambda$. In the two-dimensional case, the tensor has the form:
-\[\Lambda =
+\begin{equation}
+\label{eq:diffTensor}
+\Lambda =
 \begin{bmatrix}
     \lambda_1 & 0 \\
     0 & \lambda_2 
-\end{bmatrix}\]
-Each $\lambda_i$ represents the diffusivity in a basis of the space. Thus, $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represented general anisotropic diffusion:
+\end{bmatrix}
+\end{equation}
+Each $\lambda_i$ represents the diffusivity in a basis of the space. Thus, $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
 \begin{equation}
 \label{eq:anisoDiffTensor}
 	D = R^T \Lambda R.
@@ -137,19 +140,16 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 
 % 1. Pose the problem first in the context of a figure. 
 %		Figure needs diffusion dir
-Anisotropic diffusion on a mesh requires a discrete cotangent Laplacian that calculates diffusion from a direction. To represent this direction on a mesh, a direction vector, $d$, is assigned to each mesh vertex. Fig \ref{fig:anisoMesh}a shows a green and red arrow who's lengths are $\lambda_1$ and $\lambda_2$ respectively. As shown in Eqn. \ref{eq:anisoDiffTensor}, the diffusion tensor D is used to modify the diffusion gradient. This gradient is only defined per face and $d$ is defined per vertex. To remedy this, for a given face calculate an angle weighted average of the diffusion directions specified at the vertices and project the result onto the plane of the triangle. This is shown in Fig 3b. In order to apply the diffusion tensor to the morphogen gradient, the gradient must be in the same space as the tensor. To transform the gradient we construct the matrix R from the face direction, face normal, and a bivector.
+Computing anisotropic diffusion on a mesh requires a discrete Laplacian with weights that depend on a diffusion direction. A diffusion tensor (Eqn. \ref{eq:diffTensor}) is associated with each vertex to represent the diffusivity in both principle directions. The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. To orient this tensor, a reference direction, $\boldsymbol{\vec{d_i}}$, is specified per vertex. A problem arises due to morphogen gradients being defined per face and $\boldsymbol{\vec{d_i}}$ being defined per vertex. The angle weighted average of $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$ is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used to orient the tensor (Eqn.\ref{eq:anisoDiffTensor}).
+
+In order to apply the diffusion tensor to the morphogen gradient, the gradient and tensor must be in the same space. Using the face direction and face normal we can construct a rotation matrix to transform the morphogen gradient.
 
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
-	\caption{}
+	\caption{\textbf{a:} the diffusion tensor at a vertex. The green and red arrows are the first and second principle diffusion directions, respectively. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
-
-R = [D, N, B]
-
-We can proceed by using Eqn 2.
-
 
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
