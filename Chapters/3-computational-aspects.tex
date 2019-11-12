@@ -133,39 +133,40 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
 
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. To properly orient $\Lambda$, we need a direction and normal vector to construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $v_i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified. This provides a notion of direction on the mesh. To calculate a direction on a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$, and subsequently, $D$. $D$ is applied to the morphogen gradients existing on the faces adjacent to the cell. The vertex $j$ in Fig. \ref{fig:anisoMesh} has a morphogen gradient which is perpinducular to the edge $e_j$ \cite{}. To find the gradient direction we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. To apply $D$ to $e_j$ we do $Q^TDQe_j$.
-
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The diffusivity component of $D$ is represented by the tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a dominant direction of diffusion and normal vector to construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
-	\caption{\textbf{a:} the diffusion tensor at a vertex. The green and red arrows are the first and second principle diffusion directions, respectively. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
+	\caption{\textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
 
-
-% 4. Present the formula
-% 5. Explain the remaining elements in the formula
-
-% Set the stage: "Here we have this kind of setup, and this is the dominant direction of diffusion."
-% Tensor can be represented as an ellipse
-% 
-
-%To simulate anisotropic diffusion on a triangular mesh, each vertex is assigned two diffusivity scalars and a diffusion direction vector. For each face adjacent to a given vertex, tensor $\Lambda$ is oriented with $R$. To construct $R$, the face normal and a face direction (an angle-weighted average of the vertex directions projected onto the face) are used. $D$ is now used to transform the morphogen gradient on each face. From this we can build a matrix, $L$, representing discrete anisotropic Laplacian operator:
-
+%TODO use another fig to show morphogen gradients?
+The morphogens at vertex $j$ have a morphogen gradient direction which is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation: %TODO understand why morph grad is always perp to the opp edge
+\begin{equation} 
+	D^\perp = Q^T D Q.
+\label{eq:perpTensor}
+\end{equation}
+Using Eqn. \ref{eq:perpTensor} we derive the discrete anisotropic cotangent Laplacian:
 \begin{equation} 
    L_{ij} =
    \begin{cases} 
-      -\frac{1}{2A}\sum\limits_{t} \frac{D^\perp e_i}{\norm{e_i}} \cdot \frac{e_i}{\norm{e_i}}(\cot{\alpha}+\cot{\theta})  & i = j \\
-      \frac{1}{2A}(\Gamma \frac{\cos{\gamma}}{\sin{\alpha}} + \Xi\frac{\cos{\xi}}{\sin{\beta}})   & i \sim j \\
-      0 & otherwise
+      -\frac{1}{2A}\sum\limits_{t} \frac{D^\perp e_i}{\norm{e_i}} \cdot \frac{e_i}{\norm{e_i}}(\cot{\alpha}+\cot{\theta})  & \text{if } i = j, \\
+      \frac{1}{2A}(\Gamma \frac{\cos{\gamma}}{\sin{\alpha}} + \Xi\frac{\cos{\xi}}{\sin{\beta}})                                     & \text{if } i \sim j, \\
+      0 & \text{otherwise.}
    \end{cases}
    \label{eq:anisoLaplacian}
 \end{equation}
-This matrix is used to compute diffusion when given a vector of morphogen concentrations, $u$, by:
+This matrix is used to compute diffusion when given a vector of morphogen concentrations, $\bm{u}$, by:
 \begin{equation}
-	Lu = \Lap u.
+	Lu = \Lap \bm{u}.
 \end{equation}
-This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. Again, $i$ and $j$ are vertices. $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $D^\perp = Q^T D Q$ where $Q$ is a $90^\circ$ rotation matrix about the face normal. This rotation will be used to get a vector in the direction of a face gradient. The face gradient vector is then transformed by the diffusion tensor, $D$. The amount that this vector is transformed determines the amount of the anisotropy. 
+
+%TODO define \sim
+%TODO add adjacent triangle angles to figure?
+%TODO explain piece wise nature of laplacian?
+
+This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. The face gradient vector is then transformed by the diffusion tensor, $D$. The amount that this vector is transformed determines the amount of the anisotropy. 
 
 $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_i$ and $D^\perp e_j$. Which ensures that if the $D^{\perp} = I$ then $\gamma = \alpha$ and we have regular isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D$. 
 
@@ -177,10 +178,10 @@ $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle betwe
 \end{figure}
 
 \section{Boundary Conditions}
-PDEs determine the state of the simulation inside the domain. The simulation interacts with the world outside the domain based on boundary conditions. These conditions are specified when computing the PDEs. The two most common boundary conditions are Dirichlet and Neumann. Dirichlet specifies the morphogen values directly at the boundary. This is useful for defining morphogen sources or sinks. Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default. Alternatively, the user can specify Dirichlet conditions and a constant morphogen value to be used at the boundary. Dirichlet is implemented by not updating the concentrations at the boundary so they remain constant. This is equivalent to \Quotes{no-flux} boundary conditions. To specify Dirichlet boundary conditions, the time step at boundary vertices can be set 0. This freezes the concentrations found along the boundary.
+PDEs determine the state of the simulation inside the domain. The simulation interacts with the world outside the domain based on boundary conditions. These conditions are specified when computing the PDEs. The two most common boundary conditions are Dirichlet and Neumann. Dirichlet specifies the morphogen values directly at the boundary. This is useful for defining morphogen sources or sinks. Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default. Alternatively, Dirichlet conditions can be specified along with a constant morphogen value to be used at the boundary. Dirichlet is implemented by not updating the concentrations at the boundary so they remain constant. This is equivalent to \Quotes{no-flux} boundary conditions. To specify Dirichlet boundary conditions, the time step at boundary vertices can be set 0. This freezes the concentrations found along the boundary.
 %When computing the discrete Laplacian, a boundary edge will have only one adjacent face. The missing angle is assumed to be 0.
 
-=== needs work? ===
+%TODO needs work?
 
 \section{Systems with dynamic structure}
 In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. To address this, a subdivision algorithm is used to split large triangles into a few smaller ones. Subdividing every face in the mesh can lead to small triangles to be subdivided unnecessarily and the total number of triangles to increase quickly. This is a problem because the simulation performance decreases as the number of vertices increases. 
