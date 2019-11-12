@@ -132,9 +132,8 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 %		Figure needs diffusion dir
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
-Computing anisotropic diffusion requires applying a diffusion tensor to morphogen gradients. The diffusion tensor is derived from two principle diffusion coefficients and a direction vector. The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The direction is a 3D vector, $\boldsymbol{\vec{d_i}}$,
 
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. A 3D vector, $\boldsymbol{\vec{d_i}}$, is specified per vertex to provide a notion of direction on the mesh. To calculate a direction on a given face, the angle weighted average of its vertices, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$ from Eqn. \ref{eq:anisoDiffTensor}.
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. The diffusivity at a vertex is represented by a diffusion tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). The tensor can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. To properly orient $\Lambda$, we need a direction and normal vector to construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $v_i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified. This provides a notion of direction on the mesh. To calculate a direction on a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). $\boldsymbol{\vec{d_{ijk}}}$ is then used with the face normal to obtain $R$, and subsequently, $D$. $D$ is applied to the morphogen gradients existing on the faces adjacent to the cell. The vertex $j$ in Fig. \ref{fig:anisoMesh} has a morphogen gradient which is perpinducular to the edge $e_j$ \cite{}. To find the gradient direction we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. To apply $D$ to $e_j$ we do $Q^TDQe_j$.
 
 \begin{figure}[H]
 	\centering
@@ -160,6 +159,7 @@ Computing anisotropic diffusion on a mesh requires Laplacian weights that reflec
       \frac{1}{2A}(\Gamma \frac{\cos{\gamma}}{\sin{\alpha}} + \Xi\frac{\cos{\xi}}{\sin{\beta}})   & i \sim j \\
       0 & otherwise
    \end{cases}
+   \label{eq:anisoLaplacian}
 \end{equation}
 This matrix is used to compute diffusion when given a vector of morphogen concentrations, $u$, by:
 \begin{equation}

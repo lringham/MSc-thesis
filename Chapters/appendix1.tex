@@ -10,17 +10,18 @@
     \item[camera:] Six comma separated floating point values representing the position and look at points used to orient the camera.
     \item[model:] Nine comma separated floating point values representing the X, Y, Z vectors used to orient the domain. 
     \item[domain:] The domain as either an OBJ filename (eg. model.obj) or grid. Only manifold OBJ meshes are supported. Grid domains look for two other parameters \textit{width} and \textit{height} which denote grid resolution.
-    \item[width:] Integer representing width in squares of grid domain.
-    \item[height:] Integer representing height in squares of grid domain.
+    \item[xRes:] Integer representing width in squares of grid domain.
+    \item[yRes:] Integer representing height in squares of grid domain.
+    \item[cellSize:] A float representing spatial width of a single square in a grid domain.        
     \item[simFile:] A filename of a text file containing all per vertex values such as morphogen concentrations, vector directions and principle diffusivities. (eg. simfile.rd)
     \item[colorMap:] A filename of binary file containing a 256 RGB colormap. This is used for both inside and outside the mesh (eg. color.map).
     \item[colorMapOutside:] The colormap for the outside of the mesh.
     \item[colorMapInside:] The colormap for the inside of the mesh.
     \item[growthTickLimit:] An integer representing the number of simulation steps before the domain is grown.
     \item[growing:] \textit{true} or \textit{false} to turn growth on or off.
-    \item[growthX:] A floating percentage representing growth percentage on global X axis.
-    \item[growthY:] A floating percentage representing growth percentage on global Y axis.
-    \item[growthZ:] A floating percentage representing growth percentage on global Z axis.
+    \item[growthX:] A float percentage representing growth percentage on global X axis.
+    \item[growthY:] A float percentage representing growth percentage on global Y axis.
+    \item[growthZ:] A float percentage representing growth percentage on global Z axis.
     \item[maxFaceArea:] The face area threshold as a float for adaptive subdivision.
     \item[pauseAt:] Integer number of simulation steps until program pauses.
     \item[exitAt:] Integer number of simulation steps until program exits.
