@@ -96,7 +96,7 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \end{figure}
 
 \subsection{Diffusion on arbitrary triangular meshes}
-Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the mesh dual graph. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
+Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the dual mesh. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
 
 \begin{figure}[H]
     \centering
@@ -142,7 +142,7 @@ Computing anisotropic diffusion on a mesh requires Laplacian weights that reflec
 \end{figure}
 
 %TODO use another fig to show morphogen gradients?
-The morphogens at vertex $j$ have a morphogen gradient direction which is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation: %TODO understand why morph grad is always perp to the opp edge
+The morphogens at vertex $j$ have a morphogen gradient direction which is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation: %TODO understand why morph grad is always perp to the opp edge
 \begin{equation} 
 	D^\perp = Q^T D Q.
 \label{eq:perpTensor}
@@ -164,7 +164,7 @@ This matrix is used to compute diffusion when given a vector of morphogen concen
 
 %TODO define \sim
 %TODO add adjacent triangle angles to figure?
-%TODO explain piece wise nature of laplacian?
+%TODO explain the piecewise nature of Laplacian?
 
 This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. The face gradient vector is then transformed by the diffusion tensor, $D$. The amount that this vector is transformed determines the amount of the anisotropy. 
 
@@ -184,7 +184,7 @@ PDEs determine the state of the simulation inside the domain. The simulation int
 %TODO needs work?
 
 \section{Systems with dynamic structure}
-In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. To address this, a subdivision algorithm is used to split large triangles into a few smaller ones. Subdividing every face in the mesh can lead to small triangles to be subdivided unnecessarily and the total number of triangles to increase quickly. This is a problem because the simulation performance decreases as the number of vertices increases. 
+In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. A subdivision algorithm is used to split large triangles into a few smaller ones to address this. Subdividing every face in the mesh can lead to small triangles to be subdivided unnecessarily, and the total number of triangles increases quickly. This is a problem because the simulation performance decreases as the number of vertices increases. 
 
 \begin{figure}[H]
 	\centering
@@ -239,5 +239,6 @@ The simulation is advanced by taking small steps through time from a given initi
 	\boldsymbol{x_{i+1}} = \boldsymbol{x_{i}} + (D\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i}))\Delta t. \\
 \end{equation}
 Here $\boldsymbol{x_i}$ is a vector of scalars representing morphogen concentrations at step $i$ and $\Delta t$ is the time-step. $D$ is diffusivity, $\Lap{}$ is the discrete Laplacian used to compute diffusion, and $F(\boldsymbol{x_i})$ encapsulates the reactions of the system. This method suffers from inaccuracy at larger time-steps because we are assuming $\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i})$ is constant for the whole time-step. This inaccuracy can cause instability in stiff equations by accruing error with each simulation step. Semi-implicit integration schemes \citep{Nie2006} allowing for larger time-steps, but in practice, it is possible to use small enough time-steps to minimize inaccuracy and avoid instability. 
+
 
 
