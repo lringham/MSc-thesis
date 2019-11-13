@@ -133,16 +133,14 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
 
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The diffusivity component of $D$ is represented by the tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a dominant direction of diffusion and normal vector to construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The diffusivity component of $D$ is represented by the tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. A normal vector and the diffusion vector are used construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
 	\caption{\textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
-
-%TODO use another fig to show morphogen gradients?
-The morphogens at vertex $j$ have a morphogen gradient direction which is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation: %TODO understand why morph grad is always perp to the opp edge
+Only considering the morphogens at vertex $j$, the morphogen gradient direction is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation:
 \begin{equation} 
 	D^\perp = Q^T D Q.
 \label{eq:perpTensor}
@@ -161,14 +159,7 @@ This matrix is used to compute diffusion when given a vector of morphogen concen
 \begin{equation}
 	Lu = \Lap \bm{u}.
 \end{equation}
-
-%TODO define \sim
-%TODO add adjacent triangle angles to figure?
-%TODO explain the piecewise nature of Laplacian?
-
-This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. The face gradient vector is then transformed by the diffusion tensor, $D$. The amount that this vector is transformed determines the amount of the anisotropy. 
-
-$\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_i$ and $D^\perp e_j$. Which ensures that if the $D^{\perp} = I$ then $\gamma = \alpha$ and we have regular isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D$. 
+This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. The condition $i \sim j$ denotes that $i$ and $j$ share an edge. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we have isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
 
 \begin{figure}[H]
 	\centering
@@ -178,10 +169,7 @@ $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle betwe
 \end{figure}
 
 \section{Boundary Conditions}
-PDEs determine the state of the simulation inside the domain. The simulation interacts with the world outside the domain based on boundary conditions. These conditions are specified when computing the PDEs. The two most common boundary conditions are Dirichlet and Neumann. Dirichlet specifies the morphogen values directly at the boundary. This is useful for defining morphogen sources or sinks. Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default. Alternatively, Dirichlet conditions can be specified along with a constant morphogen value to be used at the boundary. Dirichlet is implemented by not updating the concentrations at the boundary so they remain constant. This is equivalent to \Quotes{no-flux} boundary conditions. To specify Dirichlet boundary conditions, the time step at boundary vertices can be set 0. This freezes the concentrations found along the boundary.
-%When computing the discrete Laplacian, a boundary edge will have only one adjacent face. The missing angle is assumed to be 0.
-
-%TODO needs work?
+PDEs determine the state of the simulation inside the domain. The simulation interacts with the world outside the domain based on boundary conditions. Dirichlet and Neumann are two of the most common boundary conditions. Dirichlet specifies the morphogen values directly at the boundary. This is useful for defining morphogen sources or sinks. Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default. Alternatively, Dirichlet conditions can be specified along with a constant morphogen value to be used at the boundary. Dirichlet is implemented by not updating the concentrations at the boundary so they remain constant.
 
 \section{Systems with dynamic structure}
 In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. A subdivision algorithm is used to split large triangles into a few smaller ones to address this. Subdividing every face in the mesh can lead to small triangles to be subdivided unnecessarily, and the total number of triangles increases quickly. This is a problem because the simulation performance decreases as the number of vertices increases. 

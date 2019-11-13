@@ -1,8 +1,22 @@
 \chapter{Inputs to program}
-\section{Reserved labels used in a parameter file}
-\label{appendix:Reservedlabels}
+
+\section{Command line arguments}
+\label{appendix:CLargs}
+\begin{description}[itemsep=0cm]
+    \item[ModelsPath=] Path to where OBJ models are located.
+    \item[ShadersPath=] Path to where shaders are located.
+    \item[ColorMapsPath=] Path to where colormaps are located.
+    \item[SavePath=] Path to save output to.
+    \item[ConfigFile=] SimConfig filename (eg. SimConfig.txt).
+    \item[SimFile=] Filename containing the starting morphogen concentrations.
+    \item[Steps=] Integer number of simulation steps until program exits.
+    \item[SaveOnExit] Enable saving the model when program exits.
+    \item[Run] Start the simulation running.
+\end{description}
 
 % List of reserved parameter file labels and their descriptions
+\section{Reserved labels used in a parameter file}
+\label{appendix:Reservedlabels}
 \begin{description}[itemsep=0cm]
     \item[ModelsPath:] Filepath to folder containing OBJ models.
     \item[ColorMapsPath:] Filepath to folder containing colormaps.
@@ -10,9 +24,9 @@
     \item[camera:] Six comma separated floating point values representing the position and look at points used to orient the camera.
     \item[model:] Nine comma separated floating point values representing the X, Y, Z vectors used to orient the domain. 
     \item[domain:] The domain as either an OBJ filename (eg. model.obj) or grid. Only manifold OBJ meshes are supported. Grid domains look for two other parameters \textit{width} and \textit{height} which denote grid resolution.
-    \item[xRes:] Integer representing width in squares of grid domain.
-    \item[yRes:] Integer representing height in squares of grid domain.
-    \item[cellSize:] A float representing spatial width of a single square in a grid domain.        
+    \item[xRes:] Integer representing width in squares of a grid domain.
+    \item[yRes:] Integer representing height in squares of a grid domain.
+    \item[cellSize:] A float representing spatial width of a single square in a grid domain.    
     \item[simFile:] A filename of a text file containing all per vertex values such as morphogen concentrations, vector directions and principle diffusivities. (eg. simfile.rd)
     \item[colorMap:] A filename of binary file containing a 256 RGB colormap. This is used for both inside and outside the mesh (eg. color.map).
     \item[colorMapOutside:] The colormap for the outside of the mesh.
@@ -31,16 +45,3 @@
     \item[indices:] Specifies integer indices used to define initial conditions and parameters. Valid values are: all or 1,2,3 or 1-3.
 \end{description}
 
-\section{Command line arguments}
-\label{appendix:CLargs}
-\begin{description}[itemsep=0cm]
-    \item[ModelsPath=] Path to where OBJ models are located.
-    \item[ShadersPath=] Path to where shaders are located.
-    \item[ColorMapsPath=] Path to where colormaps are located.
-    \item[SavePath=] Path to save output to.
-    \item[ConfigFile=] SimConfig filename (eg. SimConfig.txt).
-    \item[SimFile=] Filename containing the starting morphogen concentrations.
-    \item[Steps=] Integer number of simulation steps until program exits.
-    \item[SaveOnExit] Enable saving the model when program exits.
-    \item[Run] Start the simulation running.
-\end{description}
