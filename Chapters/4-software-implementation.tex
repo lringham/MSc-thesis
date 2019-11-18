@@ -1,46 +1,49 @@
+%% Design
+%Specific design decisions were made to meet these requirements. 
+%
+%The morphogen concentrations in the domain are stored separately from their spatial arrangement. These concentrations are the cells of a grid or the vertices of a mesh. Specialized classes can implement the functionality that depends on the domain geometry, making it easy to support multiple domain types and fulfilling the first requirement.
+%
+%To meet the second requirement, a GUI facilitates interaction with the simulation at runtime. The GUI provides inputs and controls in the form of text boxes and buttons. Allowing the user to update parameter values and pattern visualization settings. GUI interaction is complemented by \Quotes{painting} functionality. Painting allows parameters to be specified directly on the domain instead of through the GUI.
+%
+%Designing around the GPU satisfies the third requirement. The GPU performs computation in parallel, providing a significant increase in performance. This increased performance allows for continuous visualization of pattern formation over time while still allowing for real-time interaction. 
+%
+%Parameters and PDEs are specified together in a text file. Text files are ubiquitous for settings files as they are simple to read and edit. During program initialization, the text file is compiled into a simulation module, avoiding the need to edit \ProgramName{}'s source code.
+%
+%To meet the fifth requirement, domain growth is performed using an adaptive subdivision algorithm on a mesh and random insertion of rows or columns on a grid. Domain cells are designed to have any number of user-defined parameters associated with them. 
+%
+%To meet the sixth requirement, a model's changes are tracked using the GIT version control system allowing for more efficient model creation.
+
+
 \chapter{Software design and  implementation}
 
 % Requirements
-\section{General requirements and system design}
+\section{General requirements}
 \ProgramName{} was designed to fulfil six main requirements.
 
 \begin{enumerate}
 	% 1 support for grids and arbitrary surfaces
-	\item To simulate reaction-diffusion on grids and arbitrary triangulated surfaces. Meshes provide a more realistic domain because they are not restricted to the plane and are better suited for growth. 
+	\item To simulate reaction-diffusion on grids and triangle meshes. Grids provide a common and familiar domain for simulating reaction-diffusion, and meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
 	
 	% 2 interactivity
 	%TODO look for more info on user attention span wrt simulation programs
-	\item To allow interaction with simulation parameters at runtime. Real-time interaction allows for rapid iteration during model creation and pattern exploration. Studies have shown that when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}. Consequently, minimizing delays increases user enjoyment and productivity. 
+	\item To allow for interaction with simulation parameters at runtime. Real-time interaction allows for rapid iteration during model creation and pattern exploration. Studies have shown that when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}. Consequently, minimizing delays increases user enjoyment and productivity. 
 
 	% 3 pattern development visualization
-	\item Visualization of the progression of pattern formation. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, natural patterns are not necessarily those at a steady state.
+	\item Visualization of pattern formation over time. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, pattern seen in nature are not necessarily those at a steady state.
 	
 	% 4 easy to use 
-	\item Easy modification of parameters and the equations themselves. Allowing configurable PDEs dramatically increases the usefulness of \ProgramName{} as users can create custom models. Another benefit of cofigurable PDEs is that not all users may have access to the program's source code. 
+	\item Easy modification of parameters and the equations themselves. Allowing configurable PDEs dramatically increases the usefulness of \ProgramName{} as users can create custom models. Another benefit of configurable PDEs is that not all users may have access to the program's source code. 
 		
 	% 5 support for advanced features
 	\item Support for growth, spatially varying parameters, and anisotropic diffusion. These features are essential because their impact on pattern development can lead to more biologically relevant models. 
 	
 	% 6 tracking model progress
-	\item The ability to track the incremental changes made to models. A track record of a model's changes allows the user to see the developmental process the model underwent. This history provides a list of the avenues explored during the model's creation and the future areas of interest that have yet to be explored.
-	
+	\item The ability to track the incremental changes made to models. A track record of a model's changes allows the user to see its developmental process. This history provides a list of the avenues examined during the model's creation and future areas of interest.
 \end{enumerate}
 
-% Design
-Specific design decisions were made to meet these requirements. To meet the first requirement, the morphogen concentrations in the domain are stored separately from their spatial arrangement. These concentrations are the cells of a grid or the vertices of a mesh. Specialized classes can implement the functionality that depends on the domain geometry, making it easy to support multiple domain types.
-
-To meet the second requirement, interaction with the simulation at runtime is achieved by using a GUI. The GUI provides inputs and controls in the form of text boxes and buttons. Allowing the user to update parameter values and pattern visualization settings. GUI interaction is complemented by \Quotes{painting} functionality. Painting allows parameters to be specified directly on the domain instead of through the GUI.
-
-To meet the third requirement, visualization of pattern formation is achieved by continually rendering the model as it is simulated. The GPU is used to perform computation in parallel allows for continuous visualization while still allowing for real-time interaction.
-
-To meet the fourth requirement, parameters and PDEs are specified together in a text file. During program initialization, the text file is compiled into a simulation module, avoiding the need to edit \ProgramName{}'s source code.
-
-To meet the fifth requirement, domain growth is performed using an adaptive subdivision algorithm on a mesh and random insertion of rows or columns on a grid. Domain cells are designed to have any number of user-defined parameters associated with them. 
-
-To meet the sixth requirement, a model's changes are tracked using the GIT version control system allowing for more efficient model creation.
-
 \section{Program architecture} 
-\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL for visualization. A library named \Quotes{Dear ImGui} \citep{cornut2019} is used to implement the graphical user interface (GUI). A file named \Quotes{imgui.ini} contains the position and sizes of the GUI elements. \ProgramName{} contains two important abstract classes: SimulationDomain and Simulation. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functions that can be performed without knowledge of the spatial relationships within the domain. Functions such as Laplacian and gradient are declared in SimulationDomain. However, these functions must be implemented by inheritors. An example inheritor is the HalfEdgeMesh class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The SimulationDomain base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the Simulation class. This abstracts the simulation and provides all the functions relevant to the simulation except the PDE formulas. Simulation also contains a SimulationDomain member variable, which is how a reaction-diffusion model is associated with a domain. GPUSim and CustomSim extend Simulation and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
+\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. A library named \Quotes{Dear ImGui} \citep{cornut2019} is used to implement the graphical user interface (GUI). A file named \Quotes{imgui.ini} contains the position and sizes of the GUI elements. 
+\ProgramName{} contains two important abstract classes: SimulationDomain and Simulation. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functions that can be performed without knowledge of the spatial relationships within the domain. Functions such as Laplacian and gradient are declared in SimulationDomain. However, these functions must be implemented by inheritors. An example inheritor is the HalfEdgeMesh class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The SimulationDomain base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the Simulation class. This abstracts the simulation and provides all the functions relevant to the simulation except the PDE formulas. Simulation also contains a SimulationDomain member variable, which is how a reaction-diffusion model is associated with a domain. GPUSim and CustomSim extend Simulation and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
 
 \begin{figure}[H]
 	\centering
@@ -51,7 +54,7 @@ To meet the sixth requirement, a model's changes are tracked using the GIT versi
 
 % Implementation (Programmer's Perspective)
 \section{Simulation creation}
-Upon start-up, \ProgramName{} parses user-provided command-line arguments and reads in the parameter file. The possible command line arguments are described in \ref{appendix:CLargs}. The label-value pairs in the parameter file are used to create a symbol table. Then, the window is created along with the camera and scene objects responsible for rendering. Now, an instance of the class SimulationDomain is created. This domain instance is then used to create a Simulation object during which the symbol table is used to construct the Simulation Module as a DLL or compute shader. After creation, the initial conditions are applied from the parsed parameters to the simulation. Next, the simulation and domain instances are added to the scene so they can be updated and rendered. The remainder of the simulation executes a while loop that calls the scene's update and render functions. This invokes the Simulation Module, which computes the PDEs.
+Upon start-up, \ProgramName{} parses user-provided command-line arguments and reads in a parameter file. The possible command line arguments are described in \ref{appendix:CLargs}. The label-value pairs in the parameter file are used to create a symbol table. Then, the window is created along with the camera and scene objects responsible for rendering. Now, an instance of the class SimulationDomain is created. This domain instance is then used to create a Simulation object during which the symbol table is used to construct the Simulation Module as a DLL or compute shader. After creation, the initial conditions are applied from the parsed parameters to the simulation. Next, the simulation and domain instances are added to the scene so they can be updated and rendered. The remainder of the simulation executes a while loop that calls the scene's update and render functions. This invokes the Simulation Module, which computes the PDEs.
 
 \subsection{GPU acceleration}
 Due to the popularity of video games, GPUs have become affordable and included with most computers. They contain many more cores than the CPU, enabling them to perform highly parallelized processing of triangles and pixels at a much faster rate. With the advent of compute shaders in modern graphics APIs, the power of the GPU can be leveraged to perform general-purpose computation. 
@@ -63,17 +66,13 @@ A drawback of compute shaders is the slow transfer rate between RAM and GPU memo
 \section{Parameter file}
 When starting the program, the user may specify a configuration file from the command line. If no file is specified, the program will look for \Quotes{SimConfig.txt}. The parameter text file is a customizable model specification (Fig. \ref{fig:paramFileExample}). Text prefixed by hash symbol denotes a comment. It has no effect on the simulation and is used for documentation. A parameter is defined by a label-value pair delimited by a colon. The user can define any number of parameters that do not contain reserved labels. A complete listing of reserved labels is provided in \ref{appendix:Reservedlabels}. The \textit{domain} parameter is how the user specifies the OBJ filename or grid domain. \textit{morphogens} allows the user to specify the names in uppercase, of the morphogens involved in the simulation. These uppercase names are used when defining the initial conditions and PDEs.
 
-User-defined parameters can be declared under the \textit{params} label. They are written inside a pair of curly brackets. This requires the cell indices associated with the parameters to be declared by the \textit{indices} label. In grid-based domains, cells are stored in columns with index 0 representing the bottom left cell. Mesh cells are indexed by the order in which they are declared in the OBJ file. Valid indices are comma-separated integers, a range defined with a hyphen, or \Quotes{all}, which applies to every index. A random selection of $m$ indices can be requested using $rand(m)$. If the user wishes each index to represent a larger area, an integer radius can be specified with \textit{radius}, which corresponds to an n-ring region around the cell. For a given cell, a 1-ring region corresponds to the eight adjacent cells on a grid and the cells that can be reached within one edge on a mesh. Multiple entries can be made within the curly brackets to define non-homogeneous parameters. This allows for different sets of indices to be associated with different parameter values.
+User-defined parameters can be declared under the \textit{params} label. Parameters are written inside a pair of curly brackets. The cell indices associated with the parameters are denoted by the \textit{indices} label. In grid-based domains, cells are stored in columns with index 0 representing the bottom left cell. Mesh cells are indexed by the order in which they are declared in the OBJ file. Valid indices are comma-separated integers, a range defined with a hyphen, or \Quotes{all}, which applies to every index. A random selection of $m$ indices can be requested using $rand(m)$. If the user wishes each index to represent a larger area, an integer radius can be specified with \textit{radius}, which corresponds to an n-ring region around the cell. For a given cell, a 1-ring region corresponds to the eight adjacent cells on a grid and the cells that can be reached within one edge on a mesh. Multiple entries can be made within the curly brackets to define non-homogeneous parameters. This allows for different sets of indices to be associated with different parameter values.
 
-The \textit{initialConditions} parameter specifies the morphogens associated with each index at start-up. Similar to \textit{params}, they are declared in a pair of curly brackets. After the indices are defined, the morphogen concentrations are declared. This can be a float or a random selection from a range of values in $[n, m)$, by using $rand(n, m)$, where $n$ and $m$ are floating-point values. The \textit{simFile} label is used to start the model from a saved simulation state. This accepts a filename with a per-index entry for each morphogen concentration, anisotropic vectors, and principle diffusion rates.
+The \textit{initialConditions} parameter specifies the morphogens associated with each index at start-up. Like \textit{params}, the \textit{initialConditions} are declared in a pair of curly brackets. After the indices are defined, the morphogen concentrations are declared. This can be a float or a random selection from a range of values in $[n, m)$, by using $rand(n, m)$, where $n$ and $m$ are floating-point values. The \textit{simFile} label is used to start the model from a saved simulation state. This accepts a filename with a per-index entry for each morphogen concentration, anisotropic vectors, and principle diffusion rates.
 
-The \textit{boundaryConditions} parameter. %TODO flesh this out
+The \textit{boundaryConditions} parameter precedes a pair of curly brackets that determine the PDE behaviour at the domain boundary. A set of cell indices is defined. Next, the behaviour for each morphogen is defined. These behaviours only affect the cells defined. The two options are Neumann set to 0 (the default setting) or Dirichlet. 
 
 The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending on the desired computation mode. PDEs are declared within curly brackets that follow the \textit{rdModel} parameter. These equations are declared in either GLSL or C++, depending on the computation mode. In the PDEs, user-defined parameter values are accessed by pre-pending \Quotes{params.} to their name. Current morphogen values are used by referencing their names in lower-case. An array L is predefined and contains the results of the Laplacian of the current morphogen field. When using the GPU, this array is big enough to hold a value for each morphogen at the current cell, and when using the CPU, it is big enough to hold values for every cell and their morphogens. When defining the PDEs, the user only needs to access L with the upper-case morphogen name. This name is then converted to the proper index when the Simulation Module is created. Similarly, morphogen values are updated by using upper-case morphogen names and writing to a predefined \Quotes{new} array. An example parameter file is shown in Fig. \ref{fig:paramFileExample}.
-
-% Editor settings
-% pauseAt / stopAt
-% colormaps
 
 \begin{figure}[p]
 \RestyleAlgo{boxed}
@@ -104,6 +103,12 @@ The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending o
 \quad A: 1\\
 \quad S: 1\\
 	\}\\
+	boundaryConditions:
+	\{\\
+\quad indices: 0-641 \\
+\quad A: dirichlet\\
+\quad S: dirichlet\\
+	\}\\
 	rdModel: GPU\\
 	\{\\
 \quad float saa = s*a*a;\\
@@ -111,10 +116,9 @@ The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending o
 \quad new[S] = s + (params.Ds * L[S] - saa + params.f * (1 - s)) * params.dt;\\
 	\}
 \end{algorithm}
-	\caption{Example parameter file for the Gray-Scott model. The domain referenced is a unit icosahedron OBJ model.}
+	\caption{Example parameter file for the Gray-Scott model. The domain referenced is a unit icosahedron OBJ model. The OBJ model has no boundaries. However, boundary conditions are included for completeness.}
 	\label{fig:paramFileExample}
 \end{figure}
-
 
 % User's Perspective
 \section{User interface}
@@ -128,19 +132,18 @@ The sphere radius can be adjusted from the control panel or with the mouse scrol
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\columnwidth]{painting.png}	
-	\caption{Painting direction is determined by taking the difference in cursor positions from consecutive frames. The \textbf{X} inside dashed circle is the initial cursor location, and the \textbf{X} inside the solid circle is the current cursor position. Vertices in the blue area are affected by the paint operation.} 
-	\label{fig:painting}
-\end{figure}
-
-%TODO update this image (remove lap(L);)
-\begin{figure}[p]
-	\centering
 	\resizebox{\columnwidth}{!}{
 	\includegraphics{gui.png}	
 	}
 	\caption{The available control panels. \textbf{GPU:} The control panel for modifying parameters as well as collapsible menus for controlling growth, painting, and rendering behaviour. \textbf{Info:} information about the model such as the PDEs used and selected vertex attributes. \textbf{Controls:} simulation controls allow for saving screenshots and textures. \textbf{Stats:} program statistics are shown such as the time per frame, cell count, and total area of the domain.} 
 	\label{fig:GUIexample}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{painting.png}	
+	\caption{Painting direction is determined by taking the difference in cursor positions from consecutive frames. The \textbf{X} inside dashed circle is the initial cursor location, and the \textbf{X} inside the solid circle is the current cursor position. Vertices in the blue area are affected by the paint operation.} 
+	\label{fig:painting}
 \end{figure}
 
 \section{Visualization}
@@ -154,12 +157,12 @@ The user has a choice of visualizing different morphogen concentrations by actua
 \end{figure}
 
 \section{Saving and loading simulations}
-After the simulation has loaded, the user can save the simulation at any point. Saving is used to preserve the state of the simulation after pattern development. Another use for saving is if a specific vector field or morphogen configuration is desired, which otherwise might be tedious to define directly with indices. Saving creates a set of files containing the program and simulation state. The colour map file, obj file, and SimConfig.txt were described earlier and contain the colour map used to map concentrations to colours, the model geometry, and the simulation parameters and PDEs. Another created file is \Quotes{EditorSettings.txt}, which contains settings not integral to the simulation's behaviour such as background colour and cursor radius. The saved state of the program in a \Quotes{.rd} textfile. This file contains a header that specifies the number of morphogens on the first line, and the number of cells on the second line. The following n lines after the header correspond to the n cells in the domain. The first line is the 0th indexed cell and contains a list of floating-point values separated by spaces. For a model with morphogens $A$ and $S$ this line would look like:
+After the simulation has loaded, the user can save the simulation at any point. Saving is used to preserve the state of the simulation after pattern development. Another use for saving is if a specific vector field or morphogen configuration is desired, which otherwise might be tedious to define directly with indices. Saving creates a set of files containing the program and simulation state. The colour map file, obj file, and SimConfig.txt were described earlier and contain the colour map used to map concentrations to colours, the model geometry, and the simulation parameters and PDEs. Another created file is \Quotes{EditorSettings.txt}, which contains settings not integral to the simulation's behaviour such as background colour and cursor radius. The saved state of the program in a \Quotes{.rd} textfile. This file contains a header that specifies the number of morphogens on the first line and the number of cells on the second line. After the header, the following n lines correspond to the n cells in the domain. The first line is the 0th indexed cell and contains a list of floating-point values separated by spaces. For a model with morphogens $A$ and $S$, this line would look like:
 \[a\text{ }s\text{ }x_a\text{ }y_a\text{ }z_a\text{ }x_s\text{ }y_s\text{ }z_s\text{ }\lambda_{1a}\text{ }\lambda_{2a}\text{ }\lambda_{1s}\text{ }\lambda_{2s}\text{ }d_a\text{ }d_s.\]
-Parameters $a$ and $s$ are the morphogen concentrations and entries with subscripts $a$ and $s$ belong to $A$ and $S$ morphogens respectively. $x,\text{ }y, \text{ and } z$ are the components of a cell's anisotropic direction vector. $\lambda_1$ and $\lambda_2$ are the diffusivities and $d$ is the diffusion scale. A user can load a simulation by specifying the individual files to be used in the SimConfig.txt file. Using an RD file overrides the model initial conditions.
+Parameters $a$ and $s$ are the morphogen concentrations and entries with subscripts $a$ and $s$ belong to $A$ and $S$ morphogens respectively. $x,\text{ }y, \text{ and } z$ are the components of a cell's anisotropic direction vector. $\lambda_1$ and $\lambda_2$ are the diffusivities and $d$ is the diffusion scale. A user can load a simulation by specifying the individual files to be used in the SimConfig.txt file. Using an RD file overrides the model's initial conditions.
 
 \section{Model exploration}
-Designing and exploring a model's pattern forming potential can be challenging. Tracking progress as incremental changes are made is a requirement of model creation with \ProgramName{}. To satisfy this, I used the GIT version control system. I commit the files associated with a model to a repository periodically during exploration. This allows for easy reproduction of previous patterns and also avoids duplication of past efforts. The greatest benefit from this work-flow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. Fig. \ref{fig:version_control} shows a visualization of the version control history.
+Designing and exploring a model's pattern forming potential can be challenging. Tracking progress as incremental changes are made is a requirement of model creation with \ProgramName{}. To satisfy this, I used the GIT version control system. I commit the files associated with a model to a repository periodically during exploration. This allows for easy reproduction of previous patterns and avoids duplication of past efforts. The greatest benefit from this work-flow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. Fig. \ref{fig:version_control} shows a visualization of the version control history.
 
 \begin{figure}[h]
 	\centering
@@ -167,4 +170,7 @@ Designing and exploring a model's pattern forming potential can be challenging. 
 	\caption{Visualization of the GIT repository by the Sourcetree software \citep{atlassian2019}. Coloured vertical lines represent models. A dot on the corresponding line represents each model change, and a user-provided comment appears on the right. Models derived from others have their vertical line connected by a horizontal line leading to the parent.} 
 	\label{fig:version_control}
 \end{figure}
+
+
+
 

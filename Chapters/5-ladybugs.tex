@@ -30,7 +30,7 @@ The activator is represented by $u$ and is displayed as the pigmentation on the 
 The simulation domain is a triangular mesh mimicking the real shape of the elytra. The boundary conditions are no-flux and the shell is considered one piece. One exception is the model of  \textit{B. albolineata} which contains a sink along the middle of the domain where the two shell halves would meet. 
 
 \section{Results}
-I was able to produce ladybug patterns as they appear in \citep{liaw2001}, shown in Fig. \ref{fig:ladyBugPatterns}. There are small differences between the patterns formed on a partial sphere and an arbitrary mesh using the original parameters. I think discrepancies occur from the more realistic mesh shape compared to the partial sphere. Also, the irregularities in the initial morphogen distributions arising from the mesh triangulation will change the final pattern state. One difference was that the number of spots on \textit{E. crassimala} was less then 10. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$. Another deviation was that the 10 spots were not arranged in 3 rows. This arrangement was achieved by changing the initial morphogen distribution to just a stripe at the top as opposed to a distribution seen in A and B. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. This approach can produce similar patterns  with a different number of spots by only varying the diffusion rate of $u$. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places causing it to self-interact and destroy the vertical line pattern. I have decreased $\kappa$ from $0.35$ to $0.05$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self interaction. To account for lines becoming spots in E, the total simulation steps is reduced to 500,000 from the original model's 1,500,000 steps. Both my model and \citep{liaw2001} use a morphogen sink along the centre of the elytra to create the loop pattern. But, in both models, there is also a gap not seen in nature. This is formed where the sink is located. Patterns observed in D seem to be a good fit for modelling E as well. The complete list of parameters is shown in Table \ref{tab:ladyBugParameters}.
+I was able to produce ladybug patterns as they appear in \citep{liaw2001}, shown in Fig. \ref{fig:ladyBugPatterns}. There are small differences between the patterns formed on a partial sphere and an arbitrary mesh using the original parameters. I think discrepancies occur from the more realistic mesh shape compared to the partial sphere. Also, the irregularities in the initial morphogen distributions arising from the mesh triangulation will change the final pattern state. One difference was that the number of spots on \textit{E. crassimala} was less then 10. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$. Another deviation was that the 10 spots were not arranged in rows correctly. Changing the initial morphogen distribution to just a stripe at the top as opposed to a distribution as seen in A and B corrected the spot positioning. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. This approach can produce similar patterns  with a different number of spots by only varying the diffusion rate of $u$. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places causing it to self-interact and destroy the vertical line pattern. I have decreased $\kappa$ from $0.35$ to $0.05$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self interaction. To account for lines becoming spots in E, the total simulation steps is reduced to 500,000 from the original model's 1,500,000 steps. Both my model and \citep{liaw2001} use a morphogen sink along the centre of the elytra to create the loop pattern. But, in both models, there is also a gap not seen in nature. This is formed where the sink is located. Patterns observed in D seem to be a good fit for modelling E as well. The complete list of parameters is shown in Table \ref{tab:ladyBugParameters}.
 
 \begin{figure}[!ht]
 	\centering
@@ -41,17 +41,33 @@ I was able to produce ladybug patterns as they appear in \citep{liaw2001}, shown
 
 \begin{table}[p]
 	\centering
-	\begin{tabular}{lllllll}
+	\begin{tabular}{llllll}
 	\hline
-	\textbf{Model} & \textbf{Species} &\bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} & \bm{$\sigma_u$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
-	A     &\textit{P. quinquepunctatus}&0.0005  &0.035    &0        &0          & 1500              \\ 
-	B     &\textit{C. septempunctata}  &0.0005  &0.025    &0        &0          & 1500              \\ 
-	C     &\textit{E. crassimala}      &0.0003  &0.024*   &0.5      &0.01*      & 1500              \\ 
-	D     &\textit{M. hauseri}         &0.000028&0.00168* &0.5      &0          & 1500              \\ 
-	E     &\textit{B. albolineata}     &0.000026&0.00182* &0.45     &0.0019     & 500*              \\
+	\textbf{Model} &\bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} & \bm{$\sigma_u$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
+	A & 0.0005 & 0.035 & 0 & 0 & 1500 \\ 
+	B & 0.0005 & 0.025 & 0 & 0 & 1500 \\ 
+	C & 0.0003 & 0.04 & 0 & 0 & 1500 \\ 
+	D & 0.000028 & 0.000168 & 0.35 & 0 & 1500 \\ 
+	E  & 0.000026 & 0.000182 & 0.45 & 0.0019 & 1500 \\
 	\hline
 	\end{tabular}
-	\caption {Parameter values for ladybug models. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, $\mu_u = 0.08$. Parameters marked with a * are different than those proposed by \citet{liaw2001}. For D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_u / D_v > 7.8$ \citep{liaw2001}.}
+	\caption {Original parameter values for the ladybug models in \citep{liaw2001}.}
+	\label{tab:origLadyBugParameters}
+\end{table}
+
+\begin{table}[p]
+	\centering
+	\begin{tabular}{llllll}
+	\hline
+	\textbf{Model} &\bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} & \bm{$\sigma_u$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
+	A & 0.0005 & 0.035 & 0 & 0 & 1500 \\ 
+	B & 0.0005 & 0.025 & 0 & 0 & 1500 \\ 
+	C & 0.0003 & 0.024 & 0.5 & 0.01 & 1500 \\ 
+	D & 0.000028 & 0.00168 & 0.5 & 0 & 1500 \\ 
+	E  & 0.000026 & 0.00182 & 0.45 & 0.0019 & 500 \\
+	\hline
+	\end{tabular}
+	\caption {Parameter values used for ladybug models on a mesh. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, $\mu_u = 0.08$. For D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_v / D_u \geq 7.8$ \citep{liaw2001}.}
 	\label{tab:ladyBugParameters}
 \end{table}
 
