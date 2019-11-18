@@ -133,19 +133,19 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
 
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse as shown in Fig. \ref{fig:anisoMesh}a. The diffusivity component of $D$ is represented by the tensor, $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. A normal vector and the diffusion vector are used construct the rotation matrix $R$ (Eqn. \ref{eq:anisoDiffTensor}). For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse (Fig. \ref{fig:anisoMesh}a). The length of the ellipse's axes correspond to the eigenvalues in the diffusivity matrix $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain a rotation matrix, $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
 	\caption{\textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
-Only considering the morphogens at vertex $j$, the morphogen gradient direction is perpendicular to the edge $e_j$ (Fig. \ref{fig:anisoMesh}). To find the gradient direction, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal to $e_j$. $Q$ is multiplied with $D$ to reflect this operation:
+The morphogen gradient on a face is determined by the sum of the face's edge normals. An edge normal provides the gradient direction and is weighted by the morphogen concentration opposite to that edge. To find an edge normal, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal, to the edge. $Q$ is multiplied with $D$ to reflect this operation:
 \begin{equation} 
 	D^\perp = Q^T D Q.
 \label{eq:perpTensor}
 \end{equation}
-Using Eqn. \ref{eq:perpTensor} we derive the discrete anisotropic cotangent Laplacian:
+Using $D^\perp$ we change the Laplacian weighting and obtain the discrete anisotropic cotangent Laplacian:
 \begin{equation} 
    L_{ij} =
    \begin{cases} 
@@ -159,7 +159,7 @@ This matrix is used to compute diffusion when given a vector of morphogen concen
 \begin{equation}
 	Lu = \Lap \bm{u}.
 \end{equation}
-This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we have isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
+This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $t$ is a triangle, $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we have isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
 
 \begin{figure}[H]
 	\centering
