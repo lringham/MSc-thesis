@@ -1,19 +1,3 @@
-%% Design
-%Specific design decisions were made to meet these requirements. 
-%
-%The morphogen concentrations in the domain are stored separately from their spatial arrangement. These concentrations are the cells of a grid or the vertices of a mesh. Specialized classes can implement the functionality that depends on the domain geometry, making it easy to support multiple domain types and fulfilling the first requirement.
-%
-%To meet the second requirement, a GUI facilitates interaction with the simulation at runtime. The GUI provides inputs and controls in the form of text boxes and buttons. Allowing the user to update parameter values and pattern visualization settings. GUI interaction is complemented by \Quotes{painting} functionality. Painting allows parameters to be specified directly on the domain instead of through the GUI.
-%
-%Designing around the GPU satisfies the third requirement. The GPU performs computation in parallel, providing a significant increase in performance. This increased performance allows for continuous visualization of pattern formation over time while still allowing for real-time interaction. 
-%
-%Parameters and PDEs are specified together in a text file. Text files are ubiquitous for settings files as they are simple to read and edit. During program initialization, the text file is compiled into a simulation module, avoiding the need to edit \ProgramName{}'s source code.
-%
-%To meet the fifth requirement, domain growth is performed using an adaptive subdivision algorithm on a mesh and random insertion of rows or columns on a grid. Domain cells are designed to have any number of user-defined parameters associated with them. 
-%
-%To meet the sixth requirement, a model's changes are tracked using the GIT version control system allowing for more efficient model creation.
-
-
 \chapter{Software design and  implementation}
 
 % Requirements
@@ -22,14 +6,14 @@
 
 \begin{enumerate}
 	% 1 support for grids and arbitrary surfaces
-	\item To simulate reaction-diffusion on grids and triangle meshes. Grids provide a common and familiar domain for simulating reaction-diffusion, and meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
+	\item To simulate reaction-diffusion on grids and triangle meshes. Grids provide a common and familiar domain for simulating reaction-diffusion. Meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
 	
 	% 2 interactivity
 	%TODO look for more info on user attention span wrt simulation programs
 	\item To allow for interaction with simulation parameters at runtime. Real-time interaction allows for rapid iteration during model creation and pattern exploration. Studies have shown that when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}. Consequently, minimizing delays increases user enjoyment and productivity. 
 
 	% 3 pattern development visualization
-	\item Visualization of pattern formation over time. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, pattern seen in nature are not necessarily those at a steady state.
+	\item Visualization of pattern formation over time. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, patterns seen in nature are not necessarily those at a steady state.
 	
 	% 4 easy to use 
 	\item Easy modification of parameters and the equations themselves. Allowing configurable PDEs dramatically increases the usefulness of \ProgramName{} as users can create custom models. Another benefit of configurable PDEs is that not all users may have access to the program's source code. 
@@ -42,7 +26,8 @@
 \end{enumerate}
 
 \section{Program architecture} 
-\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. A library named \Quotes{Dear ImGui} \citep{cornut2019} is used to implement the graphical user interface (GUI). A file named \Quotes{imgui.ini} contains the position and sizes of the GUI elements. 
+\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. A library named \Quotes{Dear ImGui} \citep{cornut2019} is used to implement the graphical user interface (GUI). 
+
 \ProgramName{} contains two important abstract classes: SimulationDomain and Simulation. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functions that can be performed without knowledge of the spatial relationships within the domain. Functions such as Laplacian and gradient are declared in SimulationDomain. However, these functions must be implemented by inheritors. An example inheritor is the HalfEdgeMesh class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The SimulationDomain base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the Simulation class. This abstracts the simulation and provides all the functions relevant to the simulation except the PDE formulas. Simulation also contains a SimulationDomain member variable, which is how a reaction-diffusion model is associated with a domain. GPUSim and CustomSim extend Simulation and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
 
 \begin{figure}[H]
@@ -103,9 +88,9 @@ The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending o
 \quad A: 1\\
 \quad S: 1\\
 	\}\\
-	boundaryConditions:
+	boundaryConditions:\\
 	\{\\
-\quad indices: 0-641 \\
+\quad indices: boundary \\
 \quad A: dirichlet\\
 \quad S: dirichlet\\
 	\}\\
@@ -147,7 +132,7 @@ The sphere radius can be adjusted from the control panel or with the mouse scrol
 \end{figure}
 
 \section{Visualization}
-The user has a choice of visualizing different morphogen concentrations by actual or normalized value. In the latter case, every morphogen concentration is divided by a user-provided value. The concentration is mapped onto a colormap to determine the colour the concentration represents. A separate colormap can be specified for each side of the domain. This feature can be used to hide the pattern on one side of the mesh. Concentration gradients and the vectors driving anisotropic diffusion can also be visualized as lines (representing vectors) extending from their corresponding vertices. These lines are coloured black at their vertex and transition to green for diffusion vectors and red for gradient vectors (Fig. \ref{fig:vector_fields}). Wireframe mode allows users to see the underlying triangular geometry of the domain. The mesh rendering is enhanced by diffuse lighting to highlight its shape. When selected vertices are visualized, the unselected ones will appear faded. Users can export the generated pattern as a texture for higher quality rendering of models through other software.
+The user has a choice of visualizing different morphogen concentrations by actual or normalized value. In the latter case, every morphogen concentration is divided by a user-provided value. The concentration is mapped onto a colormap to determine the colour the concentration represents. A separate colormap can be specified for each side of the domain. This feature can be used to hide the pattern on one side of the mesh. Concentration gradients and the vectors driving anisotropic diffusion can also be visualized as lines (representing vectors) extending from their corresponding vertices. These lines are coloured black at their vertex and transition to green for diffusion vectors and red for gradient vectors (Fig. \ref{fig:vector_fields}). Wireframe mode allows users to see the underlying triangular geometry of the domain. The mesh rendering is enhanced by diffuse lighting to highlight its shape. When selected vertices are visualized, the unselected ones will appear faded. Users can export the generated pattern as a texture for higher quality rendering of models through other software. Exporting requires the OBJ model to come with texture coordinates. A blank texture is then coloured using the meshes texture coordinates.
 
 \begin{figure}[ht]
 	\centering
@@ -156,10 +141,10 @@ The user has a choice of visualizing different morphogen concentrations by actua
 	\label{fig:vector_fields}
 \end{figure}
 
-\section{Saving and loading simulations}
-After the simulation has loaded, the user can save the simulation at any point. Saving is used to preserve the state of the simulation after pattern development. Another use for saving is if a specific vector field or morphogen configuration is desired, which otherwise might be tedious to define directly with indices. Saving creates a set of files containing the program and simulation state. The colour map file, obj file, and SimConfig.txt were described earlier and contain the colour map used to map concentrations to colours, the model geometry, and the simulation parameters and PDEs. Another created file is \Quotes{EditorSettings.txt}, which contains settings not integral to the simulation's behaviour such as background colour and cursor radius. The saved state of the program in a \Quotes{.rd} textfile. This file contains a header that specifies the number of morphogens on the first line and the number of cells on the second line. After the header, the following n lines correspond to the n cells in the domain. The first line is the 0th indexed cell and contains a list of floating-point values separated by spaces. For a model with morphogens $A$ and $S$, this line would look like:
+\section{Saving and loading}
+After the simulation has loaded, the user can save the simulation at any point. Saving is used to preserve the state of the simulation after pattern development. Another use for saving is if a specific vector field or morphogen configuration is desired, which otherwise might be tedious to define directly with indices. Saving creates a set of files containing the program and simulation state. These files include the colour map, OBJ file, and the parameter file. Another created file is \Quotes{EditorSettings.txt}, which contains settings not integral to the simulation's behaviour such as background colour and cursor radius. The saved state of the program is in a \Quotes{.rd} textfile. This file contains a header that specifies the number of morphogens on the first line and the number of cells on the second line. After the header, the following n lines correspond to the n cells in the domain. The first line is the 0th indexed cell and contains a list of floating-point values separated by spaces. For a model with morphogens $A$ and $S$, a line would look like:
 \[a\text{ }s\text{ }x_a\text{ }y_a\text{ }z_a\text{ }x_s\text{ }y_s\text{ }z_s\text{ }\lambda_{1a}\text{ }\lambda_{2a}\text{ }\lambda_{1s}\text{ }\lambda_{2s}\text{ }d_a\text{ }d_s.\]
-Parameters $a$ and $s$ are the morphogen concentrations and entries with subscripts $a$ and $s$ belong to $A$ and $S$ morphogens respectively. $x,\text{ }y, \text{ and } z$ are the components of a cell's anisotropic direction vector. $\lambda_1$ and $\lambda_2$ are the diffusivities and $d$ is the diffusion scale. A user can load a simulation by specifying the individual files to be used in the SimConfig.txt file. Using an RD file overrides the model's initial conditions.
+Parameters $a$ and $s$ are the morphogen concentrations and entries with subscripts $a$ and $s$ belong to $A$ and $S$ morphogens respectively. $x,\text{ }y, \text{ and } z$ are the components of a cell's anisotropic direction vector. $\lambda_1$ and $\lambda_2$ are the diffusivities and $d$ is the diffusion scale. A user can load a simulation by specifying the individual files to be used in the parameter file. Using a \Quotes{.rd} file overrides the model's initial conditions.
 
 \section{Model exploration}
 Designing and exploring a model's pattern forming potential can be challenging. Tracking progress as incremental changes are made is a requirement of model creation with \ProgramName{}. To satisfy this, I used the GIT version control system. I commit the files associated with a model to a repository periodically during exploration. This allows for easy reproduction of previous patterns and avoids duplication of past efforts. The greatest benefit from this work-flow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. Fig. \ref{fig:version_control} shows a visualization of the version control history.
