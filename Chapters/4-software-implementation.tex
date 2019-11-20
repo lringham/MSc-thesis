@@ -149,7 +149,7 @@ Parameters $a$ and $s$ are the morphogen concentrations and entries with subscri
 \section{Model exploration}
 Designing and exploring a model's pattern forming potential can be challenging. Tracking progress as incremental changes are made is a requirement of model creation with \ProgramName{}. To satisfy this, I used the GIT version control system. I commit the files associated with a model to a repository periodically during exploration. This allows for easy reproduction of previous patterns and avoids duplication of past efforts. The greatest benefit from this work-flow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. Fig. \ref{fig:version_control} shows a visualization of the version control history.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{version_control.png}	
 	\caption{Visualization of the GIT repository by the Sourcetree software \citep{atlassian2019}. Coloured vertical lines represent models. A dot on the corresponding line represents each model change, and a user-provided comment appears on the right. Models derived from others have their vertical line connected by a horizontal line leading to the parent.} 
