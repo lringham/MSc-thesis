@@ -30,11 +30,11 @@ The activator is represented by $u$ and is displayed as the pigmentation on the 
 The simulation domain is a triangular mesh mimicking the real shape of the elytra. The boundary conditions are no-flux and the shell is considered one piece. One exception is the model of  \textit{B. albolineata} which contains a sink along the middle of the domain where the two shell halves would meet. 
 
 \section{Results}
-I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. The patterns are simulated on a triangular mesh, which, due to its flexible representation of 2D surfaces, provides a more faithful representation of ladybug elytra compared to a partial sphere. These results are shown in Fig. \ref{fig:ladyBugPatterns}. Images of real ladybug specimens were used to determine the pattern colours, increasing the pattern's realism. The development of the simulated patterns was also visualized and this is shown in Fig. \ref{fig:ladyBugDev}. The original parameters provided by \citet{liaw2001} have been altered to be more mathematically sound and so that pattern's character on a mesh match nature. A complete list of model parameters is shown in Table \ref{tab:ladyBugParameters}. 
+I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. The patterns are simulated on a triangular mesh, which, due to its flexible representation of 2D surfaces, provides a more faithful portrayal of ladybug elytra compared to a partial sphere. These results are shown in Fig. \ref{fig:ladyBugPatterns}. Images of real ladybug specimens were used to determine the pattern colours, increasing the pattern's realism. The development of the simulated patterns was also visualized and this is shown in Fig. \ref{fig:ladyBugDev}. Development of the patterns overtime is something not studied before and it would be interesting to see if there exists a chemical prepattern that develops in a similar manner to the simulations. The original parameters provided by \citet{liaw2001} have been altered to be more mathematically sound and so that pattern's character on a mesh matches nature. A complete list of model parameters is shown in Table \ref{tab:ladyBugParameters}. 
 
 %This approach can produce similar patterns with a different number of spots by only varying the diffusion rate of $u$.
 
-\begin{figure}[H]
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=\columnwidth]{ladybugs.png}
 	\caption{Simulation of ladybug patterns. \textbf{Row 1:} initial simulation state. \textbf{Row 2:} final simulation state. \textbf{Row 3:} collection of the real ladybug species. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively. 
