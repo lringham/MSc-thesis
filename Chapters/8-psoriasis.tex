@@ -1,15 +1,9 @@
 \chapter{Case Study 4: Psoriasis}
 
-This chapter is a reformatted version of \citep{ringham2019}.
-
-\section*{Skin patterning in psoriasis by spatial interactions between pathogenic cytokines}
-\subsubsection*{Lee Ringham, Przemyslaw Prusinkiewicz, Robert Gniadecki}
+This chapter is an edited version of \Quotes{skin patterning in psoriasis by spatial interactions between pathogenic cytokines} \citep{ringham2019}. \footnote{P.P. and R.G. designed research, L.R. and P.P. created mathematical model and performed computer simulations, L.R., P.P. and R.G. wrote the paper.}
 
 \section{Summary} 
 Disorders of human skin manifest themselves with patterns of lesions ranging from simple scattered spots to complex rings and spirals. These patterns are an essential characteristic of the disease, yet the mechanisms through which they arise remain unknown. Here we show that all known patterns of psoriasis, a common inflammatory skin disease, can be explained in terms of reaction-diffusion. We constructed a computational model based on the known interactions between the main pathogenic cytokines, IL-17, IL-23 and TNF$\alpha$. Simulations revealed that the parameter space of the model contained all classes of psoriatic lesion patterns. They also faithfully reproduced the growth and evolution of the plaques, and the response to treatment by cytokine targeting. Thus, pathogenesis of inflammatory diseases, such as psoriasis, may readily be understood in the framework of the stimulatory and inhibitory interactions between a few diffusing mediators.
-
-\section{Keywords}
-autoimmune inflammation, psoriasis, patterning, reaction-diffusion, computational modelling.
 
 \section{Introduction} 
 Most skin diseases manifest themselves with reproducible patterns of skin lesions, which are conventionally described in terms of lesion morphology (e.g. macules, papules, plaques, etc) and distribution on the skin surface \citep{nast2016}. The biological basis of pattern formation is only understood in a few special cases. For instance, the segmental pattern of herpes zoster reflects dermatomal viral reactivation through sensory nerves, and the linear pattern in Blaschko lines represents genetic mosaicism. In most cases, however, the mechanisms by which pathological processes in the skin generate reproducible patterns remain virtually unknown \citep{nast2016}.
@@ -17,9 +11,7 @@ The majority of skin diseases are inflammatory, which explains why the lesions a
 
 \section{Results}
 \subsection{Classification of psoriasis plaque patterns}
-The patterns repetitively identified in the literature and in our clinical photograph repository are listed in Fig. \ref{fig:1}, with further morphological details characteristic of different patterns shown in Fig. \ref{fig:S1}. As detailed in Transparent Methods, we have excluded linear psoriasis, psoriatic erythroderma, and guttate psoriasis from our classification. 
-
-A feature not explicitly discussed in the literature is the patterning of the plaque itself, manifest in the shape of the scales and/or irregularities of the plaque surface. The intensity of the inflammatory process is not homogenous within the plaques. In the very early pinpoint papules the inflammatory infiltrate is most dense at the center, which translates into higher proliferative activity of the keratinocytes and a thicker scale centrally in the papule Fig. \ref{fig:S1}A \citep{soltani1972}. As the lesion grows the inflammatory infiltrate becomes more irregular, with a tendency towards higher activity at the periphery and occasional hotspots inside the plaque. A growing plaque, such as a nummular lesion, is thus often slightly thicker and scalier at the periphery than in the center. Likewise, the central portion of the plaque clears more rapidly during treatment, whereas the regression of inflammatory hotspots and the marginal region is delayed \citep{griffin1988}. Large, mature plaques demonstrate a complex pattern of polygonal faceting rather than thickening of the margins Fig. \ref{fig:S1}D.
+The patterns repetitively identified in the literature are listed in Fig. \ref{fig:1}, see the full paper for additional details.
 
 \begin{figure}[hb]
 	\centering
@@ -50,7 +42,7 @@ We have pursued the following train of thought. The mutual promotion of cytokine
 	\end{aligned}
 \end{equation}
 
-The term $ka^2s$ indicates that the conversion is autocatalytically promoted by the activator, with the rate controlled by parameter $k$. Its concentration increases at the expense of the substrate, thus the activator down regulates the substrate. Parameters $\rho_{a0}$ and $\rho_{s0}$ are the rates of the base production of the activator and the substrate, and $\mu_a$ and $\mu_s$ control their turnover. The remaining terms, $D_a \Lap a \text{ and } D_s \Lap s$, represent diffusion of the activator and substrate at the rates controlled by parameters $D_a$ and $D_s$, respectively (for simplicity, diffusion is not explicitly represented in Figs. \ref{fig:2}A-C). Consistent with figures \ref{fig:2}B and C, we identify variable $a$ with the concentration of cytokines TNF$\alpha$ and IL-17, and $s$ with the concentration of IL-23:
+The term $ka^2s$ indicates that the conversion is autocatalytically promoted by the activator, with the rate controlled by parameter $k$. Its concentration increases at the expense of the substrate, thus the activator downregulates the substrate. Parameters $\rho_{a0}$ and $\rho_{s0}$ are the rates of the base production of the activator and the substrate, and $\mu_a$ and $\mu_s$ control their turnover. The remaining terms, $D_a \Lap a \text{ and } D_s \Lap s$, represent diffusion of the activator and substrate at the rates controlled by parameters $D_a$ and $D_s$, respectively (for simplicity, diffusion is not explicitly represented in Figs. \ref{fig:2}A-C). Consistent with figures \ref{fig:2}B and C, we identify variable $a$ with the concentration of cytokines TNF$\alpha$ and IL-17, and $s$ with the concentration of IL-23:
 \[a=[TNF\alpha, IL17],\text{ }s=[IL23].\]
 
 In the simulations, a patch of skin surface (Fig. \ref{fig:2}D) is represented by an array of interconnected computational “cells”, each of which performs local computation according to Equations (\ref{eq:1}) (Fig. \ref{fig:2}E). The initial state in all simulations is a uniform distribution of IL-23 in the whole array, except for randomly distributed small “seed” areas with a high concentration of IL-17 and TNF$\alpha$. These areas represent IL-17-secreting cells (such as the T$_{\text{H}}17$-cell) that either have been activated in situ (Fig. \ref{fig:2}D, interaction \textbf{a}) or have migrated from the circulation to the skin or (Fig. \ref{fig:2}D, interaction \textbf{b}) \citep{krueger2012}. 
@@ -67,7 +59,7 @@ We observe (see also \citep{yamamoto2010, yamamoto2011}) that Equations (\ref{eq
 \[ k=1,\text{   }\rho_{a0}=0,\text{   }\mu_a=f+c,\text{   }\rho_{s0}=f,\text{ and }\mu_s=f.\]
 The parameter space and details of six patterns obtained for specific parameter values are shown in Fig. \ref{fig:3}. These patterns correspond visually to the six types of psoriasis identified in patients (Fig. \ref{fig:1}). Note that, consistent with the common assumption of the Gray-Scott reaction-diffusion model, the ratio of the diffusion rates of substrate and activator was set to $D_s:D_a=2$ \citep{pearson1993}. This is a departure from the much larger ratios typically used in reaction-diffusion models \citep{diego2018, gierer1972, kondo2010, lengyel1991, marcon2016, vastano1987}. On biochemical grounds, this departure is justified by the commensurate, small size of the three cytokines, implying comparable diffusion rates (see Table \ref{tab:S1}). The small ratio of diffusion rates does not preclude Turing instability and spontaneous pattern emergence for carefully chosen values of the remaining parameters (see Fig. \ref{fig:S2}). Nevertheless, the  parameter values leading to the formation of plaque patterns are compatible with the ``filtering” operation mode, in which the patterns do not emerge spontaneously in a homogeneous medium and elaborate initial pre-patterns instead \citep{diego2018, lee1993, muratov2000, pearson1993}. This latter mode is more pertinent to the development of psoriasis plaques, which is initiated by an activated T$_{\text{H}}17$ cell in the skin (Fig. \ref{fig:2}D).
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.65]{Map4.pdf}
 	\caption{Parameter space of the model and selected patterns. Top left: A comprehensive representation of the range of patterns generated using Equations \ref{eq:2} for different values of the synthetic parameters c and f. \textbf{A-D}: magnified views of patterns generated using select parameter values. These labels and patterns correspond to the patterns of psoriatic skin lesions identified in Fig. \ref{fig:1}.}
@@ -75,9 +67,7 @@ The parameter space and details of six patterns obtained for specific parameter 
 \end{figure}
 
 \subsection{The development of lesions and response to treatment}
-The simulated development of psoriasis lesions and the response to treatment are shown in Fig. \ref{fig:4} and in Movies M1-M6. The development was simulated by using the forward Euler method to advance the state of the reaction-diffusion model over time, given an initial random distribution of small papules. The parameter values and the initial conditions for each of these simulations are listed in supplementary Table \ref{tab:S2}, with additional information characterizing the sensitivity of simulations to the variation of (individual) parameter values collected in Table \ref{tab:S3}. Minimum values of the activator A, representing cytokines IL-17 and TNF$\alpha$, needed to initiate pattern formation are collected in Table \ref{tab:S4}. The simulated patterns shown in Fig. \ref{fig:4} A-D3 have striking resemblance to the actual patterns of psoriatic skin lesions shown in Fig. \ref{fig:1}. Next, we simulated the effect of therapy by increasing the decay rate of cytokines IL-17 and TNF$\alpha$ (activator A), which mimics real-life treatment with an anti-cytokine antibody. Interestingly, the simulated lesion clearing was not simply a time-reversal of the processes of plaque formation: the interior of the plaques cleared first, producing annular lesions (Fig. \ref{fig:4}, row 5). The residual lesions dispersed slowly, eventually disappearing entirely or leaving residual spots (Fig. \ref{fig:4}, row 6). These results closely resemble clinical situations, in which residual annular or papular lesions are often observed (Fig. \ref{fig:S1}C). 
-
-Finally, to verify that the modeling results do not critically depend on the reduction of the three-substance system in Fig. \ref{fig:2}A to the two-substance system in Fig. \ref{fig:2}B, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A (see Supplementary Text). Guided in part by parameter values found for the two-substance model (Supplementary Tables \ref{tab:S2} and \ref{tab:S3}), we found values for which the three-substance model produces qualitatively the same plaque patterns (Table \ref{tab:S5}). This result validates the simplification underlying the two-substance model.
+The simulated development of psoriasis lesions and the response to treatment are shown in Fig. \ref{fig:4}. The development was simulated by using the forward Euler method to advance the state of the reaction-diffusion model over time, given an initial random distribution of small papules. The parameter values and the initial conditions for each of these simulations are listed in supplementary Table \ref{tab:S2}, with additional information characterizing the sensitivity of simulations to the variation of (individual) parameter values collected in Table \ref{tab:S3}. Minimum values of the activator A, representing cytokines IL-17 and TNF$\alpha$, needed to initiate pattern formation are collected in Table \ref{tab:S4}. The simulated patterns shown in Fig. \ref{fig:4} A-D3 have striking resemblance to the actual patterns of psoriatic skin lesions shown in Fig. \ref{fig:1}. Next, we simulated the effect of therapy by increasing the decay rate of cytokines IL-17 and TNF$\alpha$ (activator A), which mimics real-life treatment with an anti-cytokine antibody. Interestingly, the simulated lesion clearing was not simply a time-reversal of the processes of plaque formation: the interior of the plaques cleared first, producing annular lesions (Fig. \ref{fig:4}, row 5). The residual lesions dispersed slowly, eventually disappearing entirely or leaving residual spots (Fig. \ref{fig:4}, row 6). %These results closely resemble clinical situations, in which residual annular or papular lesions are often observed (Fig. \ref{fig:S1}C). 
 
 \begin{figure}[p]
 	\centering
@@ -88,42 +78,28 @@ Finally, to verify that the modeling results do not critically depend on the red
 	\label{fig:4}
 \end{figure}
 
+Finally, to verify that the modeling results do not critically depend on the reduction of the three-substance system in Fig. \ref{fig:2}A to the two-substance system in Fig. \ref{fig:2}B, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A (see Supplementary Text). Guided in part by parameter values found for the two-substance model (Supplementary Tables \ref{tab:S2} and \ref{tab:S3}), we found values for which the three-substance model produces qualitatively the same plaque patterns (Table \ref{tab:S5}). This result validates the simplification underlying the two-substance model.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.7\columnwidth]{S2}
+  \caption{(Example of a pattern generated de novo using the Gray-Scott model (Equation \ref{eq:2}) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06, D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogeneous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.}
+  \label{fig:S2}
+\end{figure}
+
 \newpage
 
 \section{Discussion}
 Since the foundation of dermatology as a medical specialty in the beginning of the 19th century, morphological patterns provided a useful and robust criterion for the diagnosis and classification of skin diseases. However, the mechanisms through which skin diseases produce diverse patterns remained unknown. We have shown that all major morphological types of the common skin disease psoriasis (papular, small plaque, large plaque, and different forms of circinate patterns) can be generated by a reaction-diffusion model with different parameter values. The model is based on the currently known up- and down-regulating interactions between three proinflammatory cytokines: TNF$\alpha$, IL-23 and IL-17. These interactions are not direct chemical reactions, but are mediated by the immunologically active cells stimulating or inhibiting the release and proliferation of intermediary cytokines. The model has a spatio-temporal character, explaining the emergence of patterns during disease development and their disappearance during subsequent treatment. Reaction-diffusion thus provides a promising framework for studying mechanisms underlying the progress and treatment of psoriasis. As detailed data regarding the interaction and diffusion of cytokines involved in psoriasis become available, more elaborate models may be constructed to recreate the actual biological processes in the skin with an increased accuracy. Recent advances in the theoretical understanding of reaction-diffusion \citep{diego2018} suggest that the resulting models may also become more robust to parameter changes, currently limited to narrow ranges. Inflammatory patterns related to psoriasis are found in other diseases as well. For example, annular lesions are seen in erythema multiforme, dermatophytosis and erythema annulare centrifugum; reniform patterns in erythema gyratum repens, urticaria and lupus erythematosus; and rosettes in granuloma annulare. We thus hypothesize that reaction-diffusion models can be applied further to explain the patterns of other inflammatory skin diseases, and suggest their treatment by selective cytokine inhibition. Eventually, reaction-diffusion models could provide a framework for understanding the pathogenesis and pharmacologic intervention of a broad spectrum of skin diseases. 
 
-\section{Limitations of the Study}
+\section{Limitations of the study}
 The main limitation of this study is that the validity of the proposed model cannot be confirmed by direct measurements of cytokine concentration gradients in the skin. Although the diffusion rates of the cytokines are expected to be similar to each other (Table \ref{tab:S1}), which is consistent with the Gray-Scott-type model, the range of diffusion is likely to be much larger than the predicted millimeter scale due to the accrual of cytokine-secreting cells to the inflammatory infiltrate and centrifugal cell movement. Currently, the large-scale measurements of cytokine gradients in human skin are not technically feasible. 
 
-\section{Acknowledgements}
-We thank Mikolaj Cieslak for insightful discussions and comments, and Robert Munafo for advice on Gray-Scott reaction-diffusion models and their parameter space. This work was supported by the Natural Sciences and Engineering Research Council of Canada Discovery Grant 2014-05325 to PP and unrestricted research grants from the Department of Medicine, University of Alberta and Department of Dermatology, Bispebjerg Hospital, University of Copenhagen, to RG.
-
-\section{Author contribution}
-P.P. and R.G. designed research, L.R. and P.P. created mathematical model and performed computer simulations, L.R., P.P. and R.G. wrote the paper. 
-
-\section{Declaration of interests}
-L.R., P.P. and R.G. have no conflict to declare
-
-\section{Transparent Methods}
-\subsection{Source of information on the patterns of psoriatic lesions}
-Patterns of skin lesions in psoriasis have been reviewed using the “(psoriasis AND clinical AND (pattern OR shapes)) OR (clinical spectrum AND psoriasis)” search phrases in PubMed. We retrieved 715 papers and after reviewing the titles and abstracts we selected 40 relevant papers \citep{ayala2007, baker1971, balato2009, beylot1979, buxton1987, champion1986, chau2017, christophers2001, cordoro2008, dimeglio2014, fernandes2011, gropper2001, hernandez2017, hodge1977, jablonska2000, kumar1995, lal1966, lebwohl2003, magro1997, meier2009, melski1983, menter1991, gopal2013, mitchell1962, morris2001, naldi2007, de2010, picciani2017, rasmussen1986, raychaudhuri2014, reich2009, saleh2018, schon2005, seneschal2012, stankier1974, stern1997, talwar1995, whyte1964, wollenberg2011, ziemer2009}. We also reviewed 482 clinical photographs of psoriasis in the database of the Department of Dermatology University of Copenhagen and the Division of Dermatology, University of Alberta. We have excluded linear psoriasis, psoriatic erythroderma, and guttate psoriasis from our analyses. The linear pattern is the isomorphic (Köbner) response to trauma and does not emerge spontaneously \citep{melski1983}. Erythroderma manifests itself as diffuse redness and inflammation of the entire skin, and thus lacks features of a pattern. Guttate psoriasis is considered to be a separate clinical type of the disease \citep{rasmussen1986, raychaudhuri2014, whyte1964}, but it is not distinguishable from papular or nummular psoriasis based on lesion morphology. 
-
+\section{Transparent methods}
 \subsection{Approach to computer modelling}
-The progress and treatment of the disease was simulated by numerically solving the initial value problem for the reaction-diffusion equations using the forward Euler method. Simulations have been implemented using a custom program written in C++ using the Windows Visual Studio programming environment (available on request from the first author). To facilitate interactive exploration of the models and their parameters, computation has been accelerated (carried out in a parallel fashion) on an Nvidia GeForce GTX 850M Graphical Processing Unit, with arrays representing the previous and current state of the simulation in each step implemented as textures \citep{dematte2010, harris2005}. The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table \ref{tab:S1}. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table \ref{tab:S3} for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy. 
+The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table \ref{tab:S1}. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table \ref{tab:S3} for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy. 
 
-\section{Supplementary Equations}
-To show that the results obtained for the two substance system in Fig. \ref{fig:2}B also hold for the three-substance system in Fig. \ref{fig:2}A, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A. The equations have the form: 
-\begin{equation}
-	\begin{aligned}
-		\frac{\partial[TNF\alpha]}{\partial t}&=\rho_{[TNF\alpha]0}-\mu_{[TNF\alpha]}[TNF\alpha]+\eta[IL17]-k[TNF\alpha]^2[IL23] \\ & \quad{} + D_{[TNF\alpha]}\Lap[TNF\alpha]\\
-		\frac{\partial[IL17]}{\partial t}     &=\rho_{[IL17]0}     -\mu_{[IL17]}[IL17]                     +k[TNF\alpha]^2[IL23]+D_{[IL17]}\Lap[IL17]\\
-		\frac{\partial[IL23]}{\partial t}     &=\rho_{[IL23]0}     -\mu_{[IL23]}[IL23]                     -k[TNF\alpha]^2[IL23]+D_{[IL23]}\Lap[IL23]
-	\end{aligned}
-\end{equation}
-Parameter values resulting in the different pattern classes shown in Fig. \ref{fig:4} are collected in Table \ref{tab:S3}.
-
-\section{Supplementary Tables and Figures}
+\section{Supplementary tables and figures}
 \begin{table}[!htb]
 	\centering
 	\begin{tabular}{|l|l|l|}
@@ -194,25 +170,3 @@ treatSteps                   & 12,000           & 12,000                & 140,00
 \caption{Parameter values for generating the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4} using the three-substance model. In all simulations: $k = 1, \eta = 2, \rho_{[TNF\alpha]0} = \rho_{[IL17]0} = 0, \mu_{[IL17] = 1, D_{[IL23]} = 0.5, D_{[TNF\alpha]} = D_{[IL17]} = 0.25}$. Simulations were carried out using forward Euler methods with time-step $dt = 0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations.}
 \label{tab:S5}
 \end{table}
-
-\begin{figure}[!htb]
-  \includegraphics[width=0.65\columnwidth]{S1}
-  \caption{(related to Figure 1). Morphological details of different patterns of skin lesions in psoriasis. \textbf{A:} Psoriatic papule. Note that the scale and the thickness is accentuated in the center, indicating that the inflammatory reaction is most intense in the center of the lesion. \textbf{B:} Mature psoriasis plaque showing more activity in the periphery (open arrowheads) than in the center. \textbf{C:} Resolution of psoriatic plaques during treatment. Note central clearing of the plaque and residual peripheral activity producing a circinate pattern. \textbf{D:} Internal patterning of the plaques showing polygonal faceting. \textbf{E:} Merging circinate lesions. Annular plaques merge into polycyclic structures with clearance of the cross-sectioning parts of the lesions (open arrowhead). \textbf{F:} Reniform pattern on mucosal surface of the tongue (lingua geographica, left) and on the skin (right). Yellow solid arrows show the notched part of the lesion, black open arrowheads show the curled part at the notch.}
-  \label{fig:S1}
-\end{figure}
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.7\columnwidth]{S2}
-  \caption{(Example of a pattern generated de novo using the Gray-Scott model (Equation \ref{eq:2}) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06, D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogeneous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.}
-  \label{fig:S2}
-\end{figure}
-
-\section{Supplementary Movies M1-M6}
-These movies complement Fig. \ref{fig:4}, by showing full simulations rather than select frames.
-Movie M1. Simulated development and response to treatment of papular lesions. \\
-Movie M2. Simulated development and response to treatment of small plaque / nummular lesions. \\
-Movie M3. Simulated development and response to treatment of large plaque lesions. \\
-Movie M4. Simulated development and response to treatment of annular lesions. \\
-Movie M5. Simulated development and response to treatment of rosette lesions. \\
-Movie M6. Simulated development and response to treatment of reniform lesions.

@@ -1,6 +1,6 @@
 \chapter{Case Study 1: Ladybug patterns}
 
-\section{Literature Review}
+\section{Literature review}
 The ladybug (also known as ladybird beetle or lady beetle) is an insect in the family Coccinellidae. They are a small round beetle that ranges in length from 0.8 to 18mm \citep{King1996} and are often found in leaf piles and gardens. Ladybugs exist throughout the world and display a myriad of spot and stripe pigmentation patterns on their elytra: the two symmetric hard shells on the dorsal side of the insect. The elytra's main purpose is to protect the fragile wings located underneath and the pattern is thought to deter predators by indicating that the ladybug is bitter tasting \citep{King1996}. The pattern on one elytron is a mirror image of the pattern on the other. 
 
 \begin{figure}[ht]
@@ -16,7 +16,7 @@ Understanding the ladybug life cycle can give insight into how and when their pa
 
 Although the specific genetic mechanisms behind the pattern formation are not fully known, \citet{liaw2001} used reaction-diffusion to simulate visually similar ladybug patterns. The equations used are activator-depleted substrate (Eqn. \ref{eq:activatorSubstrateRD}) with saturation. Their results were obtained numerically by using forward Euler integration on a grid located on the surface of a partial sphere. Diffusion on the partial sphere is computed by assuming a radius of 1 and using a Laplacian defined in spherical coordinates. It was found that the domain boundary and the curvature change the final position of spots and stripes. Five models were proposed. Three species considered display black spots on a red/orange background. In particular, \textit{Platynaspidius quinquepunctatus}, \textit{Coccinella septempunctata}, and \textit{Epilachna crassimala} display 5, 7, and 10 spots respectively. \textit{Macroilleis hauseri} has brown stripes aligned with the long axis of the shell on a yellow background. \textit{Bothrocalvia albolineata} displays elongated orange loops on a brown background.
 
-\section{Model Description} 
+\section{Model description} 
 I used \ProgramName{} to improve these models by simulating on a triangular mesh. The equations remain the activator-depleted substrate formula \citep{meinhardt1982}:
 \begin{equation}
 	\begin{aligned} \label{eq:ladybugRD}

@@ -5,7 +5,7 @@
 \section{Systems of chemical reactions}
 Reaction-diffusion equations are an idealized and abstract representation of reality. They capture two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations (PDEs), whose numerical solution requires discretization of time and space. Computation of the chemical reactions at a specific point in space depends on the elapsed time and previous concentration. Computation of diffusion, however, depends additionally on the concentrations in the areas adjacent to the point of interest.
 
-\section{Isotropic Diffusion}
+\section{Isotropic diffusion}
 Diffusion is a process in which particles of a substance move from areas with high concentration to areas with low concentration. This change in concentration over space is referred to as a gradient. Diffusion was formalized in 1855 by Fick's second law:
 \begin{equation}
 \label{eq:ficks2ndlaw0}
@@ -168,7 +168,7 @@ This Laplacian is more complicated than before, and a complete derivation is giv
 	\label{fig:meshLaplacian}
 \end{figure}
 
-\section{Boundary Conditions}
+\section{Boundary conditions}
 PDEs determine the state of the simulation inside the domain. Interaction between the simulation and the world outside the domain is based on boundary conditions. Dirichlet and Neumann are the two most common boundary conditions. Dirichlet enforces the morphogen values directly at the boundary, and Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default or Dirichlet if specified.
 
 \section{Systems with dynamic structure}

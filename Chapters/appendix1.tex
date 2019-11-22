@@ -45,3 +45,14 @@
     \item[indices:] Specifies integer indices used to define initial conditions and parameters. Valid values are: all or 1,2,3 or 1-3.
 \end{description}
 
+\section{}
+To show that the results obtained for the two substance system in Fig. \ref{fig:2}B also hold for the three-substance system in Fig. \ref{fig:2}A, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A. The equations have the form: 
+\begin{equation}
+	\begin{aligned}
+		\frac{\partial[TNF\alpha]}{\partial t}&=\rho_{[TNF\alpha]0}-\mu_{[TNF\alpha]}[TNF\alpha]+\eta[IL17]-k[TNF\alpha]^2[IL23] \\ & \quad{} + D_{[TNF\alpha]}\Lap[TNF\alpha]\\
+		\frac{\partial[IL17]}{\partial t}     &=\rho_{[IL17]0}     -\mu_{[IL17]}[IL17]                     +k[TNF\alpha]^2[IL23]+D_{[IL17]}\Lap[IL17]\\
+		\frac{\partial[IL23]}{\partial t}     &=\rho_{[IL23]0}     -\mu_{[IL23]}[IL23]                     -k[TNF\alpha]^2[IL23]+D_{[IL23]}\Lap[IL23]
+	\end{aligned}
+\end{equation}
+Parameter values resulting in the different pattern classes shown in Fig. \ref{fig:4} are collected in Table \ref{tab:S3}.
+
