@@ -56,3 +56,17 @@ To show that the results obtained for the two substance system in Fig. \ref{fig:
 \end{equation}
 Parameter values resulting in the different pattern classes shown in Fig. \ref{fig:4} are collected in Table \ref{tab:S3}.
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{Name}           & \textbf{Papular} & \textbf{\thead{Small \\ Plaque}} & \textbf{\thead{Large \\ Plaque}}  & \textbf{Annular} & \textbf{Rosette} & \textbf{Reniform} \\ \hline
+{[}IL23{]}={[}IL23{]}0       & 0.04             & 0.045                 & 0.055                 & 0.001            & 0.009            & 0.011             \\ \hline
+\thead{$\mu_{[TNF\alpha]}$ \\ (before treatment)} & 0.103            & 0.103                 & 0.115                 & 0.028            & 0.055            & 0.054             \\ \hline
+\thead{$\mu_{[TNF\alpha]}$ \\ (during treatment)} & 0.107            & 0.1087                & 0.12                  & 0.04             & 0.0615           & 0.062             \\ \hline
+maxSteps                     & 13,000           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\ \hline
+treatSteps                   & 12,000           & 12,000                & 140,000               & 1,700            & 2,700            & 13,000            \\ \hline
+\end{tabular}
+\caption{Parameter values for generating the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4} using the three-substance model. In all simulations: $k = 1, \eta = 2, \rho_{[TNF\alpha]0} = \rho_{[IL17]0} = 0, \mu_{[IL17] = 1, D_{[IL23]} = 0.5, D_{[TNF\alpha]} = D_{[IL17]} = 0.25}$. Simulations were carried out using forward Euler methods with time-step $dt = 0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations. The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table \ref{tab:S1}. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table \ref{tab:S3} for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy.}
+\label{tab:S5}
+\end{table}
