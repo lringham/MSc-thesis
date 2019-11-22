@@ -52,18 +52,20 @@ I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. 
 \newcommand{\orig}[1]{\textcolor{gray}{(#1)}}
 
 \begin{table}[p]
+	\resizebox{\columnwidth}{!}{
 	\centering
-	\begin{tabular}{cllll}
+	\begin{tabular}{llllll}
 	\hline
-	\textbf{Model} &\bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} & \bm{$\sigma_u$} \\ \hline 
-	A & 0.0005 & 0.035 & 0 & 0 \\ 
-	B & 0.0005 & 0.025 & 0 & 0 \\ 
-	C & 0.0003 & 0.024 \orig{0.04} & 0.5 \orig{0}  & 0.01 \orig{0} \\ 
-	D & 0.000028 & 0.00168 \orig{0.000168} & 0.5 \orig{0.35} & 0 \\ 
-	E  & 0.000026 & 0.00182 \orig{0.000182} & 0.45 & 0.0019 \\
+	\textbf{Model} & \textbf{Species} & \bm{$D_u$} & \bm{$D_v$} & \bm{$\kappa$} & \bm{$\sigma_u$} \\ \hline 
+	A & \textit{P. quinquepunctatus} & 0.0005 & 0.035 & 0 & 0 \\ 
+	B & \textit{C. septempunctata} & 0.0005 & 0.025 & 0 & 0 \\ 
+	C & \textit{E. crassimala} & 0.0003 & 0.024 \orig{0.04} & 0.5 \orig{0}  & 0.01 \orig{0} \\ 
+	D & \textit{M. hauseri} & 0.000028 & 0.00168 \orig{0.000168} & 0.5 \orig{0.35} & 0 \\ 
+	E & \textit{B. albolineata} & 0.000026 & 0.00182 \orig{0.000182} & 0.45 & 0.0019 \\
 	\hline
 	\end{tabular}
-	\caption {Parameter values used for ladybug models on a mesh. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, and $\mu_u = 0.08$. The total number of steps is $1,500,000$ for all models except E where it has been decreased to $500,000$. Parameters in parenthesis are the original values used by \citep{liaw2001}. This change in parameter values are due to small differences between the patterns formed on a partial sphere and a mesh. In my model of D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_v / D_u \geq 7.8$ \citep{liaw2001}. The number of spots on A (\textit{E. crassimala}) was less than ten. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$ and changed the initial morphogen distribution to a stripe at the top as seen in A. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places, causing it to self-interact and destroy the vertical line pattern. I have decreased $\kappa$ from $0.35$ to $0.05$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self-interaction. The total simulation steps is reduced to 500,000 from the original model's 1,500,000 steps to account for lines becoming spots in E.}
+	}
+	\caption {Parameter values used for ladybug models on a mesh. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, and $\mu_u = 0.08$. The total number of steps is $1,500,000$ for all models except E where it has been decreased to $500,000$. Parameters in parenthesis are the original values used by \citep{liaw2001}. Parameter values were  changed due to small differences between the patterns formed on a partial sphere and a mesh. In my model of D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_v / D_u \geq 7.8$ \citep{liaw2001}. The number of spots on A (\textit{E. crassimala}) was less than ten. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$ and changed the initial morphogen distribution to a stripe at the top. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places, causing it to self-interact and destroy the vertical line pattern. I have decreased $\kappa$ from $0.35$ to $0.05$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self-interaction. The total simulation steps was reduced to 500,000 from the original model's 1,500,000 steps to account for lines becoming spots in E.}
 	\label{tab:ladyBugParameters}
 \end{table}
 
