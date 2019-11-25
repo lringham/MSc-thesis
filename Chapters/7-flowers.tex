@@ -48,16 +48,56 @@ This model produces convincing results as compared to the real picture and has m
 Orchids are bountiful in their production of beautiful and varied patterns. Foxglove and kohleria also display interesting spot and stripe patterns. I have used \ProgramName{} to model these flower patterns, shown in Fig. \ref{fig:miscFlowers}.
 
 \textbf{Model a:} 
-This model is of an orchid which displays varying sizes of purple spots on a white background. The model is produced using the Gray-Scott reaction-diffusion system, Eq \ref{eq:grayscottRD}. At the start, 400 random vertices are initialized with both activator, $a$ and substrate, $s$ values randomly chosen in $[0, 1)$. The remaining vertices have no activator and substrate concentration of 1. The simulation is then stopped after $150$ iterations. This is before the pattern can become fully stable and allows for varying sizes of spots in the resulting patterns. The parameters are: $D_a = 0.25$, $D_s = 0.5$, $dt = 0.3$, $f = 0.082$, $k = 0.063$.
+This model is of a phalaenopsis orchid which displays varying sizes of purple spots on a white background. The model is produced using the Gray-Scott reaction-diffusion system, Eq \ref{eq:grayscottRD}. At the start, 400 random vertices are initialized with both activator, $a$ and substrate, $s$ values randomly chosen in $[0, 1)$. The remaining vertices have no activator and substrate concentration of 1. The simulation is then stopped after $150$ iterations. This is before the pattern can become fully stable and allows for varying sizes of spots in the resulting patterns. The parameters are: $D_a = 0.25$, $D_s = 0.5$, $dt = 0.3$, $f = 0.082$, $k = 0.063$.
 
 \textbf{Model b:}
-Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I have modelled the inner patterns using the Turing reaction-diffusion formula with anisotropy. This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The whole domain uses parameters for a spot pattern. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This has the effect of spots turning into a series of branching connected lines. Both regions use the following parameters: $Du=0.3$, $Dv=0.0625$, $b=12$, $dt=0.1$, $p_v=0$, $s=0.035$, $uSat=7$, and $u_u=0$. The inner region parameters differ by $a=16$ and anisotropic diffusion is applied to $u$ using the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form spots in the outer region I use $a=16.5$ with isotropic diffusion. The number of steps used is $10000$.
+This orchid of the encyclia genus displays orange and yellow stripes across the flower petals. To model this, I have used the Turing reaction-diffusion formula. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. The whole flower uses parameters $Du=0.4$, $Dv=0.01$, $a=16$, $b=12$, $dt=0.05$, and $uSat=6.3$. Anisotropic diffusion is used to orient the pattern across the petals with both $u$ and $v$ using $\lambda_1=0.35$, $\lambda_2=1$ and directions radiating from the centre. The regions change from the centre having $s=0.005$, middle $s=0.002$, outer $s=0.001$. After $60000$ steps, this pattern has settled and there is a second phase. In this phase, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ are frozen at $0$ and $30$ respectively. This simulation is then stopped after $4500$ steps, before the pattern fully settles.
 
 \textbf{Model c:}
 Foxglove has a scattered pattern of dark purple spots on the bottom inside of its flowers. These spots are surrounded by a white halo that merges with others nearby. Beyond these halos the rest of the flower appears pink or light purple. I have modelled them using the activator-depleted substrate formula, Eqn. \ref{eq:activatorSubstrateRD}. This model uses two morphogens $s$ and $a$. The morphogen $s$ is $1$ everywhere and $a$ is $0$ except for a few vertices at the bottom of the flower. These vertices have a value of $a=1$ and will grow to become the dark purple pigment spots. The parameters used are $Da=0.00004$, $Ds=0.0015$, $dt=0.005$, $p=0.05$, $p_a=0.0125$, $p_s=0$, $u_a=0.05$, and $u_s=0.08$. This simulation runs for $20700$ steps.
 
 \textbf{Model d:}
-This flower displays orange and yellow stripes across the flower petals. To model this, I have used the Turing reaction-diffusion formula. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. The whole flower uses parameters $Du=0.4$, $Dv=0.01$, $a=16$, $b=12$, $dt=0.05$, and $uSat=6.3$. Anisotropic diffusion is used to orient the pattern across the petals with both $u$ and $v$ using $\lambda_1=0.35$, $\lambda_2=1$ and directions radiating from the centre. The regions change from the centre having $s=0.005$, middle $s=0.002$, outer $s=0.001$. After $60000$ steps, this pattern has settled and there is a second phase. In this phase, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ are frozen at $0$ and $30$ respectively. This simulation is then stopped after $4500$ steps, before the pattern fully settles.
+Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I have modelled the inner patterns using the Turing reaction-diffusion formula with anisotropy. This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The whole domain uses parameters for a spot pattern. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This has the effect of spots turning into a series of branching connected lines. Both regions use the following parameters: $Du=0.3$, $Dv=0.0625$, $b=12$, $dt=0.1$, $p_v=0$, $s=0.035$, $uSat=7$, and $u_u=0$. The inner region parameters differ by $a=16$ and anisotropic diffusion is applied to $u$ using the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form spots in the outer region I use $a=16.5$ with isotropic diffusion. The number of steps used is $10000$.
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{llllllllllll}
+	\hline
+	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$p_u$} &\bm{$p_v$} &$\bm{s_u$} &\bm{$s_v$} &\bm{$u_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
+	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
+	\end{tabular}
+	}
+	\caption {Parameter values for the California kingsnake model.}
+	\label{tab:snakeParameters}
+\end{table}
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{llllllllllll}
+	\hline
+	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$p_u$} &\bm{$p_v$} &$\bm{s_u$} &\bm{$s_v$} &\bm{$u_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
+	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\
+	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
+	\end{tabular}
+	}
+	\caption {Parameter values for the California kingsnake model.}
+	\label{tab:snakeParameters}
+\end{table}
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{llllllllllll}
+	\hline
+	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$p_u$} &\bm{$p_v$} &$\bm{s_u$} &\bm{$s_v$} &\bm{$u_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
+	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
+	\end{tabular}
+	}
+	\caption {Parameter values for the California kingsnake model.}
+	\label{tab:snakeParameters}
+\end{table}
 
 \begin{figure}[p]
 	\centering

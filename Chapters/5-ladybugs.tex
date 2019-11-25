@@ -1,7 +1,7 @@
 \chapter{Case Study 1: Ladybug patterns}
 
 \section{Literature review}
-The ladybug (also known as ladybird beetle or lady beetle) is an insect in the family Coccinellidae. They are a small round beetle that ranges in length from 0.8 to 18mm \citep{King1996} and are often found in leaf piles and gardens. Ladybugs exist throughout the world and display a myriad of spot and stripe pigmentation patterns on their elytra: the two symmetric hard shells on the dorsal side of the insect. The elytra's main purpose is to protect the fragile wings located underneath and the pattern is thought to deter predators by indicating that the ladybug is bitter tasting \citep{King1996}. The pattern on one elytron is a mirror image of the pattern on the other. 
+The ladybug (also known as ladybird beetle or lady beetle) is an insect in the family Coccinellidae. They are a small round beetles that range in length from 0.8 to 18mm \citep{King1996} and are often found in leaf piles and gardens. Ladybugs exist throughout the world and display a myriad of spot and stripe pigmentation patterns on their elytra: the two symmetric hard shells on the dorsal side of the insect. The elytra's main purpose is to protect the fragile wings located underneath, and the pattern is thought to deter predators by indicating that the ladybug is bitter tasting \citep{King1996}. The pattern on one elytron is a mirror image of the pattern on the other. 
 
 \begin{figure}[ht]
 	\centering
@@ -12,12 +12,12 @@ The ladybug (also known as ladybird beetle or lady beetle) is an insect in the f
 
 Understanding the ladybug life cycle can give insight into how and when their patterns form. The cycle starts with eggs laid on the underside of leaves. These eggs hatch into larvae, which then eat aphids and other food sources until they can pupate and metamorphose into adults. Immediately after pupation, the elytra appear patternless and are a pale-yellow colour. In a timespan of hours to days, dark spots emerge and become black. The yellow transitions to red, giving the ladybug its characteristic appearance. Although certain species of ladybugs are described by the number of spots on their elytra, there can be a variable number and shape of spots found on ladybugs of the same species.
 
-\citet{Ando2018} explored the genetic mechanisms governing formation of ladybug patterns. They found a gene, \textit{pannier}, which is responsible for much of the observed pigmentation patterns in \textit{Harmonia axyridis} and \textit{Coccinella septempunctata}. Before any pigment is visible, \textit{pannier} is found in a pre-pattern on the elytra. It then promotes melanin (black) and inhibits carotenoids (red) pigmentation accumulation creating a visible pattern. Future work is needed to identify if other specific genes are involved in pigmentation expression.
+\citet{Ando2018} explored the genetic mechanisms governing the formation of ladybug patterns. They found a gene, \textit{pannier}, which is responsible for much of the observed pigmentation patterns in \textit{Harmonia axyridis} and \textit{Coccinella septempunctata}. Before any pigment is visible, \textit{pannier} is found in a pre-pattern on the elytra. It then promotes melanin (black) and inhibits carotenoids (red) pigmentation accumulation creating a visible pattern. Future work is needed to identify if other specific genes are involved in pigmentation expression.
 
 Although the specific genetic mechanisms behind the pattern formation are not fully known, \citet{liaw2001} used reaction-diffusion to simulate visually similar ladybug patterns. The equations used are activator-depleted substrate (Eqn. \ref{eq:activatorSubstrateRD}) with saturation. Their results were obtained numerically by using forward Euler integration on a grid located on the surface of a partial sphere. Diffusion on the partial sphere is computed by assuming a radius of 1 and using a Laplacian defined in spherical coordinates. It was found that the domain boundary and the curvature change the final position of spots and stripes. Five models were proposed. Three species considered display black spots on a red/orange background. In particular, \textit{Platynaspidius quinquepunctatus}, \textit{Coccinella septempunctata}, and \textit{Epilachna crassimala} display 5, 7, and 10 spots respectively. \textit{Macroilleis hauseri} has brown stripes aligned with the long axis of the shell on a yellow background. \textit{Bothrocalvia albolineata} displays elongated orange loops on a brown background.
 
 \section{Model description} 
-I used \ProgramName{} to improve these models by simulating on a triangular mesh. The equations remain the activator-depleted substrate formula \citep{meinhardt1982}:
+I used \ProgramName{} to improve these models. The equations remain the activator-depleted substrate formula \citep{meinhardt1982}:
 \begin{equation}
 	\begin{aligned} \label{eq:ladybugRD}
    \frac{\partial u}{\partial t} &= \rho_u \frac{u^2v}{1+\kappa u^2} + \sigma_u - \mu_u u + D_u \Lap u, \\
@@ -25,16 +25,12 @@ I used \ProgramName{} to improve these models by simulating on a triangular mesh
 	\end{aligned}
 \end{equation}
 
-The activator is represented by $u$ and is displayed as the pigmentation on the elytra. The substrate is denoted by $v$. The rate of conversion of $v$ into $u$ is determined by the reaction rate $\rho_u$. Similarly, $\rho_v$ represents how much $v$ is used in the conversion to $u$. $\kappa$ controls saturation, $\sigma_u$ and $\sigma_v$ are the base production rates, and $\mu_u$ is the decay of $u$. $\Lap$ is the discrete Laplacian with the diffusion rates being $D_u$ and $D_v$ for $u$ and $v$.
-
-The simulation domain is a triangular mesh mimicking the real shape of the elytra. The boundary conditions are no-flux and the shell is considered one piece. One exception is the model of  \textit{B. albolineata} which contains a sink along the middle of the domain where the two shell halves would meet. 
+The activator is represented by $u$ and is displayed as the pigmentation on the elytra. The substrate is denoted by $v$. The rate of conversion of $v$ into $u$ is determined by the reaction rate $\rho_u$. Similarly, $\rho_v$ represents how much $v$ is used in the conversion to $u$. $\kappa$ controls saturation, $\sigma_u$ and $\sigma_v$ are the base production rates, and $\mu_u$ is the decay of $u$. $\Lap$ is the discrete Laplacian with the diffusion rates being $D_u$ and $D_v$ for $u$ and $v$. The boundary conditions are no-flux, and the shell is considered one piece except for the model of  \textit{B. albolineata}, which contains a sink along the middle of the domain where the two shell halves would meet. 
 
 \section{Results}
-I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. The patterns are simulated on a triangular mesh, which, due to its flexible representation of 2D surfaces, provides a more faithful portrayal of ladybug elytra compared to a partial sphere. These results are shown in Fig. \ref{fig:ladyBugPatterns}. Images of real ladybug specimens were used to determine the pattern colours, increasing the pattern's realism. Development of the patterns overtime is something not studied before and it would be interesting to see if there exists a chemical pre-pattern that moves in a similar manner to the simulations. The development of the simulated ladybug patterns is visualized in Fig. \ref{fig:ladyBugDev}. The original parameters provided by \citet{liaw2001} have been altered to be more mathematically sound, and to account for the differences when simulated on a mesh. A complete list of model parameters is shown in Table \ref{tab:ladyBugParameters}. 
+By simulating ladybug patterns on a mesh, I improved on the results in \citep{liaw2001}. Due to the mesh's flexible representation of 2D surfaces, my model provides a more faithful portrayal of ladybug elytra compared to a partial sphere (Fig. \ref{fig:ladyBugPatterns}). Images of real ladybug specimens were used to determine the pattern colours. By choosing more natural colours, I observed a substantial qualitative increase in patten realism. It was difficult to predict the final spot positions before the simulation reached a steady-state. Pattern positioning often varied based on the specific initial distribution of morphogens. Being able to run the models quickly helped to narrow down which morphogen distributions produced the desired results. Fig. \ref{fig:ladyBugDev} shows the development of the simulated patterns. During simulation, the initial pattern will disappear quickly and then reappear as large blotches. Finally, they settle into smaller ovals and then spots. The original parameters provided by \citet{liaw2001} have been altered to be more mathematically sound, and to account for the differences when simulated on a mesh. A complete list of model parameters is shown in Table \ref{tab:ladyBugParameters}. As noted by \citet{liaw2001}, a initial band of morphogens across the top of the elytra is important to spot alignment. I also used a stripe at the top but forgoed the central stripe. The alternative arragement produced patterns with aligned rows of spots predictably while allowing for a varying number of spots. 
 
-%This approach can produce similar patterns with a different number of spots by only varying the diffusion rate of $u$.
-
-\begin{figure}[p]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{ladybugs.png}
 	\caption{Simulation of ladybug patterns. \textbf{Row 1:} initial simulation state. \textbf{Row 2:} final simulation state. \textbf{Row 3:} collection of the real ladybug species. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively. 
@@ -42,7 +38,7 @@ I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. 
 	\label{fig:ladyBugPatterns}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{ladybug-dev.png}
 	\caption{Progression of ladybug patterns overtime. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively.}
@@ -50,8 +46,7 @@ I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. 
 \end{figure}
 
 \newcommand{\orig}[1]{\textcolor{gray}{(#1)}}
-
-\begin{table}[p]
+\begin{table}[ht]
 	\resizebox{\columnwidth}{!}{
 	\centering
 	\begin{tabular}{llllll}
@@ -59,7 +54,7 @@ I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. 
 	\textbf{Model} & \textbf{Species} & \bm{$D_u$} & \bm{$D_v$} & \bm{$\kappa$} & \bm{$\sigma_u$} \\ \hline 
 	A & \textit{P. quinquepunctatus} & 0.0005 & 0.035 & 0 & 0 \\ 
 	B & \textit{C. septempunctata} & 0.0005 & 0.025 & 0 & 0 \\ 
-	C & \textit{E. crassimala} & 0.0003 & 0.024 \orig{0.04} & 0.5 \orig{0}  & 0.01 \orig{0} \\ 
+	C & \textit{E. crassimala} & 0.0003 & 0.024 \orig{0.04} & 0 & 0.01 \orig{0} \\ 
 	D & \textit{M. hauseri} & 0.000028 & 0.00168 \orig{0.000168} & 0.5 \orig{0.35} & 0 \\ 
 	E & \textit{B. albolineata} & 0.000026 & 0.00182 \orig{0.000182} & 0.45 & 0.0019 \\
 	\hline
@@ -70,7 +65,7 @@ I produced and improved on ladybug patterns as they appear in \citep{liaw2001}. 
 \end{table}
 
 \section{Discussion and future work}
-These models produce patterns on a triangular mesh and are visually similar to real ladybugs. Previously, the domain ladybug patterns were simulated on was restricted to spherical surfaces. This work allows for arbitrary surfaces which can more closely model real ladybug elytra. The changes to initial conditions and parameters provide an alternative to those found in \citep{liaw2001}. Improvements to these models can be made once the biological chemical interactions are fully understood. The most relevant insights would be, the real initial distribution of morphogens, and the actual reaction behaviour between morphogens. Further investigation should be made to determine if morphogens really diffuse across the gap in the elytra or if the elytra are at one point joined during pupation. Also, how much do patterns found on the head of the ladybug effect the elytra pattern? Another important question is if the patterns displayed are at a biological steady state or does pattern formation stop prematurely.
+Improvements to these models can be made once the biological chemical interactions are fully understood. The most relevant insights would be, the real initial distribution of morphogens, and the actual reaction behaviour between morphogens. Further investigation should be made to determine if morphogens diffuse across the gap in the elytra or if the elytra are at one point joined during pupation. Also, how much do patterns found on the head of the ladybug effect the elytra pattern? Another important question is if the patterns displayed are at a biological steady-state or does pattern formation stop prematurely. Development of the patterns overtime is something not studied before, and it would be interesting to see if there exists a chemical pre-pattern that moves similarly to the simulations.
 
 %Both my model and \citep{liaw2001} use a morphogen sink along the centre of the elytra to create the loop pattern. Patterns observed in D seem to be a good fit for modelling E as well.
 
