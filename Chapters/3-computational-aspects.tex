@@ -32,7 +32,7 @@ In many biological scenarios, particles do not diffuse at an equal rate in all d
     0 & \lambda_2 
 \end{bmatrix}
 \end{equation}
-Each $\lambda_i$ represents the diffusivity in a basis of the space. Thus, $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
+Each $\lambda_i$ represents the diffusivity in a basis of the space. In practice, $\lambda_1$ and $\lambda_2$ are used to represent a portion of the desired scalar diffusion rate. To represent isotropic diffusion $\lambda_1=1$ and $\lambda_2=1$. $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
 \begin{equation}
 \label{eq:anisoDiffTensor}
 	D = R^T \Lambda R.
