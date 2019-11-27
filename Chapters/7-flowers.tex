@@ -1,7 +1,9 @@
 \chapter{Case Study 3: Flowers Petal Patterns}
 
-\section{Literature review}
-To humans, flowers are a symbol of natural beauty and their spots and stripes serve to enhance this quality. A variety of these flower patterns are shown in Fig. \ref{fig:realFlowers}. For nature, flower pigment patterns have a more  utilitarian purpose. They are used to help flowers reproduce by attracting insects and likely evolved to exploit pollinator vision to further this goal. Patterns guide insects to nectar and can appear as paths or landing spots, sometimes visible only in the UV spectrum \citep{davies2012}. Patterns may also develop due to infections, age, and the environment \citep{davies2012, robinson2015}. Thus, understanding them also gives insight into flower reproduction, insect behaviour, and environmental factors. Some patterns mimic the appearance of female bugs, as in the case of the bee orchid \citep{vereecken7484}. This deceives bees looking for mates, into pollinating the flower. Surprisingly, given the importance of petal patterns to nature and the ubiquity of flowers in movies and video games, little attention has been given to simulating them. 
+\section{Biological background}
+To humans, flowers are a symbol of natural beauty. Their spots and stripes enhance this quality (Fig. \ref{fig:realFlowers}). For nature, flower pigment patterns have a more utilitarian purpose. They are used to help plants reproduce by attracting insects and likely evolved to exploit pollinator vision to further this goal. Patterns guide insects to nectar and can appear as paths or landing spots, sometimes visible only in the UV spectrum \citep{davies2012}. Alternatively, patterns may develop due to external factors such as infections, age, and the environment \citep{davies2012, robinson2015}. Thus, understanding them also gives insight into flower reproduction, insect behaviour, and environmental factors. Some patterns mimic the appearance of female bugs, as in the case of the bee orchid \citep{vereecken7484}. This deceives bees looking for mates, into pollinating the flower. Surprisingly, given the importance of petal patterns to nature, little attention has been given to simulating them.
+
+%TODO add paragraph from other paper.. include what pigments are and what they look like
 
 \begin{figure}[!ht]
 	\centering
@@ -9,20 +11,8 @@ To humans, flowers are a symbol of natural beauty and their spots and stripes se
 	\caption{Examples of pigment patterns on real flowers. \textit{Photographs: courtesy of Przemyslaw Prusinkiewicz}}
 	\label{fig:realFlowers}
 \end{figure}
-
-% reaction-diffusion has been used to model plant growth \citet{harrison2002, holloway2007}
-
-A clonal mosaic model was used to procedurally generate patterns found in the plant kingdom \citep{binsfeld2011}. Specifically, they produce spot patterns found on mushrooms, the stripes on watermelons, and the blotches on plants such as the shrub \textit{Codiaeum variegatum}. In this model, individual plant cells are represented discretely and are separated into two types, foreground and background. Each type contains its own set of parameters that consist of colour, division rate, cell mobility, adhesion between cell types, and chance to switch types. Cells are represented as randomly distributed points over a user defined mesh. The type of each cell may also be random, or user defined. During simulation, a given cell will produce a child cell based on the parent's division rate. This child cell may inherit its parent's type or change types based on its parent's probability to change types. These cells repel each other and spread out over the domain. For a given cell, the strength of this repulsion is based on the distance between cells, and the number of cells surrounding it, as well as the cell adhesion factor between cell types. Cell division and movement is repeatedly calculated, simulating plant aging and producing a uniformly covered domain. To render the result, the cells are triangulated to create a new mesh representation of the original domain. 
-
-A simulation of procedurally generated two dimensional flowers is proposed by \citep{risi2012}. In this model a flower is represented by a specialized artificial neural network which encodes the flower shape and colour. This network is called a compositional pattern-producing network (CPPN) \citep{stanley2007}. It uses a wider range of activation functions compared to a standard neural network to produce symmetric and repeating patterns, which are features often seen in natural flower petals. To create a flower, the CPPN takes as input an angle, $\Theta$, a distance from the centre of a circle, $r$, and a layer number, $L$. It then returns a distance value and a pigment colour. The distance is used to define the perimeter of the flower. To determine the colour of the petals, the CPPN is queried for locations on the petal based on their angle and distance from the centre. This process is repeated for multiple layers and composited together to create more complex flowers. 
-
-This simulation was implemented in the video game Petalz which is based on procedurally generating and sharing flowers of different shapes and colours. Users are given pre-made starting flowers which they can then breed, display, and sell. Breeding is accomplished through mutating a single flower or cross-pollinating different flowers together. Specifically, the nodes and connections of the CPPN are mixed with another network. This results in a combination of each flower's colours and shape. Selling flowers gives the user in-game currency which is used to buy flowers from other users which can then be cross-bred to create new and unique flowers. The social aspect of this game leads to a crowd sourced method of flower creation where the flower attributes are selected for based on their visual appeal.
-
-Another mathematical approach to flower modelling is proposed in \citep{lu2014}. This work focuses on modelling flower petal patterns as well as geometric components such as the pistil, stamen, and receptacle in 3-dimensions. These flower components are modelled with parametric ellipsoids and cylinders and the petal geometry is modelled by deforming rectangular surfaces. Pigment intensity is determined from various combinations of sine functions. The distance from the centre of the flower is used as the argument of these functions and the resulting values correspond to pigment intensity. This approach provides visually good results, but it does not seem to support irregular or complex patterns.
-
-Reaction-diffusion has been used to simulate petal patterns on a grid \citep{zhou2007}. In this model, petal shape, initial morphogen distribution, and a venation map are input as textures. The reaction-diffusion equations used consist of Schnakenberg kinetics with diffusion \citep{schnakenberg1979}. The diffusion rate at a given point is determined by the distance to a vein. This distance is found by querying the venation map. The reaction-diffusion equations are then simulated to generate a final pigment distribution. The colour is then determined by mapping the concentration to a user provided colormap.
-
-\citep{Yuan2019} used a biologically motivated approach to analyse pattern formation on a flower \textit{Mimulus} (monkeyflower). This flower contains red spots located where the flower petals converge into semi-tubular furrows as shown in Fig. \ref{fig:monkeyflower_real}. The red pigmentation consists of anthocyanin, molecular compounds that appear red, blue or orange \citep{bayer1966}. Through the exploration of the genetic mechanisms controlling pigmentation accumulation and distribution, they identified the key proteins responsible for spot formation. The protein interactions that were also discovered display the key aspects of reaction-diffusion: diffusion, autocatalysis, and inhibition. The proteins are named nectar guide anthocyanin (NEGAN) and red tongue (RTO). NEGAN is a transcription factor responsible for production of red pigment, and its distribution over the flower can be thought of as a prepattern. Through experimentation, they found that RTO diffuses throughout the flower and NEGAN is localized in the furrows. The protein NEGAN is shown to be autocatalytic and in the presence of RTO this reaction is inhibited. Consequently, RTO is the inhibitor and NEGAN is the auto-catalytic activator.
+%TODO what are the pigments, and where are they located?
+\citet{Yuan2019} analyzed pattern formation on various species of \textit{Mimulus}(monkeyflowers). Specifically \textit{M. lewisii} and \textit{M. guttatus}. This flower contains red spots located where the flower petals converge into semi-tubular furrows, as shown in Fig. \ref{fig:monkeyflower_real}. The red pigmentation consists of anthocyanin, molecular compounds that appear red, blue or orange \citep{bayer1966}. Through the exploration of the genetic mechanisms controlling pigmentation accumulation and distribution, \citet{Yuan2019} identified the key proteins responsible for spot formation. The protein interactions that were also discovered display the key aspects of reaction-diffusion: diffusion, autocatalysis, and inhibition. The proteins are named nectar guide anthocyanin (NEGAN) and red tongue (RTO). NEGAN is a transcription factor responsible for the production of red pigment, and its distribution over the flower can be thought of as a pre-pattern. Through experimentation, \citet{Yuan2019} found that RTO diffuses throughout the flower, and NEGAN is localized in the furrows. The protein NEGAN is shown to be autocatalytic, and in the presence of RTO, this reaction is inhibited. Consequently, RTO is the inhibitor, and NEGAN is the auto-catalytic activator.
 
 \begin{figure}[ht]
 	\centering
@@ -31,84 +21,120 @@ Reaction-diffusion has been used to simulate petal patterns on a grid \citep{zho
 	\label{fig:monkeyflower_real}
 \end{figure}
 
+% reaction-diffusion has been used to model plant growth \citet{harrison2002, holloway2007}
+
+%A clonal mosaic model was used to generate patterns found in the plant kingdom procedurally \citep{binsfeld2011}. Specifically, they produce spot patterns found on mushrooms, the stripes on watermelons, and the blotches on plants such as the shrub \textit{Codiaeum variegatum}. In this model, individual plant cells are represented discretely and are separated into two types, foreground and background. Each type contains its own set of parameters that consist of colour, division rate, cell mobility, adhesion between cell types, and chance to switch types. Cells are represented as randomly distributed points over a user-defined mesh. The type of each cell may also be random or user-defined. During simulation, a given cell will produce a child cell based on the parent's division rate. This child cell may inherit its parent's type or change types based on its parent's probability to change types. These cells repel each other and spread out over the domain. For a given cell, the strength of this repulsion is based on the distance between cells, and the number of cells surrounding it, as well as the cell adhesion factor between cell types. Cell division and movement is repeatedly calculated, simulating plant ageing and producing a uniformly covered domain. To render the result, the cells are triangulated to create a new mesh representation of the original domain. 
+
+\section{Previous modelling work}
+Reaction-diffusion has been used to simulate petal patterns on a grid \citep{zhou2007}. In this model, petal shape, initial morphogen distribution, and a venation map are input as textures. 
+%Shackenberg kinetics are not explained
+The reaction-diffusion equations used consist of Schnakenberg kinetics with diffusion \citep{schnakenberg1979}. The diffusion rate at a given point is determined by the distance to a vein. This distance is found by querying the venation map. The reaction-diffusion equations are simulated to generate a final pigment distribution. Finally, colour is determined by mapping the concentration to a user-provided colormap.
+
+Another mathematical approach to flower modelling for use in computer graphics is proposed in \citep{lu2014}. This work focuses on modelling flower petal patterns as well as geometric components such as the pistil, stamen, and receptacle in 3-dimensions. These flower components are modelled with parametric ellipsoids and cylinders, and the petal geometry is modelled by deforming rectangular surfaces. Pigment intensity is determined from various combinations of sine functions. The distance from the centre of the flower is used as the argument of these functions, and the resulting values correspond to pigment intensity. This approach provides visually good results, but it does not seem to support irregular or complex patterns.
+
+%TODO not clear how a wider range of activation functions allows would produce symmetry and repetitions
+A simulation of procedurally generated two-dimensional flowers is proposed by \citet{risi2012}. In this model, a flower is represented by a specialized artificial neural network that encodes the flower shape and colour. This network is called a compositional pattern-producing network (CPPN) \citep{stanley2007}. It uses a wider range of activation functions compared to a standard neural network to produce symmetric and repeating patterns, which are features often seen in natural flower
+%TODO this is very unclear, proper context to understand parameters is lacking
+ petals. To create a flower, the CPPN takes as input an angle, $\Theta$, a distance from the centre of a circle, $r$, and a layer number, $L$. It then returns a distance value and a pigment colour. The distance is used to define the perimeter of the flower. To determine the colour of the petals, the CPPN is queried for locations on the petal based on their angle and distance from the centre. This process is repeated for multiple layers and composited together to create more complex flowers. 
+
+This simulation was implemented in the video game Petalz which is based on procedurally generating and sharing flowers of different shapes and colours. Users are given pre-made starting flowers, which they can then breed, display, and sell. Breeding is accomplished through mutating a single flower or cross-pollinating different flowers together. Specifically, the nodes and connections of the CPPN are mixed with another network. This results in a combination of each flower's colours and shape. Selling flowers gives the user in-game currency, which is used to buy flowers from other users, which can then be cross-bred to create new and unique flowers. The social aspect of this game leads to a crowdsourced method of flower creation where the flower attributes are selected for based on their visual appeal.
+
 \section{Monkeyflower modelling}
-I modelled monkeyflower spots on a triangular mesh using \ProgramName{}. The PDEs chosen are the activator-inhibitor model, Eqn. \eqref{eq:activatorInhibitorRD}, because of the inhibitory relationship between NEGAN and RTO. Here NEGAN is $a$ and RTO is $h$. Since in nature pattern formation is suppressed at the periphery, my model uses two sets of parameters. The first set is for the region containing NEGAN and the second is for the remaining periphery. The initial morphogen distribution has NEGAN $= 0$ and RTO $= 1$ everywhere. The boundary between the regions provides the required noise to instigate pattern formation. Consequently, spots first form on the boundary and continue to form towards the centre. This procession aligns the spots to the shape of the boundary as seen in Fig. \ref{fig:monkeyflower}. The parameters for the inner region are: $D_a=0.000025$, $D_h=0.001$, $dt=0.005$, $p=0.05$, $p_a=0.0125$, $p_h=0$, $u_a=0.05$, $u_h=0.08$. The periphery uses the same parameter values except the base production of NEGAN is $p_a=0$.
+The Monkeyflower is a rare case in which actual morphogens have been identified. The existence of this theory and the appearance of spots characteristic of reaction-diffusion was a compelling reason to create a model. My model was produced on a triangular mesh using \ProgramName{}. The reaction-diffusion model I selected is activator-inhibitor, Eqn. \eqref{eq:activatorInhibitorRD}, because of the inhibitory relationship between NEGAN and RTO. Here NEGAN plays the role of activator, $a$, and RTO is the inhibitor, $h$. In nature, NEGAN is only found in the nectar guides. This holds true in mutant flowers that lack the presence of RTO. Consequently, my model uses two sets of parameters. The difference between the parameters is that the base production of NEGAN, $\rho_a$, only exists in the nectar guides. The boundary between the regions provides the required noise to instigate pattern formation. Consequently, spots first form on the boundary and continue to form towards the centre. This procession aligns the spots to the shape of the boundary, as seen in Fig. \ref{fig:monkeyflower-dev}. The full list of parameters is found in Table. \ref{tab:monkeyflowerParameters}.
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{llllllllll}
+	\hline
+	\textbf{Model} & \bm{$D_a$} &\bm{$D_h$} &\bm{$\rho$} &\bm{$\rho_a$} &\bm{$\rho_h$} &$\bm{\mu_a$} &\bm{$\mu_h$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
+	\textit{M. guttatus} &$2.5*10^{-5}$ &0.001 &0.05 &0.0125 \orig{0} &0 &0.05 &0.08 &0.005 &1,500                \\
+	\end{tabular}
+	}
+	\caption {Parameters for the monkeyflower model using activator-inhibitor equations (Eqn. \ref{eq:activatorInhibitorRD}). Values in parentheses are used at the periphery. The initial morphogen distribution has NEGAN $= 0$ and RTO $= 1$ everywhere.}
+	\label{tab:monkeyflowerParameters}
+\end{table}
 
 \subsection*{Results}
-This model produces convincing results as compared to the real picture and has mimicked the spot positioning and general character. The spots seen on the region boundary look artificial because of how neatly they are arranged. This may be due to the sharp transition between regions and can be improved with noise or more care when they are specified. The yellow pigmentation may not directly represent NEGAN concentration and more accurate models could account for this with more morphogens.
+This model produces convincing results as compared to the real picture and has mimicked the spot positioning and general character (Fig. \ref{fig:monkeyflower}). The spots seen on the region boundary look artificial because of how neatly they are arranged. This may be due to the sharp transition between regions and can be improved with noise or more care when they are specified. Further study should be done to determine to what extent the separate regions in my model occur in nature. And, if there are two regions, is the boundary shape responsible for the linear arrangement of spots? This model also provides a starting point for models of other monkeyflower species.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{monkeyflower.png}
-	\caption{Simulated and real monkeyflowers. \textbf{a:} NEGAN base production, $p_a$, is 0 in the dark region. \textbf{b:} initial appearance of the model. \textbf{c:} final appearance of the model. \textbf{d:}. a picture of a real monkeyflower.}
+	\caption{Simulated and real monkeyflowers. \textbf{a:} NEGAN base production, $\rho_a$, is 0 in the dark region, and $0.0125$ in the light region. \textbf{b:} initial appearance of the model. \textbf{c:} final appearance of the model. \textbf{d:}. a picture of a real monkeyflower.}
 	\label{fig:monkeyflower}
 \end{figure}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{monkeyflower_dev.png}
+	\caption{Development of the simulated monkeyflower pattern. \textbf{1-8:} Individual stages of pattern development where 1 is the earliest and 8 is the final result.}
+	\label{fig:monkeyflower-dev}
+\end{figure}
+
+
 \section{Other flower models}
-Orchids are bountiful in their production of beautiful and varied patterns. Foxglove and kohleria also display interesting spot and stripe patterns. I have used \ProgramName{} to model these flower patterns, shown in Fig. \ref{fig:miscFlowers}.
+Orchids display many beautiful pigmentation patterns. Examples range from scattered distributions of spots to arrangements of discordant lines. Their intriguing and colourful patterns pose a compelling modelling challenge. patterns \textit{Digitalis} and \textit{Kohleria} also display interesting spot and stripe patterns. I have used \ProgramName{} to model these flower patterns, shown in Fig. \ref{fig:miscFlowers}.
 
 \textbf{Model a:} 
-This model is of a phalaenopsis orchid which displays varying sizes of purple spots on a white background. The model is produced using the Gray-Scott reaction-diffusion system, Eq \ref{eq:grayscottRD}. At the start, 400 random vertices are initialized with both activator, $a$ and substrate, $s$ values randomly chosen in $[0, 1)$. The remaining vertices have no activator and substrate concentration of 1. The simulation is then stopped after $150$ iterations. This is before the pattern can become fully stable and allows for varying sizes of spots in the resulting patterns. The parameters are: $D_a = 0.25$, $D_s = 0.5$, $dt = 0.3$, $f = 0.082$, $k = 0.063$.
+This model is of a \textit{Phalaenopsis} orchid, which displays varying sizes of purple spots on a white background. The model is produced using the Gray-Scott reaction-diffusion system, Eqn. \ref{eq:grayscottRD}. At the start, 400 random vertices are initialized with both activator, $a$ and substrate, $s$ values randomly chosen in $[0, 1)$. The remaining vertices have no activator and substrate concentration of 1. The simulation is then stopped after $150$ iterations. This is before the pattern can become fully stable and allows for varying sizes of spots in the resulting patterns. The parameters are listed in Table. \ref{tab:flowerAParameters}.
+
+\begin{table}[hb]
+	\centering
+	\begin{tabular}{lllllll}
+	\hline
+	\textbf{Model} & \bm{$D_a$} &\bm{$D_s$} &\bm{$F$} &\bm{$k$} &\bm{$dt$} & \textbf{Total steps} \\ \hline 
+	A (\textit{Phalaenopsis})& 0.25& 0.5 &0.082 &0.063 &0.3 &150                \\ \hline
+	\end{tabular}
+	\caption {Parameters for the \textit{Phalaenopsis} orchid using the Gray-Scott reaction-diffusion system (Eqn. \ref{eq:grayscottRD}).}
+	\label{tab:flowerAParameters}
+\end{table}
 
 \textbf{Model b:}
-This orchid of the encyclia genus displays orange and yellow stripes across the flower petals. To model this, I have used the Turing reaction-diffusion formula. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. The whole flower uses parameters $Du=0.4$, $Dv=0.01$, $a=16$, $b=12$, $dt=0.05$, and $uSat=6.3$. Anisotropic diffusion is used to orient the pattern across the petals with both $u$ and $v$ using $\lambda_1=0.35$, $\lambda_2=1$ and directions radiating from the centre. The regions change from the centre having $s=0.005$, middle $s=0.002$, outer $s=0.001$. After $60000$ steps, this pattern has settled and there is a second phase. In this phase, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ are frozen at $0$ and $30$ respectively. This simulation is then stopped after $4500$ steps, before the pattern fully settles.
+This orchid of the \textit{Encyclia} genus displays orange and yellow stripes across the flower petals. To model this, I have used the Turing reaction-diffusion formula. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. The whole flower uses parameters $Du=0.4$, $Dv=0.01$, $a=16$, $b=12$, $dt=0.05$, and $uSat=6.3$. Anisotropic diffusion is used to orient the pattern across the petals with both $u$ and $v$ using $\lambda_1=0.35$, $\lambda_2=1$ and directions radiating from the centre. The regions change from the centre having $s=0.005$, middle $s=0.002$, outer $s=0.001$. After $60000$ steps, this pattern has settled, and there is a second phase. In this phase, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ are frozen at $0$ and $30$ respectively. This simulation is then stopped after $4,500$ steps before the pattern fully settles.
 
 \textbf{Model c:}
-Foxglove has a scattered pattern of dark purple spots on the bottom inside of its flowers. These spots are surrounded by a white halo that merges with others nearby. Beyond these halos the rest of the flower appears pink or light purple. I have modelled them using the activator-depleted substrate formula, Eqn. \ref{eq:activatorSubstrateRD}. This model uses two morphogens $s$ and $a$. The morphogen $s$ is $1$ everywhere and $a$ is $0$ except for a few vertices at the bottom of the flower. These vertices have a value of $a=1$ and will grow to become the dark purple pigment spots. The parameters used are $Da=0.00004$, $Ds=0.0015$, $dt=0.005$, $p=0.05$, $p_a=0.0125$, $p_s=0$, $u_a=0.05$, and $u_s=0.08$. This simulation runs for $20700$ steps.
+Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I have modelled the inner patterns using the Turing reaction-diffusion formula with anisotropy. This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The whole domain uses parameters for a spot pattern. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This has the effect of spots turning into a series of branching connected lines. Both regions use the following parameters: $Du=0.3$, $Dv=0.0625$, $b=12$, $dt=0.1$, $p_v=0$, $s=0.035$, $uSat=7$, and $u_u=0$. The inner region parameters differ by $a=16$ and anisotropic diffusion is applied to $u$ using the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form spots in the outer region, I use $a=16.5$ with isotropic diffusion. The number of steps used is $10,000$.
+
+\begin{table}[hb]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{lllllllll}
+	\hline
+	\textbf{Model} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\alpha$} &\bm{$\beta$} & \textbf{s} & \bm{$uSat$} & \bm{$dt$} & \thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
+	B (\textit{Encyclia}) &0.4 &0.01   &16       &12 &0.005; 0.002; 0.001               &6.3  &0.05 &64.5 \\
+	C (\textit{Kohleria}) &0.3 &0.0625 &16; 16.5 &12 & 0.035 &7  &0.1  &10 \\ \hline
+	\end{tabular}
+	}
+	\caption {Parameter values for  \textit{Encyclia} and \textit{Kohleria} using Turing reaction-diffusion (Eqn. \ref{eq:turingRD}.)}
+	\label{tab:flowerBDParameters}
+\end{table}
 
 \textbf{Model d:}
-Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I have modelled the inner patterns using the Turing reaction-diffusion formula with anisotropy. This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The whole domain uses parameters for a spot pattern. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This has the effect of spots turning into a series of branching connected lines. Both regions use the following parameters: $Du=0.3$, $Dv=0.0625$, $b=12$, $dt=0.1$, $p_v=0$, $s=0.035$, $uSat=7$, and $u_u=0$. The inner region parameters differ by $a=16$ and anisotropic diffusion is applied to $u$ using the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form spots in the outer region I use $a=16.5$ with isotropic diffusion. The number of steps used is $10000$.
+\textit{Digitalis} has a scattered pattern of dark purple spots on the bottom inside of its flowers. These spots are surrounded by a white halo that merges with others nearby. Beyond these halos the rest of the flower appears pink or light purple. I have modelled them using the activator-depleted substrate formula, Eqn. \ref{eq:activatorSubstrateRD}. This model uses two morphogens $s$ and $a$. The morphogen $s$ is $1$ everywhere and $a$ is $0$ except for a few vertices at the bottom of the flower. These vertices have a value of $a=1$ and will grow to become the dark purple pigment spots. The parameters used are $D_a=0.00004$, $D_s=0.0015$, $dt=0.005$, $p=0.05$, $p_a=0.0125$, $p_s=0$, $u_a=0.05$, and $u_s=0.08$. This simulation runs for $20,700$ steps.
 
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{llllllllllll}
+	\begin{tabular}{llllllllll}
 	\hline
-	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$\rho_u$} &\bm{$\rho_v$} &$\bm{\sigma_u$} &\bm{$\sigma_v$} &\bm{$\mu_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline 
-	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
+	\textbf{Model} & \bm{$D_a$} &\bm{$D_s$} &\bm{$\rho_a$} &\bm{$\rho_s$}  &$\bm{\mu_a$} &\bm{$\mu_s$} &\bm{$\rho$}&\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
+	D (\textit{Digitalis}) &0.00004 &0.0015 &0.0125 &0.05 &0.05 &0.08 &0 &0.005 &20.7 \\ \hline
 	\end{tabular}
 	}
-	\caption {}
-	\label{tab:snakeParameters}
+	\caption {Parameters for the \textit{Digitalis} model using the activator-depleted substrate formula (Eqn. \ref{eq:activatorSubstrateRD})}
+	\label{tab:flowerCParameters}
 \end{table}
 
-\begin{table}[ht]
-	\centering
-	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{llllllllllll}
-	\hline
-	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$\rho_u$} &\bm{$\rho_v$} &$\bm{\sigma_u$} &\bm{$\sigma_v$} &\bm{$\mu_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
-	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\
-	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
-	\end{tabular}
-	}
-	\caption {}
-	\label{tab:snakeParameters}
-\end{table}
-
-\begin{table}[ht]
-	\centering
-	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{llllllllllll}
-	\hline
-	\textbf{Model} & \textbf{Species} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\kappa$} &\bm{$\rho_u$} &\bm{$\rho_v$} &$\bm{\sigma_u$} &\bm{$\sigma_v$} &\bm{$\mu_u$} &\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
-	F     &\textit{L. californiae} &0.056 &3.36 &0.5 &0.18 &0.36 &0.001 &0.1 &0.08 &0.01 &70                \\ \hline
-	\end{tabular}
-	}
-	\caption {}
-	\label{tab:snakeParameters}
-\end{table}
-
-\begin{figure}[p]
+\begin{figure}[hb]
 	\centering
 	\includegraphics[width=\columnwidth]{misc_flowers.png}
-	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} orchid, koleria, foxglove, and orchid. \textit{Photographs \textbf{a,d}: courtesy of Przemyslaw Prusinkiewicz; \textbf{b,c}: courtesy of pixabay.com}}
+	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} \textit{Phalaenopsis}, \textit{Encyclia}, \textit{Digitalis}, \textit{Kohleria}. \textit{Photographs \textbf{a,d}: courtesy of Przemyslaw Prusinkiewicz; \textbf{b,c}: courtesy of pixabay.com}}
 	\label{fig:miscFlowers}
 \end{figure}
 
-\section{Discussion}
-
 % What was accomplished?
-I have implemented a biologically motivated model of monkeyflower pattern formation on a mesh. Through this simulation, a possible reason for the linear arrangement of spots is seen in the shape of a parameter boundary. I have also produced other visually similar flower models using various reaction-diffusion equations, highlighting the usefulness and flexibility of reaction-diffusion and \ProgramName{}.
+\section{Discussion}
+I have implemented a biologically-motivated model of monkeyflower pattern formation on a mesh. Through this simulation, a possible reason for the linear arrangement of spots is seen in the shape of a parameter boundary. I have also produced other visually similar flower models using various reaction-diffusion equations, highlighting the usefulness and flexibility of reaction-diffusion and \ProgramName{}.
 
 Other procedural generation methods may also be useful for modelling petal patterns. Specifically, some orchid patterns appear to arise from cells passing on their colour to their descendants. This would be a good candidate for a clonal mosaic \citep{korn2007}, as there are apparent demarcations between a pigmented cell and an adjacent non-pigmented cell. Advances in imaging and gene modification may provide insight into how the pigmentation pre-patterns develop over time. Future works may investigate the role of growth and vasculature pattern formation.
