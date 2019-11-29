@@ -100,7 +100,7 @@ Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discre
 \begin{figure}[H]
     \centering
     \incfig{halfEdgeMesh}
-    \caption{Two triangles and their half-edge representation denoted by black arrows.}
+    \caption[Two triangles and their half-edge representation denoted by black arrows]{Two triangles and their half-edge representation denoted by black arrows.}
     \label{fig:halfEdgeMesh}
 \end{figure}
 Two half-edges replace each edge in the mesh to build this data structure. A single half-edge has a pointer to the next half-edge in the same face, as shown in Fig. \ref{fig:halfEdgeMesh}. Also, it has a pointer to the vertex that it originates from and a pointer to the complementary half-edge. Each vertex stores a scalar representing the area of the dual cell. This area is the sum of one-third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
@@ -121,7 +121,7 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 \begin{figure}[H]
 	\centering
 	\incfig{dualMesh}
-	\caption{A vertex $i$ and its dual area $A$. The weighting for the cotangent Laplacian between vertex $i$ and $j$ is dependant on the length of the red and black edges.}
+	\caption[A vertex $i$ and its dual area $A$]{A vertex $i$ and its dual area $A$. The weighting for the cotangent Laplacian between vertex $i$ and $j$ is dependant on the length of the red and black edges.}
 	\label{fig:dualMesh}
 \end{figure}
 
@@ -136,7 +136,7 @@ Computing anisotropic diffusion on a mesh requires Laplacian weights that reflec
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
-	\caption{\textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
+	\caption[Visualization of a diffusion tensor at a cell and diffusion direction on a face]{Visualization of a diffusion tensor at a cell and diffusion direction on a face. \textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
 The morphogen gradient on a face is determined by the sum of the face's edge normals. An edge normal provides the gradient direction and is weighted by the morphogen concentration opposite to that edge. To find an edge normal, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal, to the edge. $Q$ is multiplied with $D$ to include this rotation:
@@ -158,12 +158,12 @@ This matrix is used to compute diffusion when given a vector of morphogen concen
 \begin{equation}
 	Lu = \Lap \bm{u}.
 \end{equation}
-This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we have isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
+This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we obtain isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
 
 \begin{figure}[H]
 	\centering
 	\incfig{meshLaplacian}
-	\caption{Two triangles with their angles and edges associated with the anisotropic cotangent Laplacian.}
+	\caption[Two triangles with their angles and edges associated with the anisotropic cotangent Laplacian]{Two triangles with their angles and edges associated with the anisotropic cotangent Laplacian.}
 	\label{fig:meshLaplacian}
 \end{figure}
 
@@ -176,7 +176,7 @@ In nature, domains grow over time, which can have an appreciable effect on patte
 \begin{figure}[H]
 	\centering
 	\incfig{recursiveSubdiv}
-	\caption{Subdividing a face, shown in red, using longest-edge bisection. \textbf{a:} subdivision starts with the red triangle. \textbf{b-d:} the progression of algorithm.} 
+	\caption[Subdividing a face, shown in red, using longest-edge bisection]{Subdividing a face, shown in red, using longest-edge bisection. \textbf{a:} subdivision starts with the red triangle. \textbf{b-d:} the progression of algorithm.} 
 	\label{fig:recursiveSubdiv}
 \end{figure}
 

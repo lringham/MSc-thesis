@@ -12,7 +12,7 @@ The patterns repetitively identified in the literature are listed in Fig. \ref{f
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{Realpso.png}
-	\caption{Patterns of skin lesions psoriasis.}
+	\caption[Patterns of skin lesions psoriasis]{Patterns of skin lesions psoriasis.}
 	\label{fig:1}
 \end{figure}
 
@@ -22,7 +22,7 @@ Cytokines IL-23, IL-17 and TNF$\alpha$ are central mediators in the psoriatic pl
 \begin{figure}[p]
 	\centering
 	\incfig{drawing}
-	\caption{Modelling plaque formation in psoriasis. \textbf{A)} Interactions between key cytokines involved in psoriasis plaque formation. Labels 0-4 refer to the observations from which these interactions have been inferred (see Results). \textbf{B)} A simplified diagram of interactions, in which cytokines IL-17 and TNF$\alpha$ are considered jointly. \textbf{C)} Diagram B relabeled as an activator (A) - depleted substrate (S) system. \textbf{D)} Skin representation and simulation initialization. The skin surface is partitioned into square regions. A lesion is initiated by an activated T$_{\text{H}}17$ cell (red) which is either a resident memory T-cell activated by a dendritic cell (green, interaction a) or has migrated from circulation through a capillary wall (interaction b). The area of microinflammation around the activated T$_{\text{H}}17$ cell is considered as a “seed” region and its projection to the surface (arrow c) is colored in red.  Epidermis, the upper layer of the skin is shaded in grey, capillaries in the dermis are colored in red (arterioles) and blue (venules). Skin resident memory T-cells are marked in grey. \textbf{E)} Detail of skin surface representation. Each region is two-dimensional projection of the underlying activator-depleted substrate system of proinflammatory cytokines and represents a computational cell implementing reaction system (C). These computational cells are interconnected (double arrows), allowing for the diffusion of cytokines.}
+	\caption[Modelling plaque formation in psoriasis]{Modelling plaque formation in psoriasis. \textbf{A)} Interactions between key cytokines involved in psoriasis plaque formation. Labels 0-4 refer to the observations from which these interactions have been inferred (see Results). \textbf{B)} A simplified diagram of interactions, in which cytokines IL-17 and TNF$\alpha$ are considered jointly. \textbf{C)} Diagram B relabeled as an activator (A) - depleted substrate (S) system. \textbf{D)} Skin representation and simulation initialization. The skin surface is partitioned into square regions. A lesion is initiated by an activated T$_{\text{H}}17$ cell (red) which is either a resident memory T-cell activated by a dendritic cell (green, interaction a) or has migrated from circulation through a capillary wall (interaction b). The area of microinflammation around the activated T$_{\text{H}}17$ cell is considered as a “seed” region and its projection to the surface (arrow c) is colored in red.  Epidermis, the upper layer of the skin is shaded in grey, capillaries in the dermis are colored in red (arterioles) and blue (venules). Skin resident memory T-cells are marked in grey. \textbf{E)} Detail of skin surface representation. Each region is two-dimensional projection of the underlying activator-depleted substrate system of proinflammatory cytokines and represents a computational cell implementing reaction system (C). These computational cells are interconnected (double arrows), allowing for the diffusion of cytokines.}
 	\label{fig:2}
 \end{figure}
 
@@ -58,14 +58,14 @@ The parameter space and details of six patterns obtained for specific parameter 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.65]{Map4.pdf}
-	\caption{Parameter space of the model and selected patterns. Top left: A comprehensive representation of the range of patterns generated using Equations \ref{eq:2} for different values of the synthetic parameters c and f. \textbf{A-D}: magnified views of patterns generated using select parameter values. These labels and patterns correspond to the patterns of psoriatic skin lesions identified in Fig. \ref{fig:1}.}
+	\caption[Parameter space of the model and selected patterns]{Parameter space of the model and selected patterns. Top left: A comprehensive representation of the range of patterns generated using Equations \ref{eq:2} for different values of the synthetic parameters c and f. \textbf{A-D}: magnified views of patterns generated using select parameter values. These labels and patterns correspond to the patterns of psoriatic skin lesions identified in Fig. \ref{fig:1}.}
 	\label{fig:3}
 \end{figure}
 
 \begin{figure}[hb]
   \centering
   \includegraphics[width=0.7\columnwidth]{S2}
-  \caption{(Example of a pattern generated de novo using the Gray-Scott model (Equation \ref{eq:2}) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06, D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogeneous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.}
+  \caption[Example of a pattern generated de novo using the Gray-Scott model]{(Example of a pattern generated de novo using the Gray-Scott model (Equation \ref{eq:2}) after 6000 iterations. The concentration is visualized from blue to orange. Parameter values: $f=0.042, c=0.06, D_a=0.25, D_s=0.5, dt=1$. The initial conditions are a homogeneous distribution everywhere, with the addition of a small amount of noise: $a=0.22557, s=0.45219±0.000001$.}
   \label{fig:S2}
 \end{figure}
 
@@ -78,7 +78,7 @@ The parameter space and details of six patterns obtained for specific parameter 
 	IL17        & 35   & 123.6 \\ \hline
 	IL23        & 54.1 &  89.1 \\ \hline
 	\end{tabular}
-	\caption {Diffusion coefficients for the three cytokines involved in our model using the empirical formula $D_{tiss}=1.778\text{x}10^{-4}\text{xMW}^{-0.75}$ \citep{swabb1974}(Equation F in their paper). The actual rates of macromolecule transport in a tissue may differ from these estimates, as other factors may also play a role.  These include  convection, which may run in the direction opposite to the concentration-gradient-driven diffusion \citep{swabb1974}, and cell proliferation, which may be relevant to the transport of cytokines otherwise mostly confined to their mother cells.}
+	\caption[Diffusion coefficients for the three cytokines involved in our model]{Diffusion coefficients for the three cytokines involved in our model using the empirical formula $D_{tiss}=1.778\text{x}10^{-4}\text{xMW}^{-0.75}$ \citep{swabb1974}(Equation F in their paper). The actual rates of macromolecule transport in a tissue may differ from these estimates, as other factors may also play a role.  These include  convection, which may run in the direction opposite to the concentration-gradient-driven diffusion \citep{swabb1974}, and cell proliferation, which may be relevant to the transport of cytokines otherwise mostly confined to their mother cells.}
 	\label{tab:S1}
 \end{table}
 
@@ -90,7 +90,7 @@ The simulated development of psoriasis lesions and the response to treatment are
 	\resizebox{\columnwidth}{!}{
 	\includegraphics[scale=1]{development.pdf}
 	}
-	\caption{The simulated progression of different types of psoriatic lesions. Rows 1-3: Development of the lesions. The earliest stage of a papule (Row 1) consists of randomly distributed small seed areas. Later forms of the disease (Rows 2 and 3) correspond to patterns identified in Figs. 1 and 3. Rows 4-6: The effect of treatment simulated by increasing the decay rate of IL-17 and TNF$\alpha$. Note that the treatment does not result in a simple reversal of the original pattern development, but produces residual lesions with more activity at the margin of the plaques (Row 5). In some instances, residual papules persist (Row 6).}
+	\caption[The simulated progression of different types of psoriatic lesions]{The simulated progression of different types of psoriatic lesions. Rows 1-3: Development of the lesions. The earliest stage of a papule (Row 1) consists of randomly distributed small seed areas. Later forms of the disease (Rows 2 and 3) correspond to patterns identified in Figs. 1 and 3. Rows 4-6: The effect of treatment simulated by increasing the decay rate of IL-17 and TNF$\alpha$. Note that the treatment does not result in a simple reversal of the original pattern development, but produces residual lesions with more activity at the margin of the plaques (Row 5). In some instances, residual papules persist (Row 6).}
 	\label{fig:4}
 \end{figure}
 
@@ -111,7 +111,7 @@ $\mu_{[IL23]}=\rho_{[IL23]0}$& 0.046            & 0.084                 & 0.091 
 maxSteps           & 12,620           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\ \hline
 treatSteps         & 12,000           & 12,000                & 140,000               & 1,700            & 2,700            & 13,000            \\ \hline
 	\end{tabular}
-	\caption{Parameter values used to generate the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4}. In all simulations $k=1, \rho_{a0}=0, D_a=0.25, \text{ and } D_s=0.5$.  Simulations were carried out using forward Euler methods with time-step $dt=0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations.}
+	\caption[Parameter values used to generate the six classes of psoriasis plaque patterns]{Parameter values used to generate the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4}. In all simulations $k=1, \rho_{a0}=0, D_a=0.25, \text{ and } D_s=0.5$.  Simulations were carried out using forward Euler methods with time-step $dt=0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations.}
 	\label{tab:S2}
 \end{table}
 
@@ -128,7 +128,7 @@ $D_{s}$				& \thead{{[}0.46000, \\ 0.57500{]}} & \thead{{[}0.42500, \\ 0.80000{]
 $D_{a}$				& \thead{{[}0.22000, \\ 0.27000{]}} & \thead{{[}0.17500, \\ 0.29000{]}} & \thead{{[}0.24500, \\ 0.27000{]}} & \thead{{[}0.15000, \\ 0.75000{]}} & \thead{{[}0.23500, \\ 0.27500{]}} & \thead{{[}0.22500, \\ 0.28500{]}} \\ \hline
 $k$					& \thead{{[}0.95900, \\ 1.05000{]}} & \thead{{[}0.98800, \\ 1.60000{]}} & \thead{{[}0.99000, \\ 1.00200{]}} & \thead{{[}0.75000, \\ 1.35000{]}} & \thead{{[}0.98500, \\ 1.06500{]}} & \thead{{[}0.97500, \\ 1.01500{]}} \\ \hline
 \end{tabular}
-\caption{Ranges of parameter values resulting in patterns visually similar to those shown in Fig. \ref{fig:4}. For each varied parameter all remaining values are as in Table \ref{tab:S2}.}
+\caption[Ranges of parameter values resulting in patterns visually similar to the simulated patterns]{Ranges of parameter values resulting in patterns visually similar to those shown in Fig. \ref{fig:4}. For each varied parameter all remaining values are as in Table \ref{tab:S2}.}
 \label{tab:S3}
 \end{table}
 
@@ -139,7 +139,7 @@ $k$					& \thead{{[}0.95900, \\ 1.05000{]}} & \thead{{[}0.98800, \\ 1.60000{]}} 
 \textbf{Pattern}                                            & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D1} & \textbf{D2} & \textbf{D3} \\ \hline
 \thead{Minimum initial concentration of \\ the activator at the spots} & 0.208      & 0.244      & 0.256      & 0.088       & 0.126       & 0.127       \\ \hline
 \end{tabular}
-\caption{Minimum values of the activator A needed to initiate the formation of patterns shown in Fig. \ref{fig:4}.}
+\caption[Minimum values of the activator A needed to initiate the formation of patterns]{Minimum values of the activator A needed to initiate the formation of patterns shown in Fig. \ref{fig:4}.}
 \label{tab:S4}
 \end{table}
 

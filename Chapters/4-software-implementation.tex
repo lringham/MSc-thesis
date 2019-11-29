@@ -31,7 +31,7 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{ProgramUML.pdf}
-	\caption{UML diagram representing \ProgramName{}'s architecture.}
+	\caption[UML diagram representing \ProgramName{}'s architecture]{UML diagram representing \ProgramName{}'s architecture.}
 	\label{fig:umlDiagram}
 \end{figure}
 
@@ -99,7 +99,7 @@ The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending o
 \quad new[S] = s + (params.Ds * L[S] - saa + params.f * (1 - s)) * params.dt;\\
 	\}
 \end{algorithm}
-	\caption{Example parameter file for the Gray-Scott model. The domain referenced is a unit icosahedron OBJ model. The OBJ model has no boundaries. However, boundary conditions are included for completeness.}
+	\caption[Example parameter file for the Gray-Scott model]{Example parameter file for the Gray-Scott model. The domain referenced is a unit icosahedron OBJ model. The OBJ model has no boundaries. However, boundary conditions are included for completeness.}
 	\label{fig:paramFileExample}
 \end{figure}
 
@@ -118,14 +118,14 @@ The sphere radius can be adjusted from the control panel or with the mouse scrol
 	\resizebox{\columnwidth}{!}{
 	\includegraphics{gui.png}	
 	}
-	\caption{The available control panels. \textbf{GPU:} The control panel for modifying parameters as well as collapsible menus for controlling growth, painting, and rendering behaviour. \textbf{Info:} information about the model such as the PDEs used and selected vertex attributes. \textbf{Controls:} simulation controls allow for saving screenshots and textures. \textbf{Stats:} program statistics are shown such as the time per frame, cell count, and total area of the domain.} 
+	\caption[The available control panels]{The available control panels. \textbf{GPU:} The control panel for modifying parameters as well as collapsible menus for controlling growth, painting, and rendering behaviour. \textbf{Info:} information about the model such as the PDEs used and selected vertex attributes. \textbf{Controls:} simulation controls allow for saving screenshots and textures. \textbf{Stats:} program statistics are shown such as the time per frame, cell count, and total area of the domain.} 
 	\label{fig:GUIexample}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{painting.png}	
-	\caption{Painting direction is determined by taking the difference in cursor positions from consecutive frames. The \textbf{X} inside dashed circle is the initial cursor location, and the \textbf{X} inside the solid circle is the current cursor position. Vertices in the blue area are affected by the paint operation.} 
+	\caption[Painting direction is determined by taking the difference in cursor positions from consecutive frames]{Painting direction is determined by taking the difference in cursor positions from consecutive frames. The \textbf{X} inside dashed circle is the initial cursor location, and the \textbf{X} inside the solid circle is the current cursor position. Vertices in the blue area are affected by the paint operation.} 
 	\label{fig:painting}
 \end{figure}
 
@@ -135,7 +135,7 @@ The user has a choice of visualizing different morphogen concentrations by actua
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{vector_fields.png}	
-	\caption{Visualization of vector fields. \textbf{a}: Pattern gradient is visualized by lines fading from black to red. \textbf{b}: The vector field driving anisotropic diffusion is shown by lines fading from black to green.} 
+	\caption[Visualization of vector fields]{Visualization of vector fields. \textbf{a}: Pattern gradient is visualized by lines fading from black to red. \textbf{b}: The vector field driving anisotropic diffusion is shown by lines fading from black to green.} 
 	\label{fig:vector_fields}
 \end{figure}
 
@@ -150,6 +150,6 @@ Designing and exploring a model's pattern forming potential can be challenging. 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{version_control.png}	
-	\caption{Visualization of the GIT repository by the Sourcetree software \citep{atlassian2019}. Coloured vertical lines represent models. A dot on the corresponding line represents each model change, and a user-provided comment appears on the right. Models derived from others have their vertical line connected by a horizontal line leading to the parent.} 
+	\caption[Visualization of the GIT repository by the Sourcetree software]{Visualization of the GIT repository by the Sourcetree software \citep{atlassian2019}. Coloured vertical lines represent models. A dot on the corresponding line represents each model change, and a user-provided comment appears on the right. Models derived from others have their vertical line connected by a horizontal line leading to the parent.} 
 	\label{fig:version_control}
 \end{figure}

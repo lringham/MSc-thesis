@@ -5,7 +5,7 @@ The ladybug (also known as ladybird beetle or lady beetle) is an insect in the f
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{realLadybeetles.png}
-	\caption{A selection of \textit{H. axyridis} ladybugs displaying various spot patterns. \textit{Photographs: courtesy of \citet{entomart2019}}.}
+	\caption[A selection of \textit{H. axyridis} ladybugs displaying various spot patterns]{A selection of \textit{H. axyridis} ladybugs displaying various spot patterns. \textit{Photographs: courtesy of \citet{entomart2019}}.}
 	\label{fig:realLadyBugPatterns}
 \end{figure}
 
@@ -32,7 +32,7 @@ By simulating ladybug patterns on a mesh, I improved on the results in \citep{li
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{ladybugs.png}
-	\caption{Simulation of ladybug patterns. \textbf{Row 1:} initial simulation state. \textbf{Row 2:} final simulation state. \textbf{Row 3:} collection of the real ladybug species. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively. 
+	\caption[Simulation of ladybug patterns]{Simulation of ladybug patterns. \textbf{Row 1:} initial simulation state. \textbf{Row 2:} final simulation state. \textbf{Row 3:} collection of the real ladybug species. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively. 
 	 \textit{Photographs: \citep{chen2008}}.}
 	\label{fig:ladyBugPatterns}
 \end{figure}
@@ -40,7 +40,7 @@ By simulating ladybug patterns on a mesh, I improved on the results in \citep{li
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.75\columnwidth]{ladybug-dev.png}
-	\caption{Progression of ladybug patterns over time. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively.}
+	\caption[Progression of ladybug patterns over time]{Progression of ladybug patterns over time. \textbf{A-E:} \textit{P. quinquepunctatus}, \textit{C. septempunctata}, \textit{E. crassimala}, \textit{M. hauseri}, and \textit{B. albolineata} respectively.}
 	\label{fig:ladyBugDev}
 \end{figure}
 
@@ -59,7 +59,7 @@ By simulating ladybug patterns on a mesh, I improved on the results in \citep{li
 	\hline
 	\end{tabular}
 	}
-	\caption {Parameter values used for ladybug models on a mesh. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, and $\mu_u = 0.08$. The total number of steps is $1,500,000$ for all models except E where it has been decreased to $500,000$. Parameters in parenthesis are the original values used by \citep{liaw2001}. Parameter values were changed due to small differences between the patterns formed on a partial sphere and a mesh. In my model of D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_v / D_u \geq 7.8$ \citep{liaw2001}. The number of spots on C (\textit{E. crassimala}) was less than ten. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$ and changed the initial morphogen distribution to a stripe at the top. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places, causing it to self-interact and destroy the vertical line pattern. I have increased $\kappa$ from $0.35$ to $0.5$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self-interaction. The total simulation steps was reduced to 500,000 from the original model's 1,500,000 steps to account for lines becoming spots in E. This could also be addressed by decreasing $\sigma_u$, which produces a pattern like D.}
+	\caption [Parameter values used for ladybug models on a mesh]{Parameter values used for ladybug models on a mesh. The following parameters remain constant for all models $dt = 0.001$, $\sigma_v= 0.1$, $\rho_u = 0.18$, $\rho_v = 0.36$, and $\mu_u = 0.08$. The total number of steps is $1,500,000$ for all models except E where it has been decreased to $500,000$. Parameters in parenthesis are the original values used by \citep{liaw2001}. Parameter values were changed due to small differences between the patterns formed on a partial sphere and a mesh. In my model of D and E, the parameter $D_v$ has been increased by an order of magnitude to obey the rule that $D_v / D_u \geq 7.8$ \citep{liaw2001}. The number of spots on C (\textit{E. crassimala}) was less than ten. To rectify this, I lowered $D_v$ from $0.04$ to $0.024$ and changed the initial morphogen distribution to a stripe at the top. $\sigma_u$ was then increased from $0$ to $0.01$, allowing for horizontal lines to form which turn into spots over time. Another discrepancy observed with the initial parameters was that the stripes in D and E turned into spots and irregular lines near the boundary. In D, the initial morphogens propagate as a wave, leaving stripes in its wake. On a mesh, the wave was observed to outpace itself in places, causing it to self-interact and destroy the vertical line pattern. I have increased $\kappa$ from $0.35$ to $0.5$, strengthening the tendency to form lines. I also changed the initial distribution from a vertical stripe of $u$ down the centre to include stripes along the boundary (excluding the top). This has the effect of aligning the pattern by reducing the distance the middle wave must travel and avoiding the self-interaction. The total simulation steps was reduced to 500,000 from the original model's 1,500,000 steps to account for lines becoming spots in E. This could also be addressed by decreasing $\sigma_u$, which produces a pattern like D.}
 	\label{tab:ladyBugParameters}
 \end{table}
 
@@ -73,6 +73,6 @@ Further investigation should be made to determine how much the patterns found on
 \begin{figure}[p]
 	\centering
 	\includegraphics[width=\columnwidth]{ladybug.png}
-	\caption{A rendering of two ladybugs on a leaf.}
+	\caption[A rendering of two ladybugs on a leaf]{A rendering of two ladybugs on a leaf.}
 	\label{fig:ladybugRender}
 \end{figure}
