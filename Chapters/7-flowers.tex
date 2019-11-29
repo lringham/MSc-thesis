@@ -3,28 +3,21 @@
 \section{Biological background}
 To humans, flowers are a symbol of natural beauty. Their spots and stripes enhance this quality (Fig. \ref{fig:realFlowers}). For nature, flower pigment patterns have a more utilitarian purpose. They are used to help plants reproduce by attracting insects and likely evolved to exploit pollinator vision to further this goal. Patterns guide insects to nectar and can appear as paths or landing spots, sometimes visible only in the UV spectrum \citep{davies2012}. Alternatively, patterns may develop due to external factors such as infections, age, and the environment \citep{davies2012, robinson2015}. Thus, understanding them also gives insight into flower reproduction, insect behaviour, and environmental factors. Some patterns mimic the appearance of female bugs, as in the case of the bee orchid \citep{vereecken7484}. This deceives bees looking for mates, into pollinating the flower. Surprisingly, given the importance of petal patterns to nature, little attention has been given to simulating them.
 
-Pigments are molecules that provide the colour seen in many natural patterns. Anthocyanins and carotenoids are two examples of pigments found in flowers. The first is responsible for colours such as blue and purple. And the second is responsible for red and yellow. \citet{martin1993} studied the role genes play in how pigments are created in flowers. These pigments are created when the flower petals are developing. A petal starts as primordium and develop into a limb. The limb is derived from two independent rings of cells that form the inner and outer epidermis of the petal. 
-
-As the limb cells are dividing there is a progression of progeny toward the tip of the petal. This results in sectors and lines as cells with pigments reproduce?
-
- Anthocyanins are found in these epidermal petal cells. 5 to 6 days before the flower has matured, the petals cells have stopped dividing. In the remaining days, cells undergo a process of elongation. Production of pigments occur during this process.
- 
- Transcription factors are the main morphogens involved in pattern formation. They are proteins responsible for gene expression and consequently, pigment production.
-
+Pigments are molecules that provide the colour seen in many natural patterns. Anthocyanins and carotenoids are two examples of pigments found in plants. The first is responsible for colours such as red, blue, and purple, and the second is responsible for red and yellow \citep{bayer1966}. \citet{martin1993} studied the role genes play during pigment creation in flowers. These pigments are created in the developing flower petal epidermis. Petals starts as small mounds of cells known as primordia. It is thought that two independent groups of cells grow to form the inner and outer epidermis of the petal. The inner epidermis is the first layer of cells inside the flower. Conversely, the outer epidermis is the first layer of cells on the surface of the flower's exterior. A selection of cells contains the genes that produce pigments in response to proteins called transcription factors. Transcription factors are responsible for gene expression and can be thought of as morphogens. Many transcription factors are involved in complex activation and inhibition relationships together, making identification of the relevant morphogens difficult. As cells undergo mitosis, they propagate their genetic information distally. This propagation can create wedge-shaped pigmentation patterns in the presence of transcription factors. In some cases, transcription factors involved in pigment production are supplied by the petal's veins. Therefore, epidermis near a vein will contain more pigment than that which is more distant. 5 to 6 days before the flower has matured, the petals cells have stopped dividing. In the remaining days, cells undergo a process of elongation, during which, pigments are produced.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\columnwidth]{flowers}
-	\caption{Examples of pigment patterns on real flowers. \textit{Photographs: courtesy of Przemyslaw Prusinkiewicz}}
+	\caption{Examples of pigment patterns on real flowers. \textit{Photographs: courtesy of Przemyslaw Prusinkiewicz}.}
 	\label{fig:realFlowers}
 \end{figure}
-%TODO what are the pigments, and where are they located?
-\citet{Yuan2019} analyzed pattern formation on various species of \textit{Mimulus}(monkeyflowers). Specifically \textit{M. lewisii} and \textit{M. guttatus}. This flower contains red spots located where the flower petals converge into semi-tubular furrows, as shown in Fig. \ref{fig:monkeyflower_real}. The red pigmentation consists of anthocyanin, molecular compounds that appear red, blue or orange \citep{bayer1966}. Through the exploration of the genetic mechanisms controlling pigmentation accumulation and distribution, \citet{Yuan2019} identified the key proteins responsible for spot formation. The protein interactions that were also discovered display the key aspects of reaction-diffusion: diffusion, autocatalysis, and inhibition. The proteins are named nectar guide anthocyanin (NEGAN) and red tongue (RTO). NEGAN is a transcription factor responsible for the production of red pigment, and its distribution over the flower can be thought of as a pre-pattern. Through experimentation, \citet{Yuan2019} found that RTO diffuses throughout the flower, and NEGAN is localized in the furrows. The protein NEGAN is shown to be autocatalytic, and in the presence of RTO, this reaction is inhibited. Consequently, RTO is the inhibitor, and NEGAN is the auto-catalytic activator.
+
+\citet{Yuan2019} analyzed pattern formation on various species of \textit{Mimulus}(monkeyflowers). Specifically \textit{M. lewisii} and \textit{M. guttatus}. This flower contains red spots located where the flower petals converge into semi-tubular furrows, as shown in Fig. \ref{fig:monkeyflower_real}. The red pigmentation consists of anthocyanin. Through the exploration of the genetic mechanisms controlling pigmentation accumulation and distribution, \citet{Yuan2019} identified the key proteins responsible for spot formation. The protein interactions that were also discovered display the key aspects of reaction-diffusion: diffusion, autocatalysis, and inhibition. The proteins are named nectar guide anthocyanin (NEGAN) and red tongue (RTO). NEGAN is a transcription factor responsible for the production of red pigment, and its distribution over the flower can be thought of as a pre-pattern. Through experimentation, \citet{Yuan2019} found that RTO diffuses throughout the flower, and NEGAN is localized in the furrows. The protein NEGAN is shown to be autocatalytic, and in the presence of RTO, this reaction is inhibited. Consequently, RTO is the inhibitor, and NEGAN is the auto-catalytic activator.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{monkeyflower_furrows.png}
-	\caption{Image of a monkeyflower covered in raindrops. The black arrows denote regions where pattern formation occurs. \textit{Photograph: James Gaither (CC BY-NC-ND 2.0)}}
+	\caption{Image of a monkeyflower covered in raindrops. The black arrows denote regions where pattern formation occurs. \textit{Photograph: James Gaither (CC BY-NC-ND 2.0)}.}
 	\label{fig:monkeyflower_real}
 \end{figure}
 
@@ -40,7 +33,7 @@ A simulation of procedurally generated two-dimensional flowers is proposed by \c
 This simulation was implemented in the video game Petalz which is based on procedurally generating and sharing flowers of different shapes and colours. Users are given pre-made starting flowers, which they can then breed, display, and sell. Breeding is accomplished through mutating a single flower or cross-pollinating different flowers together. Specifically, the nodes and connections of the CPPN are mixed with another network. This results in a combination of each flower's colours and shape. Selling flowers gives the user in-game currency, which is used to buy flowers from other users, which can then be cross-bred to create new and unique flowers. The social aspect of this game leads to a crowdsourced method of flower creation where the flower attributes are selected for based on their visual appeal.
 
 \section{Monkeyflower modelling}
-The Monkeyflower is a rare case in which actual morphogens and their reactions have been identified. The existence of this theory and the appearance of spots characteristic of reaction-diffusion patterning was a compelling reason to create this model. My model was produced on a triangular mesh using \ProgramName{}. The reaction-diffusion equations I selected were activator-inhibitor, Eqn. \eqref{eq:activatorInhibitorRD}, because of the inhibitory relationship between NEGAN and RTO. Here NEGAN plays the role of activator, $a$, and RTO is the inhibitor, $h$. In nature, NEGAN is only found in the nectar guides. This holds true in mutant flowers that lack the presence of RTO. Consequently, my model uses two sets of parameters. The difference between the parameters is that the base production of NEGAN, $\rho_a$, only exists in the nectar guides. The boundary between the regions provides the required noise to instigate pattern formation. Consequently, spots first form on the boundary and continue to form towards the centre. This procession aligns the spots to the shape of the boundary, as seen in Fig. \ref{fig:monkeyflower-dev}. The full list of parameters is found in Table. \ref{tab:monkeyflowerParameters}.
+The Monkeyflower is a rare case in which actual morphogens and their reactions have been identified. The existence of this theory and the appearance of spots characteristic of reaction-diffusion patterning was a compelling reason to create this model. My model was produced on a triangular mesh using \ProgramName{}. The reaction-diffusion equations I selected were activator-inhibitor, Eqn. \eqref{eq:activatorInhibitorRD}, because of the inhibitory relationship between NEGAN and RTO. Here NEGAN plays the role of activator, $a$, and RTO is the inhibitor, $h$. In nature, NEGAN is only found in the nectar guides. This holds true in mutant flowers that lack the presence of RTO. Consequently, my model uses two sets of parameters. The difference between the parameters is that the base production of NEGAN, $\rho_a$, only exists in the nectar guides. The boundary between the regions provides the required noise to instigate pattern formation. Consequently, spots first form on the boundary and continue to form towards the centre. This procession aligns the spots to the shape of the boundary. The full list of parameters is found in Table. \ref{tab:monkeyflowerParameters}.
 
 \begin{table}[ht]
 	\centering
@@ -60,38 +53,30 @@ This model produces convincing results as compared to the real picture and has m
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\columnwidth]{monkeyflower.pdf}
-	\caption{Simulated and real monkeyflowers. \textbf{a:} NEGAN base production, $\rho_a$, is 0 in the dark region, and $0.0125$ in the light region. \textbf{b:} initial appearance of the model. \textbf{c:} final appearance of the model. \textbf{d:}. a picture of a real monkeyflower.}
+	\includegraphics[width=\columnwidth]{figure.pdf}
+	\caption{Simulated and real monkeyflowers. \textbf{a:} NEGAN base production, $\rho_a$, is 0 in the dark region, and $0.0125$ in the light region. \textbf{b-g:} progression of simulated pattern formation. \textbf{h:} final appearance of the model. \textbf{d:}. a picture of a real monkeyflower.}
 	\label{fig:monkeyflower}
 \end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\columnwidth]{monkeyflower_dev.pdf}
-	\caption{Development of the simulated monkeyflower pattern. \textbf{1-8:} Individual stages of pattern development where 1 is the earliest and 8 is the final result.}
-	\label{fig:monkeyflower-dev}
-\end{figure}
-
 
 \section{Other flower models}
 Orchids display many beautiful pigmentation patterns. Examples range from scattered distributions of spots to arrangements of discordant lines, and venation patterns. This wide range of intriguing patterns pose a compelling modelling challenge which is made more difficult because of their highly varied petal morphology. Patterns on the genus \textit{Digitalis} and \textit{Kohleria} also display interesting spot and stripe patterns. I have used \ProgramName{} to model these flower patterns, shown in Fig. \ref{fig:miscFlowers}.
 
 \textbf{Model a:} 
-This model is of a \textit{Phalaenopsis} orchid, which displays varying sizes of purple spots on a white background. The \textit{Phalaenopsis} orchid was a modelling challenge due to the variance in spot size and the relatively complex geometry of the flower. To simulate the purple spots, a regular spot pattern was used and the simulation was before the pattern became fully stable. This allowed for varying sizes of spots in the resulting pattern. The parameters are listed in Table. \ref{tab:flowerAParameters}.
+This model is of a \textit{Phalaenopsis} orchid, which displays varying sizes of purple spots on a white background. The \textit{Phalaenopsis} orchid was a modelling challenge due to the variance in spot size and the relatively complex geometry of the flower. A regular spot pattern was simulated to simulate the purple spots. Pattern formation was stopped before the pattern became fully stable, allowing for varying sizes of spots in the resulting pattern. The parameters are listed in Table. \ref{tab:flowerAParameters}.
 
-\begin{table}[hb]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{lllllll}
 	\hline
 	\textbf{Model} & \bm{$D_a$} &\bm{$D_s$} &\bm{$F$} &\bm{$k$} &\bm{$dt$} & \textbf{Total steps} \\ \hline 
-	A (\textit{Phalaenopsis})& 0.25& 0.5 &0.082 &0.063 &0.3 &150                \\ \hline
+	\textbf{a} (\textit{Phalaenopsis})& 0.25& 0.5 &0.082 &0.063 &0.3 &150                \\ \hline
 	\end{tabular}
 	\caption {Parameters for the \textit{Phalaenopsis} orchid using the Gray-Scott reaction-diffusion system (Eqn. \ref{eq:grayscottRD}). At the start, 400 random vertices are initialized with both activator, $a$ and substrate, $s$ values randomly chosen in $[0, 1)$. The remaining vertices have no activator and substrate concentration of 1.}
 	\label{tab:flowerAParameters}
 \end{table}
 
 \textbf{Model b:}
-This orchid of the \textit{Encyclia} genus displays orange and yellow stripes across the flower petals. To model this, I have used the Turing reaction-diffusion formula. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. Anisotropic diffusion (Eq. \ref{eq:diffTensor}) is used to orient the pattern across the petals with both $u$ and $v$ using $\lambda_1=0.35$, $\lambda_2=1$ and the vector field is radiating from the centre. The regions change from the centre having $s=0.005$, middle $s=0.002$, outer $s=0.001$. After $60000$ steps, this pattern has settled, and there is a second phase. In this phase, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ are frozen at $0$ and $30$ respectively. This simulation is then stopped after $4,500$ steps before the pattern fully settles. The parameters for this model are in Table. \ref{tab:flowerBDParameters}.
+This orchid of the \textit{Encyclia} genus displays orange and yellow stripes across the flower petals. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. Anisotropic diffusion (Eq. \ref{eq:diffTensor}) is used to orient the pattern across the petals with both $u$ and $v$ assuming $\lambda_1=0.35$, $\lambda_2=1$ and the vector field is radiating from the centre. After this pattern has settled there is a second phase, during which, the boundary conditions are changed in some sections to act as sources and sinks. In these sections $u$ and $v$ use Dirichlet conditions with a value of $0$ and $30$ respectively. This simulation is then stopped after $4,500$ steps before the pattern fully settles. The parameters for this model are in Table. \ref{tab:flowerBDParameters}.
 
 \textbf{Model c:}
 Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I modelled the inner patterns using anisotropic diffusion (Eq. \ref{eq:diffTensor}). This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The model produces spots in the absence of anisotropic diffusion. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This causes spots to become a series of branching connected lines. The inner region parameters differ by $a=16$ and $u$  assumes anisotropic diffusion with the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form correctly sized spots in the outer region, I use $a=16.5$ with isotropic diffusion. The parameters for this model are in Table. \ref{tab:flowerBDParameters}.
@@ -102,34 +87,34 @@ Some Kohleria flowers display two distinct patterns: A white background with red
 	\begin{tabular}{lllllllll}
 	\hline
 	\textbf{Model} & \bm{$D_u$} &\bm{$D_v$} &\bm{$\alpha$} &\bm{$\beta$} & \textbf{s} & \bm{$uSat$} & \bm{$dt$} & \thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
-	B (\textit{Encyclia}) &0.4 &0.01   &16       &12 &0.005; 0.002; 0.001               &6.3  &0.05 &64.5 \\
-	C (\textit{Kohleria}) &0.3 &0.0625 &16; 16.5 &12 & 0.035 &7  &0.1  &10 \\ \hline
+	\textbf{b} (\textit{Encyclia}) &0.4 &0.01   &16       &12 &0.005, 0.002, 0.001               &6.3  &0.05 &60; 4.5 \\
+	\textbf{c} (\textit{Kohleria}) &0.3 &0.0625 &16, 16.5 &12 & 0.035 &7  &0.1  &10 \\ \hline
 	\end{tabular}
 	}
-	\caption {Parameter values for  \textit{Encyclia} and \textit{Kohleria} using Turing reaction-diffusion (Eqn. \ref{eq:turingRD}). $uSat$ represents the maximum value of the $u$.}
+	\caption {Parameter values for  \textit{Encyclia} and \textit{Kohleria} using Turing reaction-diffusion (Eqn. \ref{eq:turingRD}). $uSat$ represents the maximum value of the $u$. Values separated by commas are used on different regions of the domain.}
 	\label{tab:flowerBDParameters}
 \end{table}
 
 \textbf{Model d:}
 \textit{Digitalis} has a scattered pattern of dark purple spots on the bottom inside of its flowers. These spots are surrounded by a white halo that merges with others nearby. Beyond these halos the rest of the flower appears pink or light purple. 
 
-\begin{table}[H]
+\begin{table}[ht]
 	\centering
 	\resizebox{\columnwidth}{!}{
 	\begin{tabular}{llllllllll}
 	\hline
 	\textbf{Model} & \bm{$D_a$} &\bm{$D_s$} &\bm{$\rho_a$} &\bm{$\rho_s$}  &$\bm{\mu_a$} &\bm{$\mu_s$} &\bm{$\rho$}&\bm{$dt$} &\thead{\textbf{Total steps} \\ \textbf{(x1000)}}\\ \hline  
-	D (\textit{Digitalis}) &0.00004 &0.0015 &0.0125 &0.05 &0.05 &0.08 &0 &0.005 &20.7 \\ \hline
+	\textbf{d} (\textit{Digitalis}) &0.00004 &0.0015 &0.0125 &0.05 &0.05 &0.08 &0 &0.005 &20.7 \\ \hline
 	\end{tabular}
 	}
 	\caption {Parameters for the \textit{Digitalis} model using the activator-depleted substrate formula (Eqn. \ref{eq:activatorSubstrateRD}). This model uses two morphogens $s$ and $a$. The substrate $s$ is $1$ everywhere and $a$ is $0$ except for a few vertices at the bottom of the flower. These cells have a value of $a=1$ and will progress over time to become the dark purple pigment spots.}
 	\label{tab:flowerCParameters}
 \end{table}
 
-\begin{figure}[hb]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{misc_flowers.pdf}
-	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} \textit{Phalaenopsis}, \textit{Encyclia}, \textit{Kohleria}, \textit{Digitalis}. \textit{Photographs \textbf{a,b}: courtesy of Przemyslaw Prusinkiewicz; \textbf{c,d}: courtesy of pixabay.com}}
+	\caption{A developmental sequence of the simulated flower models and the corresponding real flowers on the right. \textbf{a-d:} \textit{Phalaenopsis}, \textit{Encyclia}, \textit{Kohleria}, \textit{Digitalis}. \textit{Photographs \textbf{a,b}: courtesy of Przemyslaw Prusinkiewicz; \textbf{c,d}: courtesy of pixabay.com}.}
 	\label{fig:miscFlowers}
 \end{figure}
 
@@ -138,3 +123,10 @@ Some Kohleria flowers display two distinct patterns: A white background with red
 As far as I know, this study represents the only reaction-diffusion simulation on arbitrary triangulated surfaces of flower petal patterns. I have also implemented a biologically-motivated model of monkeyflower spots and their formation. This simulation provides a reason for the linear arrangement of spots arising from the shape of a parameter boundary. I have also produced other flower models using various reaction-diffusion equations. These models highlight the usefulness and flexibility of reaction-diffusion and \ProgramName{}. Anisotropic diffusion was critical for aligning patterns. Future work should identify to what extent anisotropic diffusion occurs in real petals.
 
 There are many more flowers with striking patterns to be modelled. The visual appearance of patterns is affected by the shape of the flower petal cells. Incorporating this phenomenon into renderings of flower petal patterns will provide a more realistic simulation appearance. Flowers attract insects through pigmentation patterns only visible in ultraviolet light. These types of patterns would be an exciting modelling challenge, especially if real insects were attracted to the simulated images. More insight into how genes interact and affect pattern formation would help specifying model PDEs. Future works may investigate the role of growth and vasculature structures on pattern formation. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{renderMonkeyFlower.png}
+	\caption{A rendering of a monkeyflower.}
+	\label{fig:monkeyFlowerRendering}
+\end{figure}

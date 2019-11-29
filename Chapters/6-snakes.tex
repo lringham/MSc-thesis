@@ -9,7 +9,7 @@ The regions of a snake that display pigmentation patterns can be roughly partiti
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\columnwidth]{snakes.png}
-	\caption{A collection of snakes with interesting patterns. \textbf{a:} An American coral snake, \textit{M. fulvius}. \textbf{b:} A scarlet kingsnake, \textit{L. elapsoides}. \textbf{c:} The tail of a ring-necked snake. \textbf{d:} A python. \textbf{e:} A corn snake. \textit{Photographs \textbf{a}: Peter Paplanus (CC BY-NC 2.0); \textbf{b}: courtesy of Trent Adamson; \textbf{c}: Glenn Bartolotti (CC BY-SA 3.0); \textbf{d,e}: courtesy of pixabay.com.}}
+	\caption{A collection of snakes with interesting patterns. \textbf{a:} An American coral snake, \textit{M. fulvius}. \textbf{b:} A scarlet kingsnake, \textit{L. elapsoides}. \textbf{c:} The tail of a ring-necked snake. \textbf{d:} A python. \textbf{e:} A corn snake. \textit{Photographs \textbf{a}: Peter Paplanus (CC BY-NC 2.0); \textbf{b}: courtesy of Trent Adamson; \textbf{c}: Glenn Bartolotti (CC BY-SA 3.0); \textbf{d,e}: courtesy of pixabay.com}.}
 	\label{fig:realSnakePatterns}
 \end{figure}
 
@@ -38,7 +38,7 @@ The first snake model displays brightly coloured transverse stripes like those o
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake1.png}
-	\caption{Model of the Honduran milk snake. The activator, $a$, is visualized where concentration values from low to high are represented as dark orange, black, and bright orange. \textbf{a:} The initial state: $a=1$ on the nose and $0$ elsewhere, $s=1$ everywhere. \textbf{b:} The final pattern. \textbf{c:} An image of a real Honduran milk snake. \textit{Photograph: courtesy of Douglas Mong}}
+	\caption{Model of the Honduran milk snake. The activator, $a$, is visualized where concentration values from low to high are represented as dark orange, black, and bright orange. \textbf{a:} The initial state: $a=1$ on the nose and $0$ elsewhere, $s=1$ everywhere. \textbf{b:} The final pattern. \textbf{c:} An image of a real Honduran milk snake. \textit{Photograph: courtesy of Douglas Mong}.}
 	\label{fig:Snake1}
 \end{figure}
 
@@ -48,19 +48,17 @@ The next snake model displays a pattern consisting of four black lateral stripes
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake2.png}
-	\caption{Model of the \textit{E. quadrivirgata}. The activator, $a$, is visualized where concentration values from low to high are represented as brown to black. \textbf{a:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{E. quadrivirgata}. \textit{Photograph: courtesy of Anthony von Plettenberg Laing}}
+	\caption{Model of the \textit{E. quadrivirgata}. The activator, $a$, is visualized where concentration values from low to high are represented as brown to black. \textbf{a:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{E. quadrivirgata}. \textit{Photograph: courtesy of Anthony von Plettenberg Laing}.}
 	\label{fig:Snake2}
 \end{figure}
 
 \newpage
-% third model - 11028.041 to 44303.008 area
-The third model I made displays a spot or blotch pattern like that of the spotted rock snake (\textit{Lamprophis guttatus}). %TODO why was this interesting
-The model includes growth and adaptive subdivision. There are two phases to pattern formation. In phase 1, the simulation is initialized from a random placement of morphogens. After initialization, a row of spots forms on the snake. Phase 1 lasts for 100,000 iterations, after which phase 2 begins. The snake is grown uniformly over 70,000 iterations increasing its surface area by four times. Faces of the mesh start with an average area of $0.52$ and are subdivided when they exceed the max face area of $1$. This growth allows the spot pattern to form into two rows of spots. Fig. \ref{fig:Snake3} shows this model.
+The third model I made displays a spot or blotch pattern like that of the spotted rock snake (\textit{Lamprophis guttatus}). This pattern is interesting because in basic spot producing reaction-diffusion models, the spots tend to equally distribute over the domain. This is not the pattern seen on \textit{Lamprophis guttatus}, there are spots located close together in two rows down the snake's back. The model includes growth and adaptive subdivision. There are two phases to pattern formation. In phase 1, the simulation is initialized from a random placement of morphogens. After initialization, a row of spots forms on the snake. Phase 1 lasts for 100,000 iterations, after which phase 2 begins. The snake is grown uniformly over 70,000 iterations increasing its surface area by four times. Faces of the mesh start with an average area of $0.52$ and are subdivided when they exceed the max face area of $1$. This growth allows the spot pattern to form into two rows of spots. Fig. \ref{fig:Snake3} shows this model.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake3.png}
-	\caption{Model of the spotted rock snake. \textbf{a:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots where $a=1$. \textbf{b:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{c:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{d:} An image of a real spotted rock snake. \textit{Photograph: courtesy of Tyrone Ping}}
+	\caption{Model of the spotted rock snake. \textbf{a:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots where $a=1$. \textbf{b:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{c:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{d:} An image of a real spotted rock snake. \textit{Photograph: courtesy of Tyrone Ping}.}
 	\label{fig:Snake3}
 \end{figure}
 
@@ -71,7 +69,7 @@ The common European viper, \textit{Vipera berus}, displays an interesting zigzag
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake4.png}
-	\caption{Model of the European viper. \textbf{a:} The initial distribution of $a$ is randomly chosen from $[.5, 1)$ for each vertex and $s=1$ everywhere. The concentration of $a$ seen is multiplied by $0.263$ to show the character of the start state pattern. The colour map expects values in the range $[0-1]$. \textbf{b:} The final pattern. In this case $a$ multiplied by $0.556$. \textbf{c:} An image of a real \textit{V. berus}. \textit{Photograph: Benny Trapp (CC BY 3.0)}}
+	\caption{Model of the European viper. \textbf{a:} The initial distribution of $a$ is randomly chosen from $[.5, 1)$ for each vertex and $s=1$ everywhere. The concentration of $a$ seen is multiplied by $0.263$ to show the character of the start state pattern. The colour map expects values in the range $[0-1]$. \textbf{b:} The final pattern. In this case $a$ multiplied by $0.556$. \textbf{c:} An image of a real \textit{V. berus}. \textit{Photograph: Benny Trapp (CC BY 3.0)}.}
 	\label{fig:Snake4}
 \end{figure}
 
@@ -82,7 +80,7 @@ Another snake model is based on the transverse stripes of a southern coral snake
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake5.png}
-	\caption{Model of the \textit{M. frontalis}. \textbf{a:} Initially $s=1$ and $a=0$ everywhere except on the nose, where $a=1$. $a$ is visualized from red to black to white and is normalized by $0.520$. \textbf{b:} end of phase 1 where a basic stripe pattern has formed. \textbf{c:} The final pattern after growth. Black stripes have appeared in-between the previous stripes. \textbf{d:} A picture of a real \textit{M. frontalis}. \textit{Photograph: William Quatman (CC BY-SA 2.0)}}
+	\caption{Model of the \textit{M. frontalis}. \textbf{a:} Initially $s=1$ and $a=0$ everywhere except on the nose, where $a=1$. $a$ is visualized from red to black to white and is normalized by $0.520$. \textbf{b:} end of phase 1 where a basic stripe pattern has formed. \textbf{c:} The final pattern after growth. Black stripes have appeared in-between the previous stripes. \textbf{d:} A picture of a real \textit{M. frontalis}. \textit{Photograph: William Quatman (CC BY-SA 2.0)}.}
 	\label{fig:Snake5}
 \end{figure}
 
@@ -93,27 +91,18 @@ The California kingsnake (\textit{Lampropeltis californiae}) contains white and 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake6.png}
-	\caption{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textit{Photograph: courtesy of David Steen}}
+	\caption{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textit{Photograph: courtesy of David Steen}.}
 	\label{fig:Snake6}
 \end{figure}
 
 \newpage
 
 \section{Discussion and future work}
-Snake patterns provide an interesting modelling challenge due to the broad diversity of patterns on a geometrically simple domain. I have produced a variety of patterns based on real snake species. By using the features of \ProgramName{}, such as the simulation of growth and anisotropic diffusion, I generated relatively complex pigmentation patterns. My previous models of ladybugs and research into the parameter space of the Gray-Scott model (Eqn. \ref{eq:grayscottRD}) helped me identify iconic features of reaction-diffusion patterns that were also seen on snakes. Most of the models produced the same type of pattern on a straight and curved domain. However, simulating model E on a curved domain caused the stripes to split, creating an incorrect forked pattern. Likewise, simulating model F on a straight domain did not allow the stripes to fork correctly. This behaviour begs the question as to what pose a snake assumes throughout its pattern's development. As stated by \citet{murray1991}, reaction-diffusion without the effect of chemotaxis is expressive enough to produce some snake patterns. As illustrated in Fig. \ref{fig:SnakeRendering}, reaction-diffusion models can be used to create convincing biological patterns for use in computer graphics. Future work may provide an understanding of the role of scales in pattern formation. Models that account for the effect of scale boundaries on diffusion may produce the more delicate details seen in nature, such as the pigmented tips of scales. 
+Snake patterns provide an interesting modelling challenge due to the broad diversity of patterns on a geometrically simple domain. I have produced a variety of patterns based on real snake species. By using the features of \ProgramName{}, such as the simulation of growth and anisotropic diffusion, I generated relatively complex pigmentation patterns. My previous models of ladybugs and research into the parameter space of the Gray-Scott model (Eqn. \ref{eq:grayscottRD}) helped me identify iconic features of reaction-diffusion patterns that were also seen on snakes. Most of the models produced the same type of pattern on a straight and curved domain. However, simulating model E on a curved domain caused the stripes to split, creating an incorrect forked pattern. Likewise, simulating model F on a straight domain did not allow the stripes to fork correctly. This behaviour raises the question as to what pose a snake assumes throughout its pattern's development. As stated by \citet{murray1991}, reaction-diffusion without the effect of chemotaxis is expressive enough to produce some snake patterns. As illustrated in Fig. \ref{fig:SnakeRendering}, reaction-diffusion models can be used to create convincing biological patterns for use in computer graphics. Future work may provide an understanding of the role of scales in pattern formation. Models that account for the effect of scale boundaries on diffusion may produce the more delicate details seen in nature, such as the pigmented tips of scales. 
 
 One noticeable limitation of the models is seen on the ends of the tails. Stationary reaction-diffusion patterns are frequently standing waves with a fixed wavelength. Thus, the patterns can only fit on a domain if there is enough space for them. A  fixed wavelength poses a problem because the end of the tail runs out of space to support the same pattern seen on the body. In nature, the patterns tend to scale down to account for the tail tapering. However, gradually reducing the diffusion rate based on the proximity to the end of the tail might be a solution.
 
 Snake pattern formation is of great interest to herpetologists, who study reptiles and amphibians. They can understand snake evolution through the myriad of patterns snakes display. Snake breeders profit off selling snakes that display striking and unique patterns. Consequently, there is also a financial incentive to predict the effect of breeding on pattern development.
-
-
-% snake on ground with some iridescence
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\columnwidth]{ground_1.png}
-	\caption{A rendering of \textit{E. quadrivirgata} with iridescence.}
-	\label{fig:SnakeRendering}
-\end{figure}
 
 \begin{table}[ht]
 	\centering
@@ -144,3 +133,11 @@ Snake pattern formation is of great interest to herpetologists, who study reptil
 	\caption {Parameter values for the California kingsnake model. This model uses the activator-depleted substrate equations (Eqn. \ref{eq:grayscottRD}).}
 	\label{tab:snakeParameters}
 \end{table}
+
+% snake on ground with some iridescence
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ground_1.png}
+	\caption{A rendering of \textit{E. quadrivirgata} with iridescence.}
+	\label{fig:SnakeRendering}
+\end{figure}
