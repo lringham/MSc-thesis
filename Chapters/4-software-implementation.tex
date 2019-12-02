@@ -4,29 +4,29 @@
 
 \begin{enumerate}
 	% 1 support for grids and arbitrary surfaces
-	\item To simulate reaction-diffusion on grids and arbitrary triangulated surfaces. Grids provide a common and familiar domain for simulating reaction-diffusion. Meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
+	\item To simulate reaction-diffusion on grids and arbitrary triangulated surfaces. Grids provide a common and simple domain for simulating reaction-diffusion. Meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
 	
 	% 2 interactivity
 	%TODO look for more info on user attention span wrt simulation programs
 	\item To allow for interaction with simulation parameters at runtime. Real-time interaction allows for rapid iteration during model creation and pattern exploration. Minimizing delays increases user enjoyment and productivity. %Studies have shown that when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}. 
 
 	% 3 pattern development visualization
-	\item Visualization of pattern formation over time. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, patterns seen in nature are not necessarily those at a steady state.
+	\item To visualize pattern formation over time. Watching a pattern's development allows the user to gain an intuition about simulation behaviour. Also, patterns seen in nature are not necessarily those at a steady state.
 	
 	% 4 easy to use 
-	\item Easy modification of parameters and the equations themselves. Allowing configurable PDEs dramatically increases the usefulness of \ProgramName{} as users can create custom models. Another benefit of configurable PDEs is that not all users may have access to the program's source code. 
+	\item For easy modification of parameters and the equations themselves. Allowing configurable PDEs dramatically increases the usefulness of \ProgramName{} as users can create custom models. Another benefit of configurable PDEs is that not all users may have access to the program's source code. 
 		
 	% 5 support for advanced features
-	\item Support for growth, spatially varying parameters, and anisotropic diffusion. These features are essential because their impact on pattern development can lead to more biologically relevant models. 
+	\item To support growth, spatially varying parameters, and anisotropic diffusion. These features are essential because their impact on pattern development can lead to more biologically relevant models. 
 	
 	% 6 tracking model progress
-	\item The ability to track the incremental changes made to models. A track record of a model's changes allows the user to see its developmental process. This history provides a list of the avenues examined during the model's creation and future areas of interest.
+	\item For the ability to track the incremental changes made to models. A track record of a model's changes allows the user to see its developmental process. This history provides a list of the avenues examined during the model's creation and future areas of interest.
 \end{enumerate}
 
 \section{Program architecture} 
-\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. A library named \Quotes{Dear ImGui} \citep{cornut2019} is used to implement the graphical user interface (GUI). 
+\ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. The graphical user interface was developed with the library \Quotes{Dear ImGui} \citep{cornut2019}.
 
-\ProgramName{} contains two important abstract classes: SimulationDomain and Simulation. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functionality that can be performed without knowledge of the spatial relationships within the domain. Functions such as Laplacian and gradient are declared in SimulationDomain. However, these functions must be implemented by the inheritors of SimulationDomain. An example inheritor is the HalfEdgeMesh class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The SimulationDomain base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the Simulation class. This abstracts and provides all the functionality relevant to the simulation except the PDE formulas. Simulation also contains a SimulationDomain member variable, which is how a reaction-diffusion model is associated with a domain. GPUSim and CustomSim extend Simulation and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
+\ProgramName{} contains two important abstract classes: \textbf{SimulationDomain} and \textbf{Simulation}. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functionality that can be performed without knowledge of the spatial relationships within the domain. Pure virtual functions such as Laplacian and gradient are declared in \textbf{SimulationDomain}. However, these functions must be implemented by subclasses of \textbf{SimulationDomain}. An example subclass is the \textbf{HalfEdgeMesh} class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The \textbf{SimulationDomain} base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the \textbf{Simulation} class. This abstracts and provides all the functionality relevant to the simulation except the PDE formulas. Simulation also contains a \textbf{SimulationDomain} member variable, which is how a reaction-diffusion model is associated with a domain. \textbf{GPUSim} and \textbf{CustomSim} extend \textbf{Simulation} and are the two main classes which provide the link between \ProgramName{} and the Simulation Module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
 
 \begin{figure}[H]
 	\centering

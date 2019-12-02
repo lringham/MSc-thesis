@@ -2,20 +2,20 @@
 
 \chapter{Computational aspects}
 \section{Systems of chemical reactions}
-Reaction-diffusion equations are an idealized and abstract representation of reality. They capture two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations (PDEs), whose numerical solution requires discretization of time and space. Computation of the chemical reactions at a specific point in space depends on the elapsed time and previous concentration. Computation of diffusion, however, depends additionally on the concentrations in the areas adjacent to the point of interest.
+Reaction-diffusion equations are an idealized and abstract representation of reality. They capture two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations, whose numerical solution requires discretization of time and space. Computation of the chemical reactions at a specific point in space depends on the elapsed time and previous concentration. Computation of diffusion, however, depends additionally on the concentrations at adjacent points.
 
 \section{Isotropic diffusion}
-Diffusion is a process in which particles of a substance move from areas with high concentration to areas with low concentration. This change in concentration over space is referred to as a gradient. Diffusion was formalized in 1855 by Fick's second law:
+Diffusion is a process in which particles of a substance move from areas with high concentration to areas with low concentration. The change in concentration over space is referred to as a concentration gradient. Diffusion was formalized in 1855 by Fick's second law:
 \begin{equation}
 \label{eq:ficks2ndlaw0}
 	\frac{\partial \Morph}{\partial t} = \Div (D \nabla \Morph).
 \end{equation}
-$\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $\Morph$ is a scalar field. Given Eqn. \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient of $\Morph$ measures the difference between the concentration at that point and the average of the neighbouring concentrations. Diffusion is proportional to this change in concentration. However, particle size and domain porosity also affect the diffusion rate. This is represented by the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic, and we can simplify Eqn. \ref{eq:ficks2ndlaw0} to:
+The symbol $\Div$ is the divergence operator, $\nabla$ is the gradient operator, and $\Morph$ is a scalar field. Given Eqn. \ref{eq:ficks2ndlaw0}, we see that the diffusion rate depends on the gradient of the concentration. At a given location, the divergence of the gradient of $\Morph$ measures the difference between the concentration at that point and the average of the neighbouring concentrations. Diffusion is proportional to this change in concentration. However, particle size and domain porosity also affect the diffusion rate. This is represented by the diffusivity coefficient $D$. If diffusivity is the same regardless of direction, this diffusion is said to be isotropic, and we can simplify Eqn. \ref{eq:ficks2ndlaw0} to:
 \begin{equation}
 \label{eq:ficks2ndlaw1}
-	\frac{\partial \Morph}{\partial t} = D \Lap \Morph.
+	\frac{\partial \Morph}{\partial t} = D \Lap \Morph,
 \end{equation}
-$\Lap$ is the divergence of the gradient and is called the Laplacian. Formally, it is the sum of the second spatial derivative in each basis direction $x_i$.
+where $\Lap$ is the divergence of the gradient and is called the Laplacian. Formally, it is the sum of the second spatial derivative in each basis direction $x_i$.
 \begin{equation}
 \label{eq:laplacian}
 	\Lap = \sum_{i=0}^{n} \frac{\partial^2}{\partial x_i^2}.
@@ -31,12 +31,12 @@ In many biological scenarios, particles do not diffuse at an equal rate in all d
     0 & \lambda_2 
 \end{bmatrix}
 \end{equation}
-Each $\lambda_i$ represents the diffusivity in a basis of the space. In practice, $\lambda_1$ and $\lambda_2$ are used to represent a portion of the desired scalar diffusion rate. To represent isotropic diffusion $\lambda_1=1$ and $\lambda_2=1$. $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
+Each $\lambda_i$ represents the diffusivity in a basis of the space. In practice, $\lambda_1$ and $\lambda_2$ are used to represent a portion of the desired scalar diffusion rate. To represent isotropic diffusion, $\lambda_1=1$ and $\lambda_2=1$. $\Lambda$ is axis-aligned. Arbitrary orientations can be calculated with a rotation matrix $R$, allowing us to represent general anisotropic diffusion:
 \begin{equation}
 \label{eq:anisoDiffTensor}
 	D = R^T \Lambda R.
 \end{equation}
-Now we can use $D$ to transform the gradient and thereby the diffusion rate, obtaining Eqn. \ref{eq:ficks2ndlaw0}.
+We can use $D$ to transform the gradient and thereby the diffusion rate, obtaining Eqn. \ref{eq:ficks2ndlaw0}.
 
 \section{Discrete diffusion operators}
 To simulate reaction-diffusion, the domain on which it is simulated must be discretized, which in turn means that we must use a discrete version of the Laplacian.
@@ -45,14 +45,14 @@ To simulate reaction-diffusion, the domain on which it is simulated must be disc
 Grids of square cells are a common representation of domains. This has many benefits as grids are easy to represent, and the required differential operators are simple to implement. Each cell in the grid has an area associated with concentrations of morphogens. Computationally, concentrations are represented by a scalar value assigned to each cell.
 
 \subsubsection*{Diffusion in 1D} 
-Computing diffusion on a 1D grid of cells can be accomplished by representing the Laplacian through finite differencing operations. Because the Laplacian involves second-order derivatives, we can approximate it by computing the difference of two first-order differences for a grid cell centred at $\Morph_i$, where $i$ is the $i^{th}$ cell:
+Diffusion on a 1D grid of cells can be computed by representing the Laplacian through finite differencing operations. Because the Laplacian involves second-order derivatives, we can approximate it by computing the difference of two first-order differences for a grid cell centred at $i$, where $i$ is the $i^{th}$ cell:
 \begin{equation}
 \begin{aligned} \label{eq:firstOrderDifference}
 	T_0 &= \frac{(\Morph_{i} - \Morph_{i-1})}{h},\\
 	T_1 &= \frac{(\Morph_{i+1} - \Morph_i)}{h}.
 \end{aligned}
 \end{equation}
-Here $\Morph_{i-1}, \Morph_i, \Morph_{i+1}$ are morphogen concentrations at their respective grid cells, $T_0$ and $T_1$ are the first order differences, and $h$ is the distance between the centres of adjacent cells. The discrete Laplacian is then:
+Here $\Morph_{i-1}, \Morph_i,$ and $\Morph_{i+1}$ are morphogen concentrations at their respective grid cells, $T_0$ and $T_1$ are the first order differences, and $h$ is the distance between the centres of adjacent cells. The discrete Laplacian is then:
 \begin{equation} 
 \label{eq:secondOrderDifference}
 	\Lap \Morph_i = \frac{T_1 - T_0}{h} = \frac{\Morph_{i-1} - 2\Morph_i + \Morph_{i+1}}{h^2}.
@@ -62,7 +62,7 @@ This differencing can be represented as a convolution mask during computation, a
 \centering
 \begin{tikzpicture}
 \draw[step=1.0cm,color=gray] (0,0) grid (3,1);
-\node at (-0.5,+0.5) {$\Lap =$};
+\node at (-0.5,+0.5) {$\Lap =\textit{ }$};
 \node at (+0.5,+0.5) {1}; %\node at (+0.5, -0.25) {$f_{i-1}$};
 \node at (+1.5,+0.5) {-2}; %\node at (+1.5, -0.25) {$f_i$};
 \node at (+2.5,+0.5) {1}; %\node at (+2.5, -0.25) {$f_{i+1}$};
@@ -81,7 +81,7 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \centering
 \begin{tikzpicture}
 \draw[step=1.0cm,color=gray] (0,0) grid (3,3);
-\node at (-0.5,+1.5) {$\Lap =$};
+\node at (-0.5,+1.5) {$\Lap =\textit{ }$};
 \node at (+0.5,+2.5) {0};
 \node at (+1.5,+2.5) {1};
 \node at (+2.5,+2.5) {0};
@@ -95,7 +95,9 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \end{figure}
 
 \subsection{Diffusion on arbitrary triangular meshes}
-Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the dual mesh. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
+Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the mesh dual graph. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
+
+Two half-edges replace each edge in the mesh to build this data structure. Each half-edge stores a pointer to the next half-edge in the same face, a pointer to the vertex that it originates from, and a pointer to the complementary half-edge (Fig. \ref{fig:halfEdgeMesh}). Each vertex stores a scalar representing the area of the dual cell. This area is the sum of one-third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
 
 \begin{figure}[H]
     \centering
@@ -103,20 +105,19 @@ Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discre
     \caption[Two triangles and their half-edge representation denoted by black arrows]{Two triangles and their half-edge representation denoted by black arrows.}
     \label{fig:halfEdgeMesh}
 \end{figure}
-Two half-edges replace each edge in the mesh to build this data structure. A single half-edge has a pointer to the next half-edge in the same face, as shown in Fig. \ref{fig:halfEdgeMesh}. Also, it has a pointer to the vertex that it originates from and a pointer to the complementary half-edge. Each vertex stores a scalar representing the area of the dual cell. This area is the sum of one-third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
 
 \subsubsection*{Isotropic diffusion on meshes}
 To compute diffusion on an arbitrary triangular mesh, we need a discrete Laplacian. This Laplacian can be a generalization of Eqn. \ref{eq:gridLaplacian}:
 \begin{equation}
 (\Lap{} \Morph)_i = \frac{1}{A} \sum_{i \sim j} w_{ij}(\Morph_i - \Morph_j).
 \end{equation}
-This equation states that the Laplacian at vertex $i$ of the scalar field $\Morph$ is the sum of the weighted differences between the concentration at $i$, $\Morph_i$, and each neighbouring concentrations $\Morph_j$. The weight is $w_{ij}$, each edge is denoted $i \sim j$, and the area associated with $i$ is $A$. The choice of weight determines the behaviour of the discrete Laplacian. \citet{wardetzky2007} have shown that no discretization maintains all the properties of the continuous Laplacian. The most common weighting used is the cotangent Laplacian,
+This generalized equation states that the Laplacian at vertex $i$ of the scalar field $\Morph$ is the sum of the weighted differences between, $\Morph_i$, the concentration at $i$, and each neighbouring concentrations $\Morph_j$. The weight is $w_{ij}$, the neighbouring edges of vertex $i$ are denoted $i \sim j$, and the area associated with $i$ is $A$. The choice of weight determines the behaviour of the discrete Laplacian. Unfortunately, \citet{wardetzky2007} have shown that no discretization maintains all the properties of the continuous Laplacian. The most common weighting used is the cotangent Laplacian,
 \begin{equation}
 	(\Lap{} \Morph)_i = \frac{1}{2A} \sum_{i \sim j} (\cot{\alpha} + \cot{\beta)} (\Morph_i - \Morph_j).
 	\label{eq:cotanLaplacian}
 \end{equation}
 
-A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured black in Fig. \ref{fig:dualMesh}. The cotangent weight for the black edge is computed from the angles $\alpha$ and $\beta$, which are opposite from the edge. This weight can be derived from the ratio of the edge length of the dual cell, shown in red, and the black edge's length. The black edge length is inversely proportional to the magnitude of the morphogen gradient between $i$ and $j$. The length of the red edge represents how much of an interface between the area associated with $i$ and the area associated with $j$ exists. Consequently, the amount of diffusion increases when the length of the red edge increases. To find the cotangent Laplacian for the entire mesh, we evaluate Eqn. \ref{eq:cotanLaplacian} at each vertex. A rigorous derivation is given in \citep{crane2013, herholz2013}. The drawback of this Laplacian compared to the continuous version is that the cotangent weights can be negative. This occurs when angles are greater than $90^\circ$. Consequently, care must be taken when meshing the domain.
+A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured black in Fig. \ref{fig:dualMesh}. The cotangent weight for the black edge is computed from the angles $\alpha$ and $\beta$, which are opposite from the edge. This weight can be derived from the ratio of the edge length of the dual cell, shown in red, and the black edge's length. The black edge length is inversely proportional to the magnitude of the morphogen gradient between vertices $i$ and $j$. The length of the red edge represents how much of an interface between the area associated with $i$ and the area associated with $j$ exists. Consequently, the amount of diffusion increases when the length of the red edge increases. To find the cotangent Laplacian for the entire mesh, we evaluate Eqn. \ref{eq:cotanLaplacian} at each vertex. A rigorous derivation is given in \citep{crane2013, herholz2013}. The drawback of this Laplacian compared to the continuous version is that the cotangent weights can be negative, which occurs when angles are greater than $90^\circ$. Consequently, care must be taken when meshing the domain.
 
 \begin{figure}[H]
 	\centering
@@ -132,11 +133,11 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 % 2. Be as explanatory as possible
 % 3. Introduce significant elements that come into play
 
-Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse (Fig. \ref{fig:anisoMesh}a). The length of the ellipse's axes correspond to the eigenvalues in the diffusivity matrix $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d_{ijk}}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d_{ijk}}}$ to obtain a rotation matrix, $R$, and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
+Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse (Fig. \ref{fig:anisoMesh}a). The length of the ellipse's axes correspond to the eigenvalues in the diffusivity matrix $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d}_{ijk}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d}_{ijk}}$ to obtain a rotation matrix $R$ and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
 	\incfig{aniso_vec2}
-	\caption[Visualization of a diffusion tensor at a cell and diffusion direction on a face]{Visualization of a diffusion tensor at a cell and diffusion direction on a face. \textbf{a:} the diffusion tensor at a vertex, $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
+	\caption[Visualization of a diffusion tensor at a cell and diffusion direction on a face]{Visualization of a diffusion tensor at a cell and diffusion direction on a face. \textbf{a:} the diffusion tensor at vertex $i$. The green arrow, $\boldsymbol{\vec{d_i}}$, is the primary direction of diffusion and its length corresponds to the first eigenvalue value of $\Lambda$. The red arrow is perpendicular to $\boldsymbol{\vec{d_i}}$ and its length corresponds to the second eigenvalue value of $\Lambda$. \textbf{b:} A triangle with diffusion vectors at each vertex and the resulting face vector.}
 	\label{fig:anisoMesh}
 \end{figure}
 The morphogen gradient on a face is determined by the sum of the face's edge normals. An edge normal provides the gradient direction and is weighted by the morphogen concentration opposite to that edge. To find an edge normal, we apply a $90^\circ$ rotation matrix, $Q$, about the face normal, to the edge. $Q$ is multiplied with $D$ to include this rotation:
@@ -156,9 +157,9 @@ Using $D^\perp$ we calculate the Laplacian weighting and obtain the discrete ani
 \end{equation}
 This matrix is used to compute diffusion when given a vector of morphogen concentrations, $\bm{u}$, by:
 \begin{equation}
-	Lu = \Lap \bm{u}.
+	Lu = \Lap u.
 \end{equation}
-This Laplacian is more complicated than before, and a complete derivation is given in \citep{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we obtain isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
+This Laplacian is more complicated than before, and a complete derivation is given by \citet{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we obtain isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
 
 \begin{figure}[H]
 	\centering
@@ -171,7 +172,7 @@ This Laplacian is more complicated than before, and a complete derivation is giv
 PDEs determine the state of the simulation inside the domain. Interaction between the simulation and the world outside the domain is based on boundary conditions. Dirichlet and Neumann are the two most common boundary conditions. Dirichlet enforces the morphogen values directly at the boundary, and Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default or Dirichlet if specified.
 
 \section{Systems with dynamic structure}
-In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. A subdivision algorithm is used to split large triangles into a few smaller ones to address this. Subdividing every face in the mesh causes small triangles to be subdivided unnecessarily, and the total number of triangles increases quickly. This is a problem because the simulation's performance decreases as the number of vertices increases. 
+In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. A subdivision algorithm is used to split large triangles into smaller ones to address this. However, subdividing every face in the mesh causes small triangles to be subdivided unnecessarily, and the total number of triangles increases quickly. This is a problem because the simulation's performance decreases as the number of vertices increases. 
 
 \begin{figure}[H]
 	\centering
@@ -180,9 +181,9 @@ In nature, domains grow over time, which can have an appreciable effect on patte
 	\label{fig:recursiveSubdiv}
 \end{figure}
 
-Adaptive subdivision is a technique used to only subdivide triangles with an area larger than a given threshold. This approach allows all triangles to maintain a similar area and limits the unnecessary creation of triangles. The choice of adaptive subdivision algorithm used determines the shape of the generated triangles. The desired shape for triangles that comprise the mesh is equilateral. If a triangle exhibits large-angle deviations from $60^{\circ}$, it can pose a problem for the simulation. The number and magnitude of deviations in a mesh give an informal notion of mesh quality and affects the simulation. Depending on the angle, the cotangent weights can be negative or widely varying due to the behaviour of cotan around 0 and 180 degrees. Negative cotangent weights cause diffusion to move morphogens from low to high concentrations incorrectly \citep{wardetzky2007}. 
+Adaptive subdivision is a technique used to only subdivide triangles with an area larger than a given threshold. This approach allows all triangles to maintain a similar area and limits the unnecessary creation of triangles. The choice of adaptive subdivision algorithm used determines the shape of the generated triangles. If the internal angles of a triangle exhibit large deviations from $60^{\circ}$, it can pose a problem for the simulation. The number and magnitude of deviations in a mesh give an informal notion of mesh quality and affects the simulation. Depending on the angle, the cotangent weights can be negative or widely varying due to the behaviour of cotan around 0 and 180 degrees. Negative cotangent weights cause diffusion to move morphogens from low to high concentrations incorrectly \citep{wardetzky2007}. 
 
-To obtain optimal incremental triangulation that tends to produce good quality triangles, we use longest-edge bisection \citep{rivara1998}. In this method, faces are only ever subdivided with respect to their longest edge. The red triangle in Fig. \ref{fig:recursiveSubdiv}a is too large and must be subdivided. In Fig. \ref{fig:recursiveSubdiv}b, the red triangle has been subdivided, but the new edge does not connect to an edge in the adjacent face. To solve this, we also subdivide the adjacent face along its longest edge. This may fix the issue, or it may cause another triangle to be missing an edge. We proceed by subdividing every face missing an edge in the same way until all the edges are connected. This process is shown in Fig. \ref{fig:recursiveSubdiv} and the algorithm is detailed in Algorithm \ref{alg:subdivisionAlgorithm}. 
+To obtain optimal incremental triangulation that tends to produce good quality triangles, we use longest-edge bisection \citep{rivara1998}. In this method, faces are only ever subdivided with respect to their longest edge. The red triangle in Fig. \ref{fig:recursiveSubdiv}a is too large and must be subdivided. In Fig. \ref{fig:recursiveSubdiv}b, the red triangle has been subdivided, but the new edge does not connect to an edge in the adjacent face. To solve this, we also subdivide the adjacent face along its longest edge. This may fix the issue, or it may cause another triangle to be missing an edge. We proceed by subdividing every face missing an edge in the same way until all the edges are connected. This process is shown in Fig. \ref{fig:recursiveSubdiv} and the algorithm is detailed in Alg. \ref{alg:subdivisionAlgorithm}. 
 
 Subdivision also requires the proper handling of concentrations. The concentration assigned to the new vertex is the average of the neighbouring concentration values that shared the edge.
 
@@ -221,8 +222,8 @@ Subdivision also requires the proper handling of concentrations. The concentrati
 
 \section{Numerical methods}
 
-The simulation is advanced by taking small steps through time from a given initial condition. I use the forward Euler method \citep{solomon2015} to perform this integration. A reaction-diffusion formula, similar to Eqn \ref{eq:basicRD}, integrated with forward Euler is:
+The simulation is advanced by taking small steps through time from a given initial condition. I use the forward Euler method to perform this integration. A reaction-diffusion formula, similar to Eqn \ref{eq:basicRD}, integrated with forward Euler is:
 \begin{equation}
 	\boldsymbol{x_{i+1}} = \boldsymbol{x_{i}} + (D\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i}))\Delta t. \\
 \end{equation}
-Here $\boldsymbol{x_i}$ is a vector of scalars representing morphogen concentrations at step $i$ and $\Delta t$ is the time-step. $D$ is diffusivity, $\Lap{}$ is the discrete Laplacian used to compute diffusion, and $F(\boldsymbol{x_i})$ encapsulates the reactions of the system. This method suffers from inaccuracy at larger time-steps because we are assuming $\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i})$ is constant for the whole time-step. This inaccuracy can cause instability in stiff equations by accruing error with each simulation step. Semi-implicit integration schemes \citep{Nie2006} allowing for larger time-steps, but in practice, it is possible to use small enough time-steps to minimize inaccuracy and avoid instability. 
+Here $\boldsymbol{x_i}$ is a vector of scalars representing morphogen concentrations at step $i$ and $\Delta t$ is the time-step. $D$ is diffusivity, $\Lap{}$ is the discrete Laplacian used to compute diffusion, and $F(\boldsymbol{x_i})$ encapsulates the reactions of the system. This method suffers from inaccuracy at larger time-steps because we are assuming $\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i})$ is constant for the whole time-step. This inaccuracy can cause instability in stiff equations by accruing error with each simulation step. Semi-implicit integration schemes \citep{Nie2006} allowing for larger time-steps, but in practice, it is possible to use small enough time-steps to minimize inaccuracy with forward Euler. 
