@@ -67,7 +67,8 @@
   \usepackage{makecell}
   \usepackage{bm}
   \usepackage[section]{placeins}
-  
+%  \usepackage{refcheck}
+
   
 % used for multi-line content in a single cell
 \renewcommand\theadfont{\normalsize}
@@ -273,6 +274,7 @@ Procedural methods provide an algorithmic way to produce textures for use in com
 %% As required by the 2014 thesis guidelines, the bibliography must
 %% appear in the table of contents. Do not remove the following lines. 
   \cleardoublepage\phantomsection
+  % \nocite{*} used to find uncited references
   \addcontentsline{toc}{chapter}{Bibliography}
   \bibliographystyle{apalike}
   \bibliography{References/collection} 

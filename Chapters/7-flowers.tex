@@ -76,10 +76,10 @@ This model is of a \textit{Phalaenopsis} orchid, which displays varying sizes of
 \end{table}
 
 \textbf{Model b:}
-This orchid of the \textit{Encyclia} genus displays orange and yellow stripes across the flower petals. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. Anisotropic diffusion (Eq. \ref{eq:diffTensor}) is used to orient the pattern across the petals with both $u$ and $v$ assuming $\lambda_1=0.35$, $\lambda_2=1$ and the vector field is radiating from the centre. After this pattern has settled, there is a second phase, during which the boundary conditions are changed in some sections to act as sources and sinks. In these sections, $u$ and $v$ use Dirichlet conditions with a value of $0$ and $30$, respectively. This simulation is then stopped after $4,500$ steps before the pattern fully settles. The parameters for this model are in Table. \ref{tab:flowerBDParameters}.
+This orchid of the \textit{Encyclia} genus displays orange and yellow stripes across the flower petals. The domain is partitioned into three circular zones that increase the pattern scale as it moves from the centre to the ends of the petals. Initially the morphogens $u$ and $v$ are set to $4 + [-2.0, 2.0)$ everywhere. Anisotropic diffusion (Eq. \ref{eq:diffTensor}) is used to orient the pattern across the petals with both $u$ and $v$ assuming $\lambda_1=0.35$, $\lambda_2=1$ and the vector field is radiating from the centre. After this pattern has settled, there is a second phase, during which the boundary conditions are changed in some sections to act as sources and sinks. In these sections, $u$ and $v$ use Dirichlet conditions with a value of $0$ and $30$, respectively. This simulation is then stopped after $4,500$ steps before the pattern fully settles. The parameters for this model are in Table. \ref{tab:flowerBCParameters}.
 
 \textbf{Model c:}
-Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I modelled the inner patterns using anisotropic diffusion (Eq. \ref{eq:diffTensor}). This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The model produces spots in the absence of anisotropic diffusion. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This causes spots to become a series of branching connected lines. The inner region parameters differ by $a=16$ and $u$  assumes anisotropic diffusion with the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form correctly sized spots in the outer region, I use $a=16.5$ with isotropic diffusion. The parameters for this model are in Table. \ref{tab:flowerBDParameters}.
+Some Kohleria flowers display two distinct patterns: A white background with red spots on the border of the petals, and red oriented lines that branch and radiate from the centre. The outside of the flower appears as a solid light pink. I modelled the inner patterns using anisotropic diffusion (Eq. \ref{eq:diffTensor}). This model uses two morphogens: $u$ and $v$. Initially they are set to $4 + [-3.0, 3.0)$ everywhere. The model produces spots in the absence of anisotropic diffusion. The region containing line patterns has been modelled by increasing the diffusion rates with respect to the longest axis of the flower. This causes spots to become a series of branching connected lines. The inner region parameters differ by $a=16$ and $u$  assumes anisotropic diffusion with the coefficients $\lambda_{1}=0.5$, $\lambda_{2}=1$ and vectors radiating from the centre. To form correctly sized spots in the outer region, I use $a=16.5$ with isotropic diffusion. The parameters for this model are in Table. \ref{tab:flowerDParameters}.
 
 \begin{table}[hb]
 	\centering
@@ -92,7 +92,7 @@ Some Kohleria flowers display two distinct patterns: A white background with red
 	\end{tabular}
 	}
 	\caption[Parameter values for \textit{Encyclia} and \textit{Kohleria} using Turing reaction-diffusion]{Parameter values for  \textit{Encyclia} and \textit{Kohleria} using Turing reaction-diffusion (Eqn. \ref{eq:turingRD}). $uSat$ represents the maximum value of the $u$. Values separated by commas are used on different regions of the domain.}
-	\label{tab:flowerBDParameters}
+	\label{tab:flowerBCParameters}
 \end{table}
 
 \textbf{Model d:}
@@ -108,7 +108,7 @@ Some Kohleria flowers display two distinct patterns: A white background with red
 	\end{tabular}
 	}
 	\caption[Parameters for the \textit{Digitalis} model using the activator-depleted substrate formula]{Parameters for the \textit{Digitalis} model using the activator-depleted substrate formula (Eqn. \ref{eq:activatorSubstrateRD}). This model uses two morphogens $s$ and $a$. The substrate $s$ is $1$ everywhere and $a$ is $0$ except for a few vertices at the bottom of the flower. These cells have a value of $a=1$ and will progress over time to become the dark purple pigment spots.}
-	\label{tab:flowerCParameters}
+	\label{tab:flowerDParameters}
 \end{table}
 
 \begin{figure}[ht]
@@ -120,7 +120,7 @@ Some Kohleria flowers display two distinct patterns: A white background with red
 
 % What was accomplished?
 \section{Discussion and future work}
-As far as I know, this study represents the only reaction-diffusion simulation on arbitrary triangulated surfaces of flower petal patterns. I have also implemented a biologically-motivated model of monkeyflower spots and their formation. This simulation provides a reason for the linear arrangement of spots arising from the shape of a parameter boundary. I have also produced other flower models using various reaction-diffusion equations. These models highlight the usefulness and flexibility of reaction-diffusion and \ProgramName{}. Anisotropic diffusion was critical for aligning patterns. Future work should identify to what extent anisotropic diffusion occurs in real petals.
+As far as I know, this study represents the only reaction-diffusion simulation on arbitrary triangulated surfaces of flower petal patterns. I have also implemented a biologically-motivated model of monkeyflower spots and their formation. A rendering of the monkeyflower is shown in Fig. \ref{fig:monkeyFlowerRendering}. This simulation provides a reason for the linear arrangement of spots arising from the shape of a parameter boundary. I have also produced other flower models using various reaction-diffusion equations. These models highlight the usefulness and flexibility of reaction-diffusion and \ProgramName{}. Anisotropic diffusion was critical for aligning patterns. Future work should identify to what extent anisotropic diffusion occurs in real petals.
 
 There are many more flowers with striking patterns to be modelled. The visual appearance of patterns is affected by the shape of the flower petal cells. Incorporating this phenomenon into renderings of flower petal patterns will provide a more realistic simulation appearance. Flowers attract insects through pigmentation patterns only visible in ultraviolet light. These types of patterns would be an exciting modelling challenge, especially if real insects were attracted to the simulated images. More insight into how genes interact and affect pattern formation would help specifying model PDEs. Future works may investigate the role of growth and vasculature structures on pattern formation. 
 
