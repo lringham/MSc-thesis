@@ -106,11 +106,12 @@ The California kingsnake (\textit{Lampropeltis californiae}) contains white and 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake6.png}
-	\caption[Model of the \textit{L. californiae}]{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textit{Photograph: courtesy of David Steen}.}
+	\caption[Model of the \textit{L. californiae}]{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textit{\CpyMsg{David Steen}.}}
 	\label{fig:Snake6}
 \end{figure}
-% https://livingalongsidewildlife.com/?p=1703
+
 \newpage
+\footnotetext{\url{https://livingalongsidewildlife.com/?p=1703}, Retrieved October 3, 2019.}
 
 \section{Discussion and future work}
 Snake patterns provide an interesting modelling challenge due to the broad diversity of patterns on a geometrically simple domain. I have produced a variety of patterns based on real snake species. By using the features of \ProgramName{}, such as the simulation of growth and anisotropic diffusion, I generated relatively complex pigmentation patterns. My previous models of ladybugs and research into the parameter space of the Gray-Scott model (Eqn. \ref{eq:grayscottRD}) helped me identify iconic features of reaction-diffusion patterns that were also seen on snakes. Most of the models produced the same type of pattern on a straight and curved domain. However, simulating model E on a curved domain caused the stripes to split, creating an incorrect forked pattern. Likewise, simulating model F on a straight domain did not allow the stripes to fork correctly. This behaviour raises the question as to what pose a snake assumes throughout its pattern's development. As stated by \citet{murray1991}, reaction-diffusion without the effect of chemotaxis is expressive enough to produce some snake patterns. As illustrated in Fig. \ref{fig:SnakeRendering}, reaction-diffusion models can be used to create convincing biological patterns for use in computer graphics. Future work may provide an understanding of the role of scales in pattern formation. Models that account for the effect of scale boundaries on diffusion may produce the more delicate details seen in nature, such as the pigmented tips of scales. 
