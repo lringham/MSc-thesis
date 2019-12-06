@@ -6,14 +6,22 @@ Pigmentation patterns perform many useful functions, such as camouflaging the sn
 
 The regions of a snake that display pigmentation patterns can be roughly partitioned into the head, body, tail, and underbelly. Here I focus on the most striking patterns found on the body and tail. The similarity between patterns found in these regions and those found on the head or underbelly varies between species. It is not uncommon for the head and underbelly to display a different pattern than the body. A notable example is the ring-necked snake, shown in Fig. \ref{fig:realSnakePatterns}c, which presents a dull colour on its back, serving as camouflage. When the ring-necked snake is provoked, it will display its bright red and orange underside to deter predators.
 
+\newcommand{\CpyMsg}[1]{\textcopyright{} by {#1} - used with permission of the author\footnotemark{}}
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=\columnwidth]{snakes.png}
-	\caption[A collection of snakes with interesting patterns]{A collection of snakes with interesting patterns. \textbf{a:} An American coral snake, \textit{M. fulvius}. \textbf{b:} A scarlet kingsnake, \textit{L. elapsoides}. \textbf{c:} The tail of a ring-necked snake. \textbf{d:} A python. \textbf{e:} A corn snake. \textit{Photographs \textbf{a}: courtesy of Trent Adamson; \textbf{b}: Glenn Bartolotti (CC BY-SA 3.0); \textbf{d,e}: courtesy of pixabay.com; \textbf{c}: Peter Paplanus (CC BY-NC 2.0).}}
+	\caption[Examples of snakes with interesting patterns]{Examples of snakes with interesting patterns. \textbf{a:} An American coral snake, \textit{M. fulvius}. \textbf{b:} A scarlet kingsnake, \textit{L. elapsoides}. \textbf{c:} The tail of a ring-necked snake. \textbf{d:} A python. \textbf{e:} A banded kingsnake snake. \textit{Photographs \textbf{a:} \CpyMsg{Trent Adamson}. \textbf{b:} Glenn Bartolotti (CC BY-SA 3.0). \textbf{c:} Peter Paplanus (CC BY-NC 2.0). \textbf{d,e:} public domain.}}
 	\label{fig:realSnakePatterns}
 \end{figure}
+\footnotetext{\url{www.flickr.com/photos/evergladesnps/9099355261/}, Retrieved, October 1, 2019}
 
-Snake patterns start development when the animal still in its egg. \citet{murakami2018} studied the early development of pigmentation patterns in the Japanese four-lined snake (\textit{Elaphe quadrivirgata}). The characteristic pattern \textit{E. quadrivirgata} displays is four black lateral lines on a light brown background (Fig. \ref{fig:Snake1}c). In juveniles, these stripes are dark brown and connected by transverse lines like a ladder. These transverse liens disappear in mature snakes.
+% a www.instagram.com/p/BR_e_yGBKaV/?igshid=cyd7oopduf10
+% b en.wikipedia.org/wiki/Scarlet_kingsnake
+% c www.flickr.com/photos/138578145@N04/26965183857
+% d www.flickr.com/photos/evergladesnps/9099355261/
+% e www.pixcove.com/tag/banded/page/2/
+
+Snake patterns start development when the animal still in its egg. \citet{murakami2018} studied the early development of pigmentation patterns in the Japanese four-lined snake (\textit{Elaphe quadrivirgata}). The characteristic pattern \textit{E. quadrivirgata} displays is four black lateral lines on a light brown background (Fig. \ref{fig:Snake1}c). In juveniles, these stripes are dark brown and are connected by transverse lines like a ladder. As the snake matures the transverse lines disappear.
  
 To understand how the patterns of \textit{E. quadrivirgata} develop, snakes were observed at different points in time during embryonic development. Pigmentation is measured by observing chromatophore cells, which contain pigmentation molecules. A type of chromatophore, called a melanophore, is responsible for brown to black colouration and is first seen in deeper tissues of \textit{E. quadrivirgata} around 18-21 days after ovulation. These cells do not affect the later development of melanophores seen in the dermal and epidermal layers. Striped pigmentation patterns emerge behind the head after 26-32 days. Stripes then appear on the whole body, first thinly at 29-35 days and then clearly at 35-42 days. Data about how patterns emerge and develop are valuable because they contribute to an understanding of the patterning process and provide testable data points to guide the model's development.
 
@@ -38,9 +46,10 @@ The first snake model displays brightly coloured transverse stripes like those o
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake1.png}
-	\caption[Model of the Honduran milk snake]{Model of the Honduran milk snake. The activator, $a$, is visualized where concentration values from low to high are represented as dark orange, black, and bright orange. \textbf{a:} The initial state: $a=1$ on the nose and $0$ elsewhere, $s=1$ everywhere. \textbf{b:} The final pattern. \textbf{c:} An image of a real Honduran milk snake. \textit{Photograph: courtesy of Robert Coral}.}
+	\caption[Model of the Honduran milk snake]{Model of the Honduran milk snake. The activator, $a$, is visualized where concentration values from low to high are represented as dark orange, black, and bright orange. \textbf{a:} The initial state: $a=1$ on the nose and $0$ elsewhere, $s=1$ everywhere. \textbf{b:} The final pattern. \textbf{c:} An image of a real Honduran milk snake. \textit{\CpyMsg{Robert Coral}}.}
 	\label{fig:Snake1}
 \end{figure}
+\footnotetext{\url{www.snakemuseum.com/milk-snakes/151-honduran-milk-snakes.html}, November 29, 2019.}
 
 % second model
 The next snake model displays a pattern consisting of four black lateral stripes, similar to those of an adult \textit{E. quadrivirgata}. I have assumed anisotropic diffusion of the activator $a$, as described in Eqn. \ref{eq:ficks2ndlaw0}, of $a$. The vector field used by $a$ runs parallel to the snake's longitudinal axis. The diffusivity coefficients are $\lambda_{1}=1$ and $\lambda_{2}=0.502$. Anisotropic diffusion with $\lambda_{1} > \lambda_{2}$ was important because the lines should form parallel to the longitudinal axis of the snake. The ventral scale's parameters vary from those used on the dorsal side by setting $f=0$ so that extra lines do not form on the underside. The initial and final patterns are shown in Fig. \ref{fig:Snake2}.
@@ -48,21 +57,26 @@ The next snake model displays a pattern consisting of four black lateral stripes
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake2.png}
-	\caption[Model of the \textit{E. quadrivirgata}]{Model of the \textit{E. quadrivirgata}. The activator, $a$, is visualized where concentration values from low to high are represented as brown to black. \textbf{a:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{E. quadrivirgata}. \textit{Photograph: courtesy of Anthony von Plettenberg Laing}.}
+	\caption[Model of the \textit{E. quadrivirgata}]{Model of the \textit{E. quadrivirgata}. The activator, $a$, is visualized where concentration values from low to high are represented as brown to black. \textbf{a:} The initial morphogen distribution is $s=1$ and $a=0$ except a stripe of $a=1$ down the dorsal side of the snake. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{E. quadrivirgata}. \textit{\CpyMsg{Anthony Plettenberg Laing}}.}
 	\label{fig:Snake2}
 \end{figure}
 
 \newpage
+\footnotetext{\url{www.facebook.com/photo.php?fbid=10203688900604029}, Retrieved October 3, 2019.}
+
 The third model I made displays a spot or blotch pattern like that of the spotted rock snake (\textit{Lamprophis guttatus}). This pattern is interesting because, in basic spot producing reaction-diffusion models, the spots tend to be distributed over the domain equally. However, the pattern seen on \textit{Lamprophis guttatus} has spots located close together in two rows down the snake's back. This type of pattern can be produced by adding growth and adaptive subdivision to the model. There are two phases during pattern formation. In phase 1, the simulation is initialized from a random placement of morphogens. After initialization, a row of spots forms on the snake. During phase 2, the snake grows uniformly, increasing its surface area by four times. Faces of the mesh start with an average area of $0.52$ and are subdivided when they exceed the max face area of $1$. This growth allows the spot pattern to form into two rows of spots. Fig. \ref{fig:Snake3} shows this model.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{Snake3.png}
-	\caption[Model of the spotted rock snake]{Model of the spotted rock snake. \textbf{a:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots where $a=1$. \textbf{b:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{c:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{d:} An image of a real spotted rock snake. \textit{Photograph: courtesy of Tyrone Ping}.}
+	\caption[Model of the spotted rock snake]{Model of the spotted rock snake. \textbf{a:} Start of phase 1 showing the initial morphogen distribution of $s=1$ and $a=0$ except for 30 randomly placed spots where $a=1$. \textbf{b:} A pattern of spots has formed along the snake. This is the end of phase 1 and the start of phase 2. \textbf{c:} End of phase 2 where rows of spots have formed on an enlarged snake. \textbf{d:} An image of a real spotted rock snake. \textit{\CpyMsg{Tyrone Ping}}.}
 	\label{fig:Snake3}
 \end{figure}
 
 \newpage
+\footnotetext{\url{www.tyroneping.co.za/snakes-southern-africa/lamprophis-guttatus-spotted-rock-snake}, Retrieved October 3, 2019.}
+
+
 %Fourth model
 The common European viper, \textit{Vipera berus}, displays an interesting zigzag pattern. This snake is venomous, and the pattern can serve as a warning signal or as camouflage when the snake is tightly coiled \citep{lillywhite2014}. Morphogen $a$ diffuses anisotropically using coefficients $\lambda_{1}=0.81$, $\lambda_{2}=1$. This model is shown in Fig. \ref{fig:Snake4}.
 
@@ -72,6 +86,7 @@ The common European viper, \textit{Vipera berus}, displays an interesting zigzag
 	\caption[Model of the European viper]{Model of the European viper. \textbf{a:} The initial distribution of $a$ is randomly chosen from $[.5, 1)$ for each vertex and $s=1$ everywhere. The concentration of $a$ seen is multiplied by $0.263$ to show the character of the start state pattern. The colour map expects values in the range $[0-1]$. \textbf{b:} The final pattern. In this case $a$ multiplied by $0.556$. \textbf{c:} An image of a real \textit{V. berus}. \textit{Photograph: Benny Trapp (CC BY 3.0)}.}
 	\label{fig:Snake4}
 \end{figure}
+%https://en.wikipedia.org/wiki/Vipera_berus#/media/File:Benny_Trapp_Vipera_berus.jpg
 
 \newpage
 %Fifth model
@@ -83,7 +98,7 @@ Another snake model is based on the transverse stripes of a southern coral snake
 	\caption[Model of the \textit{M. frontalis}]{Model of the \textit{M. frontalis}. \textbf{a:} Initially $s=1$ and $a=0$ everywhere except on the nose, where $a=1$. $a$ is visualized from red to black to white and is normalized by $0.520$. \textbf{b:} end of phase 1 where a basic stripe pattern has formed. \textbf{c:} The final pattern after growth. Black stripes have appeared in-between the previous stripes. \textbf{d:} A picture of a real \textit{M. frontalis}. \textit{Photograph: William Quatman (CC BY-SA 2.0)}.}
 	\label{fig:Snake5}
 \end{figure}
-
+% https://en.wikipedia.org/wiki/Micrurus_frontalis
 \newpage 
 
 The California kingsnake (\textit{Lampropeltis californiae}) contains white and black transverse stripes, which sometimes bifurcate. I have assumed anisotropic diffusion on the snake's body. Morphogen $u$ has diffusivity coefficients $\lambda_{1}=0.75$, $\lambda_{2}=1$, and $v$ has $\lambda_{1}=1$, $\lambda_{2}=0.75$. Anisotropic diffusion was needed to align the stripes perpendicular to the body. The snake's head assumes standard isotropic diffusion as the real snake does not have stripes on its head. This model is shown in Fig. \ref{fig:Snake6}.
@@ -94,7 +109,7 @@ The California kingsnake (\textit{Lampropeltis californiae}) contains white and 
 	\caption[Model of the \textit{L. californiae}]{Model of the \textit{L. californiae}. Morphogen $u$ is visualized as white when its value is low and black when high. \textbf{a:} The initial distribution is $u=0$ and $v=1$ everywhere except a lateral stripe  of $u=1$. \textbf{b:} The final pattern. \textbf{c:} An image of a real \textit{L. californiae}. \textit{Photograph: courtesy of David Steen}.}
 	\label{fig:Snake6}
 \end{figure}
-
+% https://livingalongsidewildlife.com/?p=1703
 \newpage
 
 \section{Discussion and future work}

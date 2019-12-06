@@ -1,18 +1,18 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                                                    %%
-%% This is file `ucalgarythesis.tex'  -- a document template for      %%
-%% graduate theses at the University of Calgary.                      %%
-%%                                                                    %%
-%% This template document is to be used in conjunction with the       %%
-%% thesis class file `ucalgarythesis.cls'.                            %%
-%%                                                                    %%
-%% Created by M.W. Girard, last updated 10 April 2016.                %%
-%%                                                                    %%
-%% This template was created to be in compliance with the University  %%
-%% of Calgary thesis guidelines (version 14 April 2014)               %%
-%%       https://grad.ucalgary.ca/current/thesis/guidelines.          %%
-%%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                                              %%
+%% This is file `ucalgarythesis.tex'  -- a document template for                           %%
+%% graduate theses at the University of Calgary.                                               %%
+%%                                                                                                              %%
+%% This template document is to be used in conjunction with the                        %%
+%% thesis class file `ucalgarythesis.cls'.                                                           %%
+%%                                                                                                              %%
+%% Created by M.W. Girard, last updated 10 April 2016.                                      %%
+%%                                                                                                              %%
+%% This template was created to be in compliance with the University                  %%
+%% of Calgary thesis guidelines (version 14 April 2014)                                       %%
+%%       https://grad.ucalgary.ca/current/thesis/guidelines.                                   %%
+%%                                                                                                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                    %%
 %% By default, the text of the thesis is doublespaced and should be   %%
 %% printed single-sided. All margins must be exactly one inch on all  %%
@@ -20,29 +20,33 @@
 %% required by the University of Calgary thesis guidelines.           %%
 %% All theses are now required to be submitted electronically.        %%
 %%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% Load the `thesis.cls' document class
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                                              %%
+%% Load the `thesis.cls' document class                                                           %%
+%%                                                                                                              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \documentclass{thesis}
   
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  %% If you would like to print a personal copy of your thesis for    %%
-  %% your own record, you may print it double-sided and with extra    %%
-  %% margins for binding. Use the following line instead of the above %%
-  %% \documentclass{ucalgarythesis} for compiling personal copies of  %%
-  %% the thesis to be printed double-sided and bound.                 %%
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%                                                                                                            %%
+  %% If you would like to print a personal copy of your thesis for                          %%
+  %% your own record, you may print it double-sided and with extra                      %%
+  %% margins for binding. Use the following line instead of the above                   %%
+  %% \documentclass{ucalgarythesis} for compiling personal copies of                  %%
+  %% the thesis to be printed double-sided and bound.                                       %%
+  %%                                                                                                            %%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %\documentclass[twoside,binding]{thesis}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% Imported packages & custom user commands
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                                              %%
+%% Imported packages & custom user commands                                               %%
+%%                                                                                                              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Include extra packages here
 
@@ -101,20 +105,20 @@
 \def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
 \makeatother
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                                                    %%
-%% Begin document                                                     %%
-%%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                                              %%
+%% Begin document                                                                                       %%
+%%                                                                                                              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                                                    %%
-%% Title page                                                         %%
-%%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                                                              %%
+%% Title page                                                                                               %%
+%%                                                                                                              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Instructions for title page information:                           %%
 %%                                                                    %%
 %%  Fill in the following fields with the required information:       %%
@@ -129,7 +133,7 @@
 %%                                 Master of Science, etc)            %%
 %%   - \gradyear{...}     Year of submission                          %%
 %%   - \monthname{...}    Month of submission                         %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \title{Modelling natural phenomenon with reaction-diffusion}
   \author{Lee Ringham}
@@ -140,47 +144,46 @@
   \monthname{APRIL}
   
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %% Make the thesis title page.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \frontmatter           %% Don't remove this line.
   \makethesistitle       %% Don't remove this line.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                    %%
 %% Prefatory pages                                                    %%
 %%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The following sections are in the correct order as specified by    %%
 %% the April 2014 thesis guidelines set by the University of Calgary. %%
 %%                                                                    %%
 %% You may remove optional sections, but do not change the order.     %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Abstract page (REQUIRED)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{thesisabstract}  
 Procedural methods provide an algorithmic way to produce textures for use in computer graphics. One such method, reaction-diffusion, is a powerful mathematical approach that describes natural pattern formation in terms of chemicals known as morphogens. This thesis describes \ProgramName{}, an environment for authoring reaction-diffusion models directly on arbitrary surfaces. Morphogens, their behaviours, and the domain in which they reside can be quickly and easily defined. By performing computation on the GPU, the pattern forming simulation can be interacted with in real-time, facilitating productivity and experimentation. Four case studies are presented. The first is a simulation of ladybug pigmentation patterns. The second is a simulation of pigmentation patterns seen on the body of snakes. The third study looks at flower petal pattern modelling. Lastly, a biologically-motivated model of the autoimmune disease psoriasis is presented.
   \end{thesisabstract}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Acknowledgements page (REQUIRED)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \chapter{Acknowledgements}  
   ...
 %I want to acknowledge my supervisor Dr. Prusinkiewicz for all his guidance and support. I would also like to thank the members of the Algorithmic Botany lab, including Andrew Owens, Jeremy Hart, Cory Bloor, Mik Cieslak, Philmo Gu, Desmond Larsen-Rosner, and Pascal Ferraro. Your advice and thoughtful conversations greatly helped me to learn, develop, and enjoy this work. For their work on psoriasis, I also thank Robert Gniadecki, and finally Robert Munafo for advice on Gray-Scott reaction-diffusion models and their parameter space.
 
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Dedication page (this section is OPTIONAL)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %  \chapter[Dedication]{}
   
@@ -188,38 +191,37 @@ Procedural methods provide an algorithmic way to produce textures for use in com
 %     \emph{To Carol, Mark, Andrew, and my loving wife, Natalie.}
 %  \end{dedication}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Various lists
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The Table of Contents and all Lists should be single spaced.
 
   \begin{singlespace}   %% Do not remove this line
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Table of Contents (REQUIRED)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \renewcommand\contentsname{Table of Contents}
   \cleardoublepage\phantomsection
   \addcontentsline{toc}{chapter}{\contentsname}
   \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% List of figures (required, if any)
   \renewcommand{\listfigurename}{List of Figures and Illustrations}
   \cleardoublepage\phantomsection
   \addcontentsline{toc}{chapter}{\listfigurename}
   \listoffigures
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% List of tables (required, if any)
   \renewcommand{\listtablename}{List of Tables}
   \cleardoublepage\phantomsection
   \addcontentsline{toc}{chapter}{\listtablename}
   \listoftables
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% List of Symbols, abbreviations, and nomenclature (required, if any)   
 %%
 %% (Note: You may use your own format for your list of symbols, 
@@ -238,22 +240,22 @@ Procedural methods provide an algorithmic way to produce textures for use in com
     % Always keep the following line if you are using a list of symbols:
 %  \end{tabbing}
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% End single spacing after last list
   \end{singlespace}     %% Do not remove this line
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                    %%
 %% Main matter                                                        %%
 %%                                                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \mainmatter           %% Do not remove this line
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Chapters
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
   \include{Chapters/1-introduction}
   \include{Chapters/2-reaction-diffusion-patterning}
