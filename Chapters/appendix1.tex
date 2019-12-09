@@ -45,6 +45,7 @@
     \item[indices:] Specifies integer indices used to define initial conditions and parameters. Valid values are: all or 1,2,3 or 1-3.
 \end{description}
 
+\chapter{Psoriasis}
 \section{Three-substance model of psoriasis}
 To show that the results obtained for the two substance system in Fig. \ref{fig:2}B also hold for the three-substance system in Fig. \ref{fig:2}A, we have constructed a simulation model corresponding directly to Fig. \ref{fig:2}A. The equations have the form: 
 \begin{equation}
@@ -54,7 +55,7 @@ To show that the results obtained for the two substance system in Fig. \ref{fig:
 		\frac{\partial[IL23]}{\partial t}     &=\rho_{[IL23]0}     -\mu_{[IL23]}[IL23]                     -k[TNF\alpha]^2[IL23]+D_{[IL23]}\Lap[IL23]
 	\end{aligned}
 \end{equation}
-Parameter values resulting in the different pattern classes shown in Fig. \ref{fig:4} are collected in Table \ref{tab:S3}.
+Parameter values resulting in the different pattern classes shown in Fig. \ref{fig:4} are collected in Table \ref{tab:S5}.
 
 \begin{table}[ht]
 \centering
@@ -67,6 +68,6 @@ Parameter values resulting in the different pattern classes shown in Fig. \ref{f
 maxSteps                     & 13,000           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\ \hline
 treatSteps                   & 12,000           & 12,000                & 140,000               & 1,700            & 2,700            & 13,000            \\ \hline
 \end{tabular}
-\caption[Parameter values for generating the six classes of psoriasis plaque patterns]{Parameter values for generating the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4} using the three-substance model. In all simulations: $k = 1, \eta = 2, \rho_{[TNF\alpha]0} = \rho_{[IL17]0} = 0, \mu_{[IL17] = 1, D_{[IL23]} = 0.5, D_{[TNF\alpha]} = D_{[IL17]} = 0.25}$. Simulations were carried out using forward Euler methods with time-step $dt = 0.4$ for $maxSteps$ iterations, with the treatment starting after $treatSteps$ iterations. The textures used in all simulations had a resolution of 500 x 500 texels, with each texel representing a sample point of a discretized patch of the skin. Parameters of individual simulations are collected in Table \ref{tab:S1}. We assumed Neumann boundary conditions set to 0, i.e., no diffusion of activator A and substrate S across the boundary. The initial activator concentration a was set to 0 in each texel except for 50 seed spots, placed randomly across the domain.  Each spot was represented by a 3x3 array of texels with $a$ concentration of 0.5 (See Table \ref{tab:S3} for the minimum values). The initial concentration of the substrate $s$ was 1.0 everywhere.  All concentrations were represented with 32-bit floating point accuracy.}
+\caption[Parameter values for generating the six classes of psoriasis plaque patterns]{Parameter values for generating the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4} using the three-substance model. In all simulations: $k = 1, \eta = 2, \rho_{[TNF\alpha]0} = \rho_{[IL17]0} = 0, \mu_{[IL17] = 1, D_{[IL23]} = 0.5, D_{[TNF\alpha]} = D_{[IL17]} = 0.25}$.}
 \label{tab:S5}
 \end{table}
