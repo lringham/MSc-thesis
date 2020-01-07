@@ -145,7 +145,7 @@ The morphogen gradient on a face is determined by the sum of the face's edge nor
 	D^\perp = Q^T D Q.
 \label{eq:perpTensor}
 \end{equation}
-Using $D^\perp$ we calculate the Laplacian weighting and obtain the discrete anisotropic cotangent Laplacian:
+Using $D^\perp$ we calculate the Laplacian weighting and obtain the discrete anisotropic Laplacian:
 \begin{equation} 
    L_{ij} =
    \begin{cases} 
@@ -157,9 +157,9 @@ Using $D^\perp$ we calculate the Laplacian weighting and obtain the discrete ani
 \end{equation}
 This matrix is used to compute diffusion when given a vector of morphogen concentrations, $\bm{u}$, by:
 \begin{equation}
-	Lu = \Lap u.
+	L\bm{u} = \Lap \bm{u}.
 \end{equation}
-This Laplacian is more complicated than before, and a complete derivation is given by \citet{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we obtain isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. %In the first case, we sum around $i$, adding the contribution from the cotangent weights scaled by the affect of anisotropy on the gradient of $i$. In the second case, for each edge, we compute the weights based off the angles derived from 
+This Laplacian is more complicated than before, and a complete derivation is given by \citet{mathieu2014}. The parameters correspond to Fig. \ref{fig:meshLaplacian}. $i$ and $j$ are vertices, and $e_i$ and $e_j$ are edges, as shown in Fig. \ref{fig:meshLaplacian}. $t$ is a triangle that shares vertex $i$. $\Gamma = \frac{\norm{D^\perp e_j}}{\norm{e_j}}$ and $\gamma$ is the angle between $e_j$ and $D^\perp e_j$. If $D^{\perp} = I$ then $\gamma = \alpha$ and we obtain isotropic diffusion. $\Xi$ and $\xi$ are the same quantities measured on the adjacent triangle with that triangle's $D^\perp$. 
 
 \begin{figure}[H]
 	\centering
@@ -221,7 +221,6 @@ Subdivision also requires the proper handling of concentrations. The concentrati
 \end{algorithm}
 
 \section{Numerical methods}
-
 The simulation is advanced by taking small steps through time from a given initial condition. I use the forward Euler method to perform this integration. A reaction-diffusion formula, similar to Eqn \ref{eq:basicRD}, integrated with forward Euler is:
 \begin{equation}
 	\boldsymbol{x_{i+1}} = \boldsymbol{x_{i}} + (D\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i}))\Delta t. \\

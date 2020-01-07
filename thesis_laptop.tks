@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TexmakerSession quickmode="12">
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/3-computational-aspects.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/References/collection.bib" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/1-introduction.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/thesis.tex" master="true" line="0" hasfocus="true" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/5-ladybugs.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/4-software-implementation.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/6-snakes.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/7-flowers.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/9-conclusion-discussion.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/appendix1.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/8-psoriasis.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
-    <document bookmark2="0" bookmark1="0" file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/2-reaction-diffusion-patterning.tex" master="false" line="0" hasfocus="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/References/collection.bib" hasfocus="false" bookmark2="0" bookmark1="0" line="0" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/3-computational-aspects.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="142" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/5-ladybugs.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="21" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/1-introduction.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="0" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/4-software-implementation.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="107" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/7-flowers.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="117" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/6-snakes.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="147" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/appendix1.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="0" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/9-software-performance.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="1" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/thesis.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="267" master="true" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/8-psoriasis.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="0" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/2-reaction-diffusion-patterning.tex" hasfocus="false" bookmark2="0" bookmark1="0" line="11" master="false" bookmark3="0"/>
+    <document file="C:/Users/leeri/OneDrive/Documents/Development/thesis-gh/Chapters/10-conclusion-discussion.tex" hasfocus="true" bookmark2="0" bookmark1="0" line="3" master="false" bookmark3="0"/>
 </TexmakerSession>

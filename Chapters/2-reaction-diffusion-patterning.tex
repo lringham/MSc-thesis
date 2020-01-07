@@ -1,5 +1,5 @@
 \chapter{Principles of reaction-diffusion patterning} 
-Alan Turing proposed a system of differential equations as a model for biological pattern formation \citep{turing1952}. In this system, a spatial medium contains an initially homogeneous distribution of chemicals. This arrangement is in unstable equilibrium and the presence of small chemical perturbations instigates pattern formation. The system responds in a few ways over time: it can gain stability in a patterned state, oscillate between patterns, or settle in a homogeneous non-patterned state. 
+Alan Turing proposed a system of differential equations as a model for biological pattern formation \citep{turing1952}. In this system, a spatial medium contains an initially homogeneous distribution of chemicals. This arrangement is in an unstable equilibrium and the presence of small chemical perturbations instigates pattern formation. The system responds in a few ways over time: it can gain stability in a patterned state, oscillate between patterns, or settle in a homogeneous non-patterned state. 
 
 \section{Reaction-diffusion in a continuous domain}
 Reaction-diffusion is formalized as a set of PDEs that represent the change in concentration of morphogens over time. Considering morphogens $a$ and $b$, a two-substance reaction-diffusion system is defined by the system of equations:
@@ -9,7 +9,7 @@ Reaction-diffusion is formalized as a set of PDEs that represent the change in c
 		\frac{\partial b}{\partial t} &= G(a, b) + D_b \Lap b.
 	\end{aligned}
 	\end{equation}
-As the name suggests, reaction-diffusion is composed of two mechanisms, reaction and diffusion. Functions $F$ and $G$ describe the production and decay of $a$ and $b$, and together constitute the reactions of the system. $D_a$ and $D_b$ are coefficients that control how fast these morphogens diffuse through the domain. Physically, they depend on the morphogen particle size and permeability of the domain. $\Lap{}$ is the Laplacian operator, and in conjunction with the diffusion coefficients, describes the diffusion component of the system.
+As the name suggests, reaction-diffusion is composed of two mechanisms, reaction and diffusion. Functions $F$ and $G$ describe the production and decay of $a$ and $b$, and together constitute the reactions of the system. $D_a$ and $D_b$ are coefficients that control how fast these morphogens diffuse through the domain. Physically, they depend on the morphogen particle size and permeability of the domain. $\Lap{}$ is the Laplacian operator, and in conjunction with the diffusion coefficients, describes the diffusion component of the system. The concentrations of $a$ and $b$ are functions of time and position. All other values are constant parameters.
 
 These equations apply at any position in the domain in which reaction-diffusion is occurring. The size, shape, and growth of this domain may also play a role in pattern formation. Some patterns require a minimum amount of space to form. As domain size increases, the same parameters can produce different patterns. Additionally, the shape of the domain can affect pattern positioning and orientation.
 
