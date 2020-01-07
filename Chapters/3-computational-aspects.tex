@@ -127,12 +127,6 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 \end{figure}
 
 \subsubsection*{Anisotropic diffusion on meshes}
-
-% 1. Pose the problem first in the context of a figure. 
-%		Figure needs diffusion dir
-% 2. Be as explanatory as possible
-% 3. Introduce significant elements that come into play
-
 Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse (Fig. \ref{fig:anisoMesh}a). The length of the ellipse's axes correspond to the eigenvalues in the diffusivity matrix $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d}_{ijk}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d}_{ijk}}$ to obtain a rotation matrix $R$ and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
