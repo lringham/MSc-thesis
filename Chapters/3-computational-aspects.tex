@@ -1,10 +1,10 @@
 \newcommand{\Morph}{u}
 
-\chapter{Computational aspects}
-\section{Systems of chemical reactions}
+\chapter{Computational Aspects}
+\section{Systems of Chemical Reactions}
 Reaction-diffusion equations are an idealized and abstract representation of reality. They capture two phenomena, chemical reactions and diffusion. Mathematically, this is represented as a system of partial differential equations, whose numerical solution requires discretization of time and space. Computation of the chemical reactions at a specific point in space depends on the elapsed time and previous concentration. Computation of diffusion, however, depends additionally on the concentrations at adjacent points.
 
-\section{Isotropic diffusion}
+\section{Isotropic Diffusion}
 Diffusion is a process in which particles of a substance move from areas with high concentration to areas with low concentration. The change in concentration over space is referred to as a concentration gradient. Diffusion was formalized in 1855 by Fick's second law:
 \begin{equation}
 \label{eq:ficks2ndlaw0}
@@ -21,7 +21,7 @@ where $\Lap$ is the divergence of the gradient and is called the Laplacian. Form
 	\Lap = \sum_{i=0}^{n} \frac{\partial^2}{\partial x_i^2}.
 \end{equation}
 	
-\section{Anisotropic diffusion}
+\section{Anisotropic Diffusion}
 In many biological scenarios, particles do not diffuse at an equal rate in all directions. In that case, the diffusion is called anisotropic, and the diffusivity coefficient changes based on the direction considered. For anisotropic diffusion, a single scalar $D$ no longer suffices. We can represent anisotropy by a tensor $\Lambda$. In the two-dimensional case, the tensor has the form:
 \begin{equation}
 \label{eq:diffTensor}
@@ -38,10 +38,10 @@ Each $\lambda_i$ represents the diffusivity in a basis of the space. In practice
 \end{equation}
 We can use $D$ to transform the gradient and thereby the diffusion rate, obtaining Eqn. \ref{eq:ficks2ndlaw0}.
 
-\section{Discrete diffusion operators}
+\section{Discrete Diffusion Operators}
 To simulate reaction-diffusion, the domain on which it is simulated must be discretized, which in turn means that we must use a discrete version of the Laplacian.
 
-\subsection{Diffusion on grids}
+\subsection{Diffusion on Grids}
 Grids of square cells are a common representation of domains. This has many benefits as grids are easy to represent, and the required differential operators are simple to implement. Each cell in the grid has an area associated with concentrations of morphogens. Computationally, concentrations are represented by a scalar value assigned to each cell.
 
 \subsubsection*{Diffusion in 1D} 
@@ -94,7 +94,7 @@ Again, the Laplacian operator can be represented as a convolution mask:
 \end{tikzpicture}
 \end{figure}
 
-\subsection{Diffusion on arbitrary triangular meshes}
+\subsection{Diffusion on Arbitrary Triangular Meshes}
 Triangular meshes are ubiquitous in computer graphics. Meshes allow for a discrete representation of arbitrary surfaces, and there are well-studied algorithms for growing and subdividing them. These properties make meshes a good candidate for reaction-diffusion simulations. As in the grid case, concentrations are associated with cells. These cells are the faces of the mesh dual graph. Concentrations are stored at the vertices because each vertex is located at the centre of its cell. To allow for easy neighbour identification and area calculation, I represent the mesh as a half-edge data structure \citep{marschner2015}.
 
 Two half-edges replace each edge in the mesh to build this data structure. Each half-edge stores a pointer to the next half-edge in the same face, a pointer to the vertex that it originates from, and a pointer to the complementary half-edge (Fig. \ref{fig:halfEdgeMesh}). Each vertex stores a scalar representing the area of the dual cell. This area is the sum of one-third of each adjacent face's area. %Alternate area partitions are given in \citep{Meyer2003}.
@@ -106,7 +106,7 @@ Two half-edges replace each edge in the mesh to build this data structure. Each 
     \label{fig:halfEdgeMesh}
 \end{figure}
 
-\subsubsection*{Isotropic diffusion on meshes}
+\subsubsection*{Isotropic Diffusion on Meshes}
 To compute diffusion on an arbitrary triangular mesh, we need a discrete Laplacian. This Laplacian can be a generalization of Eqn. \ref{eq:gridLaplacian}:
 \begin{equation}
 (\Lap{} \Morph)_i = \frac{1}{A} \sum_{i \sim j} w_{ij}(\Morph_i - \Morph_j).
@@ -126,7 +126,7 @@ A vertex $i$ and a neighbouring vertex $j$ are connected by an edge coloured bla
 	\label{fig:dualMesh}
 \end{figure}
 
-\subsubsection*{Anisotropic diffusion on meshes}
+\subsubsection*{Anisotropic Diffusion on Meshes}
 Computing anisotropic diffusion on a mesh requires Laplacian weights that reflect the change in diffusivity for a given direction. This change is computed by applying a diffusion tensor, $D$, to the gradient of the morphogen field (Eqn. \ref{eq:ficks2ndlaw0}). The diffusion tensor at a vertex can be visualized as an ellipse (Fig. \ref{fig:anisoMesh}a). The length of the ellipse's axes correspond to the eigenvalues in the diffusivity matrix $\Lambda$ (Eqn. \ref{eq:diffTensor}). To properly orient $\Lambda$, we need a vector denoting the dominant direction of diffusion. For a given vertex, $i$, a vector, $\boldsymbol{\vec{d_i}}$ is specified which provides a notion of direction on the mesh. However, morphogen gradients are defined on triangle faces. To calculate a diffusion direction for a given face, the angle weighted average of its vertex directions, $\boldsymbol{\vec{d_i}}$, $\boldsymbol{\vec{d_j}}$, and $\boldsymbol{\vec{d_k}}$, is computed and projected onto the face to obtain $\boldsymbol{\vec{d}_{ijk}}$ (Fig. \ref{fig:anisoMesh}b). The face normal is used with $\boldsymbol{\vec{d}_{ijk}}$ to obtain a rotation matrix $R$ and subsequently, $D$ (Eqn. \ref{eq:anisoDiffTensor}). 
 \begin{figure}[H]
 	\centering
@@ -162,10 +162,10 @@ This Laplacian is more complicated than before, and a complete derivation is giv
 	\label{fig:meshLaplacian}
 \end{figure}
 
-\section{Boundary conditions}
+\section{Boundary Conditions}
 PDEs determine the state of the simulation inside the domain. Interaction between the simulation and the world outside the domain is based on boundary conditions. Dirichlet and Neumann are the two most common boundary conditions. Dirichlet enforces the morphogen values directly at the boundary, and Neumann specifies the rate of change of the morphogens across the boundary. \ProgramName{} uses Neumann with a value of zero by default or Dirichlet if specified.
 
-\section{Systems with dynamic structure}
+\section{Systems with Dynamic Structure}
 In nature, domains grow over time, which can have an appreciable effect on pattern formation. One of them is a diluting effect on chemical concentrations that make up a pattern. When simulating directly on meshes, the face's area represents a minimum size of pattern detail that can be represented. Thus, it is important to consider the increase in face size from growth. A subdivision algorithm is used to split large triangles into smaller ones to address this. However, subdividing every face in the mesh causes small triangles to be subdivided unnecessarily, and the total number of triangles increases quickly. This is a problem because the simulation's performance decreases as the number of vertices increases. 
 
 \begin{figure}[H]
@@ -214,7 +214,7 @@ Subdivision also requires the proper handling of concentrations. The concentrati
   \label{alg:subdivisionAlgorithm}
 \end{algorithm}
 
-\section{Numerical methods}
+\section{Numerical Methods}
 The simulation is advanced by taking small steps through time from a given initial condition. I use the forward Euler method to perform this integration. A reaction-diffusion formula, similar to Eqn \ref{eq:basicRD}, integrated with forward Euler is:
 \begin{equation}
 	\boldsymbol{x_{i+1}} = \boldsymbol{x_{i}} + (D\Lap{}\boldsymbol{x_i} + F(\boldsymbol{x_i}))\Delta t. \\

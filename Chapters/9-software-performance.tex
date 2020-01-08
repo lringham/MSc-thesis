@@ -1,4 +1,4 @@
-\chapter{Software performance}
+\chapter{Software Performance}
 A critical aspect in the design of \ProgramName{} was real-time performance. In order to support pattern formation at interactive rates, the PDEs and extensions to reaction-diffusion were required to be calculated quickly. Efficient simulation was achieved by leveraging the GPU to perform computation in a highly parallelized fashion. As shown in Table \ref{tab:perf}, the high degree of parallelization provided by the GPU was integral for increasing simulation speed in medium to large domains.   And performance of \ProgramName{} can be improved greatly by upgrading the GPU used for computation.
 
 This speed facilitated interaction by decreasing the time between user provided input and \ProgramName{}' response. GPU integration allows a user to directly manipulate their model and explore how parameter changes effect pattern details. Another benefit was the added ability to observe pattern formation in real-time.

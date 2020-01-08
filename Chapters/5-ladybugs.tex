@@ -1,5 +1,5 @@
-\chapter{Case Study 1: Ladybug patterns}
-\section{Literature review}
+\chapter{Case Study 1: Ladybug Patterns}
+\section{Literature Review}
 The ladybug (also known as ladybird beetle or lady beetle) is an insect in the family Coccinellidae. They are a small round beetles that range in length from 0.8 to 18mm \citep{King1996} and are often found in leaf piles and gardens. Ladybugs exist throughout the world and display a myriad of spot and stripe pigmentation patterns on their elytra: the two symmetric hard shells on the dorsal side of the insect (Fig. \ref{fig:realLadyBugPatterns}). The elytra's main purpose is to protect the fragile wings located underneath, and the pattern is thought to deter predators by indicating that the ladybug is bitter tasting \citep{King1996}. The pattern on one elytron is a mirror image of the pattern on the other. 
 
 \begin{figure}[ht]
@@ -16,7 +16,7 @@ Understanding the ladybug life cycle can give insight into how and when their pa
 
 Although the specific genetic mechanisms behind pattern formation are not fully known, \citet{liaw2001} used reaction-diffusion to simulate visually similar ladybug patterns. The equations used are activator-depleted substrate (Eqn. \ref{eq:activatorSubstrateRD}) with saturation. Their results were obtained numerically by using forward Euler integration on a grid located on the surface of a partial sphere. A Laplacian defined in spherical coordinates was used to compute diffusion on partial hemispheres of radius 1. It was found that the domain boundary and the curvature change the final position of spots and stripes. Five models were proposed. Three species considered display black spots on a red/orange background. In particular, \textit{Platynaspidius quinquepunctatus}, \textit{Coccinella septempunctata}, and \textit{Epilachna crassimala} display 5, 7, and 10 spots respectively. \textit{Macroilleis hauseri} has brown stripes aligned with the long axis of the shell on a yellow background. \textit{Bothrocalvia albolineata} displays elongated orange loops on a brown background.
 
-\section{Model description} 
+\section{Model Description} 
 I used \ProgramName{} to improve these models. The equations remain the activator-depleted substrate formula \citep{meinhardt1982}:
 \begin{equation}
 	\begin{aligned} \label{eq:ladybugRD}
@@ -72,7 +72,7 @@ By simulating ladybug patterns on a mesh, I improved on the results in \citep{li
 	\label{tab:ladyBugParameters}
 \end{table}
 
-\section{Discussion and future work}
+\section{Discussion and Future Work}
 Improvements to these models can be made once the biological chemical interactions are fully understood. The most relevant insights would be the real initial distribution of morphogens, the actual reaction behaviour between morphogens, and the rate at which they diffuse throughout the elytra. Some ladybug species can control their pigmentation patterns depending on the season or the surface the ladybug is on. This suggests a simple reaction-diffusion model cannot represent all types of ladybug patterns \citep{insects2009}.
 
 Further investigation should be made to determine how much the patterns found on the head of the ladybug effect the elytra pattern. Another critical question is if the patterns displayed are at a biological steady-state or does pattern formation stop prematurely. Development of the ladybug patterns over time is less studied, and it would be interesting to see if there exists a real chemical pre-pattern that moves like the models.

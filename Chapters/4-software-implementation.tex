@@ -1,5 +1,5 @@
-\chapter{Software design and  implementation}
-\section{General requirements} % Requirements
+\chapter{Software Design and  Implementation}
+\section{General Requirements} % Requirements
 \ProgramName{} was designed to fulfil six main requirements.
 
 \begin{enumerate}
@@ -7,7 +7,6 @@
 	\item To simulate reaction-diffusion on grids and arbitrary triangulated surfaces. Grids provide a common and simple domain for simulating reaction-diffusion. Meshes afford a more realistic domain because they are not restricted to the plane and are better suited for growth. 
 
 	% 2 interactivity
-	%TODO look for more info on user attention span wrt simulation programs
 	\item To allow for interaction with simulation parameters at runtime. Real-time interaction allows for rapid iteration during model creation and pattern exploration. Minimizing delays increases user enjoyment and productivity. 
 
 	% 3 pattern development visualization
@@ -23,7 +22,7 @@
 	\item For the ability to track the incremental changes made to models. A track record of a model's changes allows the user to see its developmental process. This history provides a list of the avenues examined during the model's creation and future areas of interest.
 \end{enumerate}
 
-\section{Program architecture} 
+\section{Program Architecture} 
 \ProgramName{} was implemented on the Windows 10 operating system using C++ and OpenGL. The graphical user interface was developed with the library \Quotes{Dear ImGui} \citep{cornut2019}.
 
 \ProgramName{} contains two important abstract classes: \textbf{SimulationDomain} and \textbf{Simulation}. The former is a class which abstracts the concept of a domain. It contains an array of morphogen concentrations and all the domain-specific functionality that can be performed without knowledge of the spatial relationships within the domain. Pure virtual functions such as Laplacian and gradient are declared in \textbf{SimulationDomain}. However, these functions must be implemented by subclasses of \textbf{SimulationDomain}. An example subclass is the \textbf{HalfEdgeMesh} class, which implements the Laplacian function using Eqn. \ref{eq:anisoLaplacian} defined in Chapter 3. The \textbf{SimulationDomain} base class provides an extensible way to add support for other domain types without having to copy non-domain specific code. The reaction-diffusion models are represented by extending the \textbf{Simulation} class. This abstracts and provides all the functionality relevant to the simulation except the PDE formulas. Simulation also contains a \textbf{SimulationDomain} member variable, which is how a reaction-diffusion model is associated with a domain. \textbf{GPUSim} and \textbf{CustomSim} extend \textbf{Simulation} and are the two main classes which provide the link between \ProgramName{} and the simulation module. This architecture is shown in Fig. \ref{fig:umlDiagram}.
@@ -36,17 +35,17 @@
 \end{figure}
 
 % Implementation (Programmer's Perspective)
-\section{Simulation creation}
+\section{Simulation Creation}
 Upon start-up, \ProgramName{} parses user-provided command-line arguments and reads in a parameter file. The possible command line arguments are described in \ref{appendix:CLargs}. The label-value pairs in the parameter file are used to create a symbol table. Then, the window is created along with the camera and scene objects responsible for rendering. Next, an instance of the class \textbf{SimulationDomain} is created. This domain instance and symbol table are then used to create a \textbf{Simulation} object. The symbol table determines if the simulation module is a DLL or compute shader. After creation, the initial conditions, and boundary conditions are applied from the parsed parameters to the simulation. Next, the simulation and domain instances are added to the scene so they can be updated and rendered. The remainder of the simulation executes a loop that calls the scene's update and render functions. The update function invokes the simulation module, which computes the PDEs.
 
-\subsection{GPU acceleration}
+\subsection{GPU Acceleration}
 Due to the popularity of video games, GPUs have become cheaper and more common. They contain many more cores than CPUs, enabling them to perform highly parallelized processing of triangles and pixels at a much faster rate. With the advent of compute shaders in modern graphics APIs, the power of the GPU can be leveraged to perform general-purpose computation. 
 
 In \ProgramName{}, these shaders are written in the OpenGL Shading Language (GLSL). Since the evaluation of reaction-diffusion equations depends solely on the previous simulation state, reaction-diffusion is easily parallelized. A single execution of the shader evaluates the equations once at a single location on the domain. For an entire step of the simulation, the compute shader is executed conceptually in parallel, across all the GPU cores, until all locations have been processed. Representing the half-edge data structure on the GPU can be done the same way as in RAM, by using structs and arrays. In practice, a simulation step will processes groups of cells in parallel. Each group of cells has access to a small amount of memory. This memory is fast to use but may not be large enough to hold our domain, especially if growth is involved. General-purpose GLSL arrays that are not limited in size are named Shader Storage Buffer Objects (SSBOs). SSBOs are slower to use but allow for arrays big enough to hold all the simulation data. To allow for growth, I allocate SSBOs larger than first needed, providing extra capacity for the simulation to grow. In my GPU half-edge data structure, pointers are replaced by index offsets into their respective SSBOs.
 
 A drawback of compute shaders is the slow transfer rate between RAM and GPU memory. This problem arises with frequent or substantial data transfers. The data are usually the result of algorithms that cannot be parallelized and thus are computed on the CPU. The results are then transferred to the GPU for further processing. The reverse case can also occur; results are generated on the GPU and require further computation on the CPU. After the CPU is done, the data may then be transferred back to the GPU. Performance loss due to transferring occurs in \ProgramName{} due to the recursive nature of the subdivision algorithm used. The CPU is used to perform subdivision when a face becomes too large. Then the GPU is updated. Care has been taken to only transfer the changes subdivision has caused, avoiding performance drops. Nevertheless, if significant changes that affect many locations on the domain are made, users may experience a pause as data synchronizes between GPU memory and RAM. 
 
-\section{Parameter file}
+\section{Parameter File}
 When starting the program, the user may specify a configuration file from the command line. If no file is specified, the program will look for \Quotes{SimConfig.txt}. The parameter text file is a customizable model specification. An example parameter file is shown in Fig. \ref{fig:paramFileExample}. Text prefixed by a hash symbol denotes a comment. Comments have no effect on the simulation and are used for documentation. A parameter is defined by a label-value pair delimited by a colon. The user can define any number of parameters that do not contain reserved labels. A complete listing of reserved labels is provided in \ref{appendix:Reservedlabels}. The \textit{domain} parameter specifies a mesh or grid domain. A Wavefront OBJ filename specifies a mesh domain. Alternatively, \Quotes{grid} specifies a grid domain. The grid's resolution is defined with the labels \textit{xRes} and \textit{yRes}, and the distance between cells is defined by \textit{cellSize}. The  \textit{morphogens} parameter allows the user to specify the names in uppercase, of the morphogens involved in the simulation. These uppercase names are used when defining the initial conditions and PDEs.
 
 User-defined parameters can be declared under the \textit{params} label. Parameters are written inside a pair of curly brackets. The cell indices associated with the parameters are denoted by the \textit{indices} label. In grid-based domains, cells are stored in columns with index 0 representing the bottom left cell. Mesh cells are indexed by the order in which they are declared in the OBJ file. Valid indices are comma-separated integers, a range defined with a hyphen, \Quotes{all}, or \Quotes{boundary}, which only identifies the boundary indices. A random selection of $m$ indices can be requested using $rand(m)$. If the user wishes each index to represent a larger area, an integer radius can be specified with \textit{radius}, which corresponds to an n-ring region around the cell. For a given cell, a 1-ring region corresponds to the eight adjacent cells on a grid and the cells that can be reached within one edge on a mesh. Multiple entries can be made within the curly brackets to define non-homogeneous parameters. This allows for different sets of indices to be associated with different parameter values.
@@ -104,7 +103,7 @@ The \textit{rdModel} parameter can be assigned a value of CPU or GPU depending o
 \end{figure}
 
 % User's Perspective
-\section{User interface}
+\section{User Interface}
 In conjunction with speed, the integration of a GUI made LRDS an excellent tool for interactively exploring diverse reaction-diffusion models. Exploring different parameter values at runtime is achieved by using graphical control panels shown in Fig. \ref{fig:GUIexample}. They have controls for growth, rendering, and interactive non-homogeneous parameter specification. 
 
 Parameters are shown in textboxes generated from the symbol table. Initially, changes to these parameters affect all indices. For more control, subgroups of indices can be selected through painting. Groups of indices with the same set of parameters are given an ID number and can be selected by cycling through numbers with the \Quotes{Params} textbox. 
@@ -139,12 +138,12 @@ The user has a choice of visualizing different morphogen concentrations by actua
 	\label{fig:vector_fields}
 \end{figure}
 
-\section{Saving and loading}
+\section{Saving and Loading}
 After the simulation has loaded, the user can save the simulation at any point, preserving the state of the simulation after pattern development. Another use for saving is if a specific vector field or morphogen configuration is desired, which otherwise might be tedious to define directly with indices. Saving creates a set of files containing the program and simulation state. These files include the colour map, Wavefront OBJ file, and the parameter file. Another created file is \Quotes{EditorSettings.txt}, which contains settings not integral to the simulation's behaviour such as background colour and cursor radius. The saved state of the program is in a \Quotes{.rd} textfile. This file contains a header that specifies the number of morphogens on the first line and the number of cells on the second line. After the header, the following n lines correspond to the n cells in the domain. The first line is the 0th indexed cell and contains a list of floating-point values separated by spaces. For a model with morphogens $A$ and $S$, a line would look like:
 \[a\text{ }s\text{ }x_a\text{ }y_a\text{ }z_a\text{ }x_s\text{ }y_s\text{ }z_s\text{ }\lambda_{1a}\text{ }\lambda_{2a}\text{ }\lambda_{1s}\text{ }\lambda_{2s}\text{ }d_a\text{ }d_s.\]
 Parameters $a$ and $s$ are the morphogen concentrations and entries with subscripts $a$ and $s$ belong to $A$ and $S$ morphogens respectively. $x,\text{ }y, \text{ and } z$ are the components of a cell's anisotropic direction vector. $\lambda_1$ and $\lambda_2$ are the diffusivities and $d$ is the diffusion scale. A user can load a simulation by specifying the individual files to be used in the parameter file. Using a \Quotes{.rd} file overrides the model's initial conditions.
 
-\section{Model exploration}
+\section{Model Exploration}
 Designing and exploring a model's pattern forming potential can be challenging. Tracking progress as incremental changes are made is a requirement of model creation with \ProgramName{}. To satisfy this, I used the Git version control system. I commit the files associated with a model to a repository periodically during exploration. This allows for easy reproduction of previous patterns and avoids duplication of past efforts. The greatest benefit from this workflow is that the progression through a multi-dimensional parameter space is tracked, providing a mapping of what has previously been explored. Fig. \ref{fig:version_control} shows a visualization of the version control history.
 
 \begin{figure}[ht]

@@ -1,7 +1,7 @@
-\chapter{Principles of reaction-diffusion patterning} 
+\chapter{Principles of Reaction-Diffusion Patterning} 
 Alan Turing proposed a system of differential equations as a model for biological pattern formation \citep{turing1952}. In this system, a spatial medium contains an initially homogeneous distribution of chemicals. This arrangement is in an unstable equilibrium and the presence of small chemical perturbations instigates pattern formation. The system responds in a few ways over time: it can gain stability in a patterned state, oscillate between patterns, or settle in a homogeneous non-patterned state. 
 
-\section{Reaction-diffusion in a continuous domain}
+\section{Reaction-Diffusion in a Continuous Domain}
 Reaction-diffusion is formalized as a set of PDEs that represent the change in concentration of morphogens over time. Considering morphogens $a$ and $b$, a two-substance reaction-diffusion system is defined by the system of equations:
 	\begin{equation}
 	\begin{aligned} \label{eq:basicRD}
@@ -13,7 +13,7 @@ As the name suggests, reaction-diffusion is composed of two mechanisms, reaction
 
 These equations apply at any position in the domain in which reaction-diffusion is occurring. The size, shape, and growth of this domain may also play a role in pattern formation. Some patterns require a minimum amount of space to form. As domain size increases, the same parameters can produce different patterns. Additionally, the shape of the domain can affect pattern positioning and orientation.
 
-\section{Reaction-diffusion models}
+\section{Reaction-Diffusion Models}
 \subsection{The Turing model}
 \citet{turing1952} considered reaction-diffusion on both a discrete and continuous 1D ring. Initially, morphogen concentrations would be constant across the domain and the system would be in a stable state. Low-amplitude noise would then instigate pattern formation. The equations he proposed had the form:
 	\begin{equation}
@@ -24,7 +24,7 @@ These equations apply at any position in the domain in which reaction-diffusion 
 	\end{equation}
 The morphogen $u$ has a base production $\alpha$. The $uv$ term describes the rate at which the morphogen $u$ is converted into the morphogen $v$. Changes to $s$, the reaction rate, scale the pattern features. For example, a spot pattern will appear larger with smaller values of parameter $s$. $\beta$ controls a constant removal of $v$.
 
-\subsection{The activator-inhibitor model}
+\subsection{The Activator-Inhibitor Model}
 The concept of reaction-diffusion was reinvented by \citet{gierer1972} (see also \citep{meinhardt1982}). They considered two morphogens, an activator $a$ and an inhibitor $h$. The activator is autocatalytic, using itself to reproduce. It also spurs the production of the inhibitor, which slows autocatalysis. The interplay between these two actions is what allows for patterns to form. Meinhardt and Gierer advanced the idea that pattern formation depended on is the activator diffusing much slower than the inhibitor. Often this is the case, but such drastic differences in diffusion are not always needed \citep{gray1984, marcon2016}. The activator-inhibitor model is defined as:
 	\begin{equation}
 	\begin{aligned} \label{eq:activatorInhibitorRD}
@@ -34,7 +34,7 @@ The concept of reaction-diffusion was reinvented by \citet{gierer1972} (see also
 	\end{equation}
 In these equations, $\rho$ is the reaction rate. $\mu_a$ and $\mu_h$ are the decay rates of $a$ and $h$. $\rho_a$ and $\rho_h$ represent the base production of $a$ and $h$. 
 
-\subsection{The activator-depleted substrate model}
+\subsection{The Activator-Depleted Substrate Model}
 The activator-depleted substrate model is another model proposed by \citet{gierer1972}. In this model, the inhibitor is replaced by a substrate that the activator uses to perform autocatalysis. The inhibition mechanism results from the depletion through the consumption of the substrate by the activator. This is represented by the equations:
 	\begin{equation}
 	\begin{aligned} \label{eq:activatorSubstrateRD}
@@ -44,7 +44,7 @@ The activator-depleted substrate model is another model proposed by \citet{giere
 	\end{equation}
 Here $\rho$ is the reaction rate, $\mu_a$ and $\mu_s$ are the decay rates, and $\rho_a$ and $\rho_s$ are the base production rates of $a$ and $s$.
 
-\subsection{The Gray-Scott model}
+\subsection{The Gray-Scott Model}
 \citet{gray1984} investigated the behaviour of a simple irreversible set of reactions and discovered it produced interesting patterns. These reactions occur in an isothermal, continuously stirred tank reactor into which chemicals $U$ is continuously fed. $V$ reacts with $U$ in the tank and decays into an inert product $P$. This system is known as the Gray-Scott model, and the reactions are formalized as:
 	\begin{equation}
 	\begin{aligned}
@@ -70,7 +70,7 @@ The Gray-Scott model is a specific case of the activator-depleted substrate mode
 	\label{fig:grayscottParameterMap}
 \end{figure}
 
-\section{Extensions to basic reaction-diffusion}
+\section{Extensions to Basic Reaction-Diffusion}
 The basic reaction-diffusion concept proposed by Turing and contextualized by Gierer and Meinhardt has provided the tools for reasoning about natural pattern formation. From that idealized system, we consider extensions to represent nature and produce realistic patterns more accurately.
 
 % Non-homogeneities 
