@@ -1,7 +1,9 @@
 \chapter{Software performance}
-One critical aspect of \ProgramName{} was real-time performance. In order to support pattern formation at interactive rates the PDEs were required to be simulated at relatively fast. Also, being able to see patterns develop over time provides . User productivity is also affected by software performance. Studies have shown that, when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}.
+A critical aspect in the design of \ProgramName{} was real-time performance. In order to support pattern formation at interactive rates, the PDEs and extensions to reaction-diffusion were required to be calculated quickly. Efficient simulation was achieved by leveraging the GPU to perform computation in a highly parallelized fashion. This speed facilitated interaction by decreasing the time between a user provided input and \ProgramName{}' response, allowing a user to directly manipulate their model and explore the affect parameter changes have on pattern details. Another benefit was the added ability to observe pattern formation in real-time.
 
-As shown in Table \ref{tab:perf}, the high degree of parallelization provided by the GPU was integral for maintaining interactivity.  
+User productivity is also affected by software performance. Studies have shown that, when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}. Thus it was important to minimize delays after user's actions in order to increase their enjoyment and productivity.
+
+As shown in Table \ref{tab:perf}, the high degree of parallelization provided by the GPU was integral for increasing simulation speed in medium to large domains.   And performance of \ProgramName{} can be improved greatly by upgrading the GPU used for computation.
 
 \begin{table}[ht]
 	\centering
@@ -13,7 +15,7 @@ As shown in Table \ref{tab:perf}, the high degree of parallelization provided by
 	40,962   & 33,250 & 378,590   \\
 	163,842  & 94,017 & 2,104,099 \\ \hline 
 	\end{tabular}
-	\caption[Analysis of \ProgramName{} performance]{Analysis of \ProgramName{} performance. The GPU outperforms the CPU by an order of magnitude or more depending on number of cells in the domain.}
+	\caption[Analysis of \ProgramName{} performance]{Analysis of \ProgramName{} performance. Shown is the time taken to perform 10,000 iterations of a reaction-diffusion simulation. For small domains consisting of less than 1000 cells, the CPU and GPU exhibit similar performance. When simulating on medium to large domains, the GPU outperforms the CPU by an order of magnitude or more as the number of cells increases. This benefit is still seen, even with the modest graphics card used for this test.}
 	\label{tab:perf}
 \end{table}
 
