@@ -1,16 +1,19 @@
 \chapter{Software performance}
+One critical aspect of \ProgramName{} was real-time performance. In order to support pattern formation at interactive rates the PDEs were required to be simulated at relatively fast. Also, being able to see patterns develop over time provides . User productivity is also affected by software performance. Studies have shown that, when using websites, a delay greater than 1 second interrupts the user's flow of thought, and if a delay is greater than 10 seconds, the user will want to do something else \citep{nielsen1994}.
+
+As shown in Table \ref{tab:perf}, the high degree of parallelization provided by the GPU was integral for maintaining interactivity.  
 
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lll} \hline
-	cell count & gpu (ms)    & cpu (ms)\\ \hline
+	Cell Count & GPU - NVIDIA GTX 850M (ms)    & CPU - INTEL i7-4810MQ (ms)\\ \hline
 	642      & 21,117 & 22,628    \\
 	10,242   & 21,964 & 91,805    \\
 	21,728   & 24,387 & 194,066   \\
 	40,962   & 33,250 & 378,590   \\
 	163,842  & 94,017 & 2,104,099 \\ \hline 
 	\end{tabular}
-	\caption{GPU: NVIDIA GTX 850M, CPU: INTEL i7-4810MQ}
+	\caption[Analysis of \ProgramName{} performance]{Analysis of \ProgramName{} performance. The GPU outperforms the CPU by an order of magnitude or more depending on number of cells in the domain.}
 	\label{tab:perf}
 \end{table}
 
