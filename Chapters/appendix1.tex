@@ -60,15 +60,42 @@ Parameter values resulting in the different pattern classes shown in Fig. \ref{f
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{lllllll}
 \hline
 \textbf{Name}           & \textbf{Papular} & \textbf{\thead{Small \\ Plaque}} & \textbf{\thead{Large \\ Plaque}}  & \textbf{Annular} & \textbf{Rosette} & \textbf{Reniform} \\ \hline
-{[}IL23{]}={[}IL23{]}0       & 0.04             & 0.045                 & 0.055                 & 0.001            & 0.009            & 0.011             \\ \hline
-\thead{$\mu_{[TNF\alpha]}$ \\ (before treatment)} & 0.103            & 0.103                 & 0.115                 & 0.028            & 0.055            & 0.054             \\ \hline
-\thead{$\mu_{[TNF\alpha]}$ \\ (during treatment)} & 0.107            & 0.1087                & 0.12                  & 0.04             & 0.0615           & 0.062             \\ \hline
-maxSteps                     & 13,000           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\ \hline
+{[}IL23{]}={[}IL23{]}0       & 0.04             & 0.045                 & 0.055                 & 0.001            & 0.009            & 0.011             \\
+\thead{$\mu_{[TNF\alpha]}$ \\ (before treatment)} & 0.103            & 0.103                 & 0.115                 & 0.028            & 0.055            & 0.054             \\
+\thead{$\mu_{[TNF\alpha]}$ \\ (during treatment)} & 0.107            & 0.1087                & 0.12                  & 0.04             & 0.0615           & 0.062             \\
+maxSteps                     & 13,000           & 14,000                & 143,000               & 4,500            & 3,900            & 15,500            \\
 treatSteps                   & 12,000           & 12,000                & 140,000               & 1,700            & 2,700            & 13,000            \\ \hline
 \end{tabular}
 \caption[Parameter values for generating the six classes of psoriasis plaque patterns]{Parameter values for generating the six classes of psoriasis plaque patterns shown in Fig. \ref{fig:4} using the three-substance model. In all simulations: $k = 1, \eta = 2, \rho_{[TNF\alpha]0} = \rho_{[IL17]0} = 0, \mu_{[IL17] = 1, D_{[IL23]} = 0.5, D_{[TNF\alpha]} = D_{[IL17]} = 0.25}$.}
 \label{tab:S5}
+\end{table}
+
+\renewcommand{\arraystretch}{1} % General space between rows (1 standard)
+\chapter{Model Timings}
+\begin{table}[h]
+\centering
+\begin{tabular}{lll} \hline
+\textbf{Name}        & \textbf{Cell Count} & \textbf{Time (sec)} \\ \hline
+\textit{P. quinquepuncatuts }  & 6238                & 2744.32             \\
+\textit{C. septempuncata}      & 6238                & 2752.61             \\
+\textit{E. crassimala}         & 6238                & 2770.58             \\
+\textit{M. Hauseri}            & 6238                & 2615.42             \\
+\textit{B. albolineata}        & 6238                & 926.58              \\
+\textit{L. triangulum hondurensis}          & 10593               & 393.84              \\
+\textit{E. quadrivirgata}      & 10593               & 54.12               \\
+\textit{L. guttatus}   & 10593               & 502.13              \\
+\textit{V. berus}         & 10593               & 89.32               \\
+\textit{M. frontalis}        & 10593               & 490.8               \\
+\textit{L. californiae} & 10593               & 147.09              \\
+\textit{M. guttatus}        & 49700               & 6229.07             \\
+\textit{Phalaenopsis}  & 10504               & 0.41                \\
+\textit{Encyclia}      & 11025               & 119.38              \\
+\textit{Digitalis}            & 12223               & 48.59               \\
+\textit{Kohleria}             & 24561               & 25.36              \\ \hline
+\end{tabular}
+\caption[Model cell counts and the associated time to simulate each model]{Model cell counts and the associated time to simulate each model. The computer used contained an NVIDIA GTX 850M GPU and an INTEL i7-4810MQ CPU. Computation of the PDEs was performed on the GPU.}
+\label{tab:software-performance}
 \end{table}
