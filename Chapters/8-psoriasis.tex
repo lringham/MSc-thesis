@@ -21,7 +21,7 @@ Cytokines IL-23, IL-17 and TNF$\alpha$ are central mediators in the psoriatic pl
 
 \begin{figure}[p]
 	\centering
-	\incfig{drawing}
+	\incfig{psoriasisGraph}
 	\caption[Modelling plaque formation in psoriasis]{Modelling plaque formation in psoriasis. \textbf{A)} Interactions between key cytokines involved in psoriasis plaque formation. Labels 0-4 refer to the observations from which these interactions have been inferred (see Results). \textbf{B)} A simplified diagram of interactions, in which cytokines IL-17 and TNF$\alpha$ are considered jointly. \textbf{C)} Diagram B relabeled as an activator (A) - depleted substrate (S) system. \textbf{D)} Skin representation and simulation initialization. The skin surface is partitioned into square regions. A lesion is initiated by an activated T$_{\text{H}}17$ cell (red) which is either a resident memory T-cell activated by a dendritic cell (green, interaction a) or has migrated from circulation through a capillary wall (interaction b). The area of microinflammation around the activated T$_{\text{H}}17$ cell is considered as a “seed” region and its projection to the surface (arrow c) is colored in red.  Epidermis, the upper layer of the skin is shaded in grey, capillaries in the dermis are colored in red (arterioles) and blue (venules). Skin resident memory T-cells are marked in grey. \textbf{E)} Detail of skin surface representation. Each region is two-dimensional projection of the underlying activator-depleted substrate system of proinflammatory cytokines and represents a computational cell implementing reaction system (C). These computational cells are interconnected (double arrows), allowing for the diffusion of cytokines.}
 	\label{fig:2}
 \end{figure}
@@ -57,7 +57,7 @@ The parameter space and details of six patterns obtained for specific parameter 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.65]{Map4.pdf}
+	\includegraphics[scale=0.65]{parameterMap.pdf}
 	\caption[Parameter space of the model and selected patterns]{Parameter space of the model and selected patterns. Top left: A comprehensive representation of the range of patterns generated using Equations \ref{eq:2} for different values of the synthetic parameters c and f. \textbf{A-D}: magnified views of patterns generated using select parameter values. These labels and patterns correspond to the patterns of psoriatic skin lesions identified in Fig. \ref{fig:1}.}
 	\label{fig:3}
 \end{figure}
@@ -88,7 +88,7 @@ The simulated development of psoriasis lesions and the response to treatment are
 \begin{figure}[ht]
 	\centering
 	\resizebox{\columnwidth}{!}{
-	\includegraphics[scale=1]{development.pdf}
+	\includegraphics[scale=1]{psoriasisDevelopment.pdf}
 	}
 	\caption[The simulated progression of different types of psoriatic lesions]{The simulated progression of different types of psoriatic lesions. Rows 1-3: Development of the lesions. The earliest stage of a papule (Row 1) consists of randomly distributed small seed areas. Later forms of the disease (Rows 2 and 3) correspond to patterns identified in Figs. 1 and 3. Rows 4-6: The effect of treatment simulated by increasing the decay rate of IL-17 and TNF$\alpha$. Note that the treatment does not result in a simple reversal of the original pattern development, but produces residual lesions with more activity at the margin of the plaques (Row 5). In some instances, residual papules persist (Row 6).}
 	\label{fig:4}
